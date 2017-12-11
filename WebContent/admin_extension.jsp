@@ -1,3 +1,4 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -136,15 +137,42 @@
 									</tr>
 								</thead>
 								<tbody id="myTable">
-
-
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
-
+									<%
+										ArrayList<Extension> listExtension = ExtensionDao.getListExtension();
+										ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
+										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+										for (int i = 0; i < listExtension.size(); i++) {
+									%>
+									<tr class="gradeA">
+										<td><%=i + 1%></td>
+										<td><%=listExtension.get(i).getExtensionID()%></td>
+										<td><%=listExtension.get(i).getDauSoSuDung()%></td>
+										<%
+											for (int j = 0; j < listPhongBan.size(); j++) {
+													if (listExtension.get(i).getPhongBanID().equals(listPhongBan.get(j).getPhongBanID())) {
+										%>
+										<td><%=listPhongBan.get(j).getTenPhongBan()%></td>
+										<%
+											}
+												}
+										%>
+										<td></td>
+										<td><a href="<%=request.getContextPath()%>"><button
+													type="button"
+													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
+											&nbsp;&nbsp; <a href="<%=request.getContextPath()%>"><button
+													type="button"
+													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
+										</td>
+									</tr>
+									<%
+										}
+									%>
 
 								</tbody>
 							</table>
 						</div>
-
 
 						<!-- /.box-body -->
 						<div class="box-footer clearfix">

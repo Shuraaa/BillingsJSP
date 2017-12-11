@@ -1,3 +1,4 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -135,15 +136,39 @@
 									</tr>
 								</thead>
 								<tbody id="myTable">
-
-
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
-
+									<%
+										ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
+										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+										for (int i = 0; i < listPhongBan.size(); i++) {
+									%>
+									<tr class="gradeA">
+										<td><%=i + 1%></td>
+										<td><%=listPhongBan.get(i).getTenPhongBan()%></td>
+										<%
+											for (int j = 0; j < listCongTy.size(); j++) {
+													if (listPhongBan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
+										%>
+										<td><%=listCongTy.get(j).getTenCongTy()%></td>
+										<%
+											}
+												}
+										%>
+										<td><a href="<%=request.getContextPath()%>"><button
+													type="button"
+													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
+											&nbsp;&nbsp; <a href="<%=request.getContextPath()%>"><button
+													type="button"
+													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
+										</td>
+									</tr>
+									<%
+										}
+									%>
 
 								</tbody>
 							</table>
 						</div>
-
 
 						<!-- /.box-body -->
 						<div class="box-footer clearfix">

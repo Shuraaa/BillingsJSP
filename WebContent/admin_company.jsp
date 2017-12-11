@@ -1,3 +1,4 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -96,8 +97,9 @@
 						</div>
 						<form action="#" class="form-horizontal">
 							<div class="box-body">
-								<a href="admin_company-add.jsp" class="btn btn-primary btn-block">
-									<i class="glyphicon glyphicon-plus"></i> Thêm công ti
+								<a href="admin_company-add.jsp"
+									class="btn btn-primary btn-block"> <i
+									class="glyphicon glyphicon-plus"></i> Thêm công ti
 								</a>
 							</div>
 						</form>
@@ -139,15 +141,34 @@
 									</tr>
 								</thead>
 								<tbody id="myTable">
-
-
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
-
-
+									<%
+										ArrayList<Congty> listCongTy = CongTyDao.getListCongTy();
+										for (int i = 0; i < listCongTy.size(); i++) {
+									%>
+									<tr class="gradeA">
+										<td><%=i + 1%></td>
+										<td><%=listCongTy.get(i).getTenCongTy()%></td>
+										<td><%=listCongTy.get(i).getDiaChi()%></td>
+										<td><%=listCongTy.get(i).getMaSoThue()%></td>
+										<td><%=listCongTy.get(i).getLogo()%></td>
+										<td><%=listCongTy.get(i).getEmail()%></td>
+										<td><%=listCongTy.get(i).getDienThoai()%></td>
+										<td><%=listCongTy.get(i).getTiLeMakeUp()%></td>
+										<td><a href="<%=request.getContextPath()%>"><button
+													type="button"
+													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
+											&nbsp;&nbsp; <a href="<%=request.getContextPath()%>"><button
+													type="button"
+													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
+										</td>
+									</tr>
+									<%
+										}
+									%>
 								</tbody>
 							</table>
 						</div>
-
 
 						<!-- /.box-body -->
 						<div class="box-footer clearfix">
