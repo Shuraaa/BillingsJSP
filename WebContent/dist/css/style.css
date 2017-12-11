@@ -1,0 +1,177 @@
+.marginTop{
+	margin-top: 10px;
+}
+.small_select{
+	display: inline-block;
+	width: 50px;
+}
+.list-news{
+	padding: 0;
+	margin-bottom: 0;
+}
+.list-news li{
+	list-style:inside none none;
+	cursor: pointer;
+	/*margin-bottom: 10px;*/
+	border-bottom: 1px solid #eee;
+	padding: 5px;
+}
+.list-news li:hover{
+	background-color: rgba(217, 243, 0, 0.06);
+}
+.list-news li:last-child{
+	margin-bottom: 10px;
+}
+.list-news li a{color: #333;}
+.list-news li a:hover{color: #000}
+.img-news{
+	width: 20%;
+	float: left;
+	margin-right: 5px;
+	margin-left: 2px;
+	margin-top: 2px;
+}
+.img-news img{
+	width: 100%;
+}
+.content-news{
+	width: 75%;
+	float: left;
+}
+.title-news{}
+.date-news{ display: block; text-align: right;color: #999;font-size: 13px;}
+.box-comments .box-comment img.img-news-index{
+	margin-top: 5px;
+	width: 140px !important;
+	height: 80px !important;
+}
+.box-comments .comment-text{
+	margin-left: 150px;
+}
+.comment-text .block{
+	display: block;
+}
+.comment-text .username a{
+	/*font-size: 15px;*/
+}
+.fc-day-grid-event .fc-content{
+	white-space: normal !important;
+	font-size: 1.3em;
+}
+.fc-day-grid-event .fc-time{
+	display: block;
+}
+.fc-time-grid-event>.fc-content{
+	padding: 3px;
+	font-size: 1.3em;
+}
+.fc-time-grid-event .fc-time{
+	font-size: 1.3em;
+	font-weight: bold;	
+}
+.fc-day-header{
+	text-transform: capitalize;
+}
+.fc-center{
+	text-transform: capitalize;
+}
+.external-event{
+	cursor: default;
+}
+.block-img{
+	position: relative;
+}
+.block-img a.zoom-img{
+	position: absolute;
+	z-index: 99999;
+	opacity: 0;
+	right: 5px;
+	top: -51px;
+	transform: scale(0);
+	transition: all ease 300ms;
+}
+.block-img:hover a.zoom-img{
+	opacity: 1;
+	transform: scale(1);
+	transition: all ease 300ms;
+}
+
+.img-thumbnail.half{
+	width: 49% !important;
+	display: inline-block;
+}
+.mgbt{
+	margin-bottom: 10px;
+}
+.mailbox-attachments.half li{
+	width: 47% !important;
+	display: inline-block;
+}
+.mailbox-attachments.forth li{
+	width: 23% !important;
+	display: inline-block;
+	margin-right: 7px;
+}
+.mailbox-attachments.forth li:last-child{
+	margin-right: 0;
+}
+.mailbox-attachments.forth li .mailbox-attachment-icon{
+	font-size: 30px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.badge.mgr{
+	margin-left: 10px;
+}
+.list-lessPadding{
+	padding-left: 20px;
+}
+.list-lessPadding li{
+	margin-bottom: 5px;
+}
+.panel{
+	margin-bottom: 0px;
+}
+.checkbox.icheck .icheckbox_flat-green{
+	margin-bottom: 3px;
+}
+.checkbox.icheck label{
+	/*font-weight: bold;*/
+}
+.login-logo a, .register-logo a{
+	color: #0080ff!important;
+}
+.paddingLeft0px{
+	padding-left: 0;
+}
+.sameQuestion li:hover{
+	background-color: rgba(0,0,0,0.04);
+}
+.sameQuestion li{
+	padding-left: 10px;
+	list-style-position:inside;
+	border-bottom: 1px solid rgba(0,0,0,0.05);
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.imgAva{
+	margin-bottom: 15px;
+}
+.nav-stacked.overlay>li{
+	background-color: none;
+	color: #555;
+	border-bottom: 1px solid rgba(0,0,0,0.09);
+}
+.nav-stacked.overlay>li:hover a,.skin-green .main-header .navbar .nav.overlay>li>a:hover{
+	background-color: none;
+	color: #555;
+}
+.skin-green .main-header .navbar .nav.overlay>li>a{
+	color: #555;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.notifyDemo{
+	margin-bottom: 10px;
+	/*margin-top: 10px;*/
+}
