@@ -147,8 +147,8 @@
 									<tr class="gradeA">
 										<td><%=i+1%></td>
 										<td><%=listTaiKhoan.get(i).getUserName()%></td>
-										<td><%=listTaiKhoan.get(i).getUserPass()%></td>
 										<td><%=listTaiKhoan.get(i).getCongTyID()%></td>
+										<td><%=listTaiKhoan.get(i).getRole()%></td>
 										<td> &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/ManagerTaiKhoan?command=delete&userName=<%=listTaiKhoan.get(i).getUserName()%>"><button type="button"
 													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
 										</td>
