@@ -1,9 +1,9 @@
-<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@page import="java.util.*"%>
-<%@page import="model.*"%>
-<%@page import="Dao.*"%>
+<%@page import="java.util.*"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.TaiKhoan"%>
+<%@page import="Dao.TaiKhoanDao"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,6 +46,18 @@
   <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+	<%
+		TaiKhoanDao taikhoanDAO = new TaiKhoanDao();
+		ArrayList<TaiKhoan> listTaiKhoan = taikhoanDAO.getListTaiKhoan();
+
+		if (session.getAttribute("username") == null) {
+
+			response.sendRedirect("login.jsp");
+
+		} else {
+	%>
+
 	<div class="wrapper">
 
 
@@ -101,8 +113,9 @@
 						</div>
 						<form action="#" class="form-horizontal">
 							<div class="box-body">
-								<a href="admin_user-add.jsp" class="btn btn-primary btn-block">
-									<i class="ion-person-add"></i> Thêm người dùng
+								<a href="<%=request.getContextPath()%>/admin_user-add.jsp"
+									class="btn btn-primary btn-block"> <i
+									class="ion-person-add"></i> Thêm người dùng
 								</a>
 							</div>
 						</form>
@@ -140,18 +153,25 @@
 									</tr>
 								</thead>
 								<tbody id="myTable">
-										<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
-										<%ArrayList<TaiKhoan> listTaiKhoan =  TaiKhoanDao.getListTaiKhoan();
-										for (int i = 0; i < listTaiKhoan.size(); i++) {
+									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
+									<%
+										int count = 0;
+											for (TaiKhoan taikhoan : listTaiKhoan) {
+												count++;
 									%>
 									<tr class="gradeA">
-										<td><%=i+1%></td>
-										<td><%=listTaiKhoan.get(i).getUserName()%></td>
-										<td><%=listTaiKhoan.get(i).getCongTyID()%></td>
-										<td><%=listTaiKhoan.get(i).getRole()%></td>
-										<td> &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/ManagerTaiKhoan?command=delete&userName=<%=listTaiKhoan.get(i).getUserName()%>"><button type="button"
-													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
-										</td>
+										<td><%=count%></td>
+										<td><a href="#"><%=taikhoan.getUserName()%></a></td>
+										<td><a href="#"><%=taikhoan.getCongTyID()%></a></td>
+										<td><%=taikhoan.getRole()%></td>
+										<td><a data-toggle="tooltip" title="Edit User"
+											href="<%=request.getContextPath()%>/admin_user-update.jsp?userName=<%=taikhoan.getUserName()%>"
+											class="btn btn-primary"><span
+												class="glyphicon glyphicon-pencil"></span></a> <a
+											data-toggle="tooltip" title="Delete User"
+											href="<%=request.getContextPath()%>/delete.jsp?userName=<%=taikhoan.getUserName()%>"
+											class="btn btn-danger"><span
+												class="glyphicon glyphicon-trash"></span></span></a></td>
 									</tr>
 									<%
 										}
@@ -180,6 +200,25 @@
 		</div>
 		<!-- /.content-wrapper -->
 
+		<!-- Modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog ">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Bạn có chắn chắn xóa mục này ?</h4>
+					</div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Có</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- ---FOOTER--- -->
 		<footer class="main-footer">
 		<div class="pull-right hidden-xs">
@@ -189,6 +228,9 @@
 			href="https://www.facebook.com/trunghieu.shura">ATHL</a>.
 		</strong> All rights reserved. </footer>
 	</div>
+	<%
+		}
+	%>
 	<!-- ./wrapper -->
 
 	<!-- REQUIRED JS SCRIPTS -->
