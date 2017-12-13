@@ -1,5 +1,9 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="java.util.*"%>
+<%@page import="model.*"%>
+<%@page import="Dao.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -42,6 +46,7 @@
   <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
 	<div class="wrapper">
 
 		<!-- Include this in all index page -->
@@ -75,7 +80,7 @@
 							</h3>
 						</div>
 
-						<form action="#" role="form" class="form-horizontal">
+						<form action="<%=request.getContextPath()%>/ManagerTaiKhoan" method="post" role="form" class="form-horizontal">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -86,6 +91,12 @@
 										<input type="text" class="form-control" name="username"
 											placeholder="Username">
 									</div>
+									<%String a =(String)request.getAttribute("errorUserName");
+									if (a !=null) {
+ 									%>
+ 									<p style="color: red;">Tài khoản đã tồn tại</p>
+									<%	}
+									%>
 								</div>
 								<!-- Form group -->
 								<div class="form-group">
@@ -95,7 +106,14 @@
 										<input type="password" class="form-control" name="password"
 											placeholder="Password">
 									</div>
+									<%String b =(String)request.getAttribute("errorPass");
+									if (b !=null) {
+ 									%>
+ 									<p style="color: red;">Mật khẩu phải trùng với xác nhận mật khẩu</p>
+									<%	}
+									%>
 								</div>
+								
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="inputPwdConfirm" class="col-sm-2 control-label">Xác
@@ -107,19 +125,35 @@
 								</div>
 								<!-- Form group -->
 								<div class="form-group">
+									<label for="inputRole" class="col-sm-2 control-label">Công ty: </label>
+									<div class="col-sm-5">
+										<select class="form-control" name="congty">
+										<% 
+										ArrayList<CongTy> listCongTy =  CongTyDao.getListCongTy();
+										for (int i = 0; i < listCongTy.size(); i++) {
+										%>
+											<option selected="" value=<%=listCongTy.get(i).getCongTyID() %>><%=listCongTy.get(i).getTenCongTy() %></option>
+										<%} %>
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
 									<label for="inputRole" class="col-sm-2 control-label">Quyền
 										truy cập: </label>
 									<div class="col-sm-5">
-										<select class="form-control">
-											<option selected="">Access</option>
+										<select class="form-control" name="select">
+											<option selected="" value=0>admin</option>
+											<option selected="" value=1>user</option>
+											<option selected="" value=2>view</option>
 
 											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
-
 										</select>
 									</div>
 								</div>
 							</div>
 							<!--  -->
+							<input type="hidden" name="command" value="add"></input>
 							<div class="box-footer text-center">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>

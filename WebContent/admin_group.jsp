@@ -1,6 +1,9 @@
 <%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="java.util.*"%>
+<%@page import="model.*"%>
+<%@page import="Dao.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -136,29 +139,42 @@
 									</tr>
 								</thead>
 								<tbody id="myTable">
+
+
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
-									<%
-										ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
-										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+									<%ArrayList<PhongBan> listPhongBan =  PhongBanDao.getListPhongBan();
+									ArrayList<CongTy> listCongTy =  CongTyDao.getListCongTy();
 										for (int i = 0; i < listPhongBan.size(); i++) {
 									%>
 									<tr class="gradeA">
-										<td><%=i + 1%></td>
+										<td><%=i+1%></td>
+											<!--Lenh edit ten phong ban -->
+											<%String idphongban = (String) request.getAttribute("editphongban");
+											String id = listPhongBan.get(i).getPhongBanID();
+											if ((idphongban!=null) && (idphongban.equals(id))){%>
+												<form action="ManagerPhongBan" method="get">
+												<td><input type="text" class="form-control" name="txt_tenphongban"
+											placeholder="Group name" value="<%=listPhongBan.get(i).getTenPhongBan()%>"></td>
+											<input type="hidden" name="txt_idphongban" value="<%=listPhongBan.get(i).getPhongBanID()%>"></input>
+											<input type="hidden" name="command" value="update"></input>
+											<%}else{%>
 										<td><%=listPhongBan.get(i).getTenPhongBan()%></td>
-										<%
-											for (int j = 0; j < listCongTy.size(); j++) {
-													if (listPhongBan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
-										%>
+											<%}%>
+										<%for (int j = 0; j < listCongTy.size(); j++) {
+											if(listPhongBan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())){%>
 										<td><%=listCongTy.get(j).getTenCongTy()%></td>
-										<%
-											}
-												}
-										%>
-										<td><a href="<%=request.getContextPath()%>"><button
-													type="button"
+										<%}} %>
+										<td> 
+											<%String idphongban1 = (String) request.getAttribute("editphongban");
+												String id1 = listPhongBan.get(i).getPhongBanID();
+												if ((idphongban1!=null) && (idphongban1.equals(id1))){%>
+												<button type="submit" class="btn btn-success glyphicon glyphicon-ok-sign"></button></form>
+													
+												<%}else{%>
+										<a href="<%=request.getContextPath()%>/ManagerPhongBan?command=edit&phongbanid=<%=listPhongBan.get(i).getPhongBanID()%>&tenphongban=<%=listPhongBan.get(i).getTenPhongBan()%>"><button type="button"
 													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
-											&nbsp;&nbsp; <a href="<%=request.getContextPath()%>"><button
-													type="button"
+													<%} %>
+										&nbsp;&nbsp; <a href="<%=request.getContextPath()%>/ManagerPhongBan?command=delete&phongbanid=<%=listPhongBan.get(i).getPhongBanID()%>"><button type="button"
 													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
 										</td>
 									</tr>
@@ -166,9 +182,13 @@
 										}
 									%>
 
+									
+
+
 								</tbody>
 							</table>
 						</div>
+
 
 						<!-- /.box-body -->
 						<div class="box-footer clearfix">

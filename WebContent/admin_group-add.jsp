@@ -1,5 +1,9 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="java.util.*"%>
+<%@page import="model.*"%>
+<%@page import="Dao.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -75,7 +79,7 @@
 							</h3>
 						</div>
 
-						<form action="#" role="form" class="form-horizontal">
+						<form action="<%=request.getContextPath()%>/ManagerPhongBan" method="post"role="form" class="form-horizontal">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -92,11 +96,14 @@
 									<label for="inputCompany" class="col-sm-2 control-label">Tên
 										công ti: </label>
 									<div class="col-sm-4">
-										<select class="form-control">
-											<option selected="">Company name</option>
-
-											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
-
+										<select class="form-control" name="congty">
+										<!-- hien thi cobobox danh sach cong ty -->
+											<% 
+										ArrayList<CongTy> listCongTy =  CongTyDao.getListCongTy();
+										for (int i = 0; i < listCongTy.size(); i++) {
+										%>
+											<option selected="" value=<%=listCongTy.get(i).getCongTyID() %>><%=listCongTy.get(i).getTenCongTy() %></option>
+										<%} %>
 										</select>
 									</div>
 									<div class="col-sm-2">
@@ -105,6 +112,8 @@
 									</div>
 								</div>
 								<!--  -->
+								<!-- input chua bien command = add -->
+								<input type="hidden" name="command" value="add"></input>
 								<div class="box-footer text-center">
 									<button type="submit" class="btn btn-primary">Xác nhận</button>
 								</div>
