@@ -1,7 +1,7 @@
 <%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@page import="java.util.*"%>
+<%@page import="java.util.*"%>
 <%@page import="model.*"%>
 <%@page import="Dao.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,36 +14,7 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-<!-- Bootstrap 3.3.6 -->
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-<!-- iCheck -->
-<link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
-<!-- Date Picker -->
-<link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
-<!-- Daterange picker -->
-<link rel="stylesheet"
-	href="plugins/daterangepicker/daterangepicker-bs3.css">
-<!-- bootstrap wysihtml5 - text editor -->
-<link rel="stylesheet"
-	href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -142,47 +113,74 @@
 
 
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
-									<%ArrayList<PhongBan> listPhongBan =  PhongBanDao.getListPhongBan();
-									ArrayList<CongTy> listCongTy =  CongTyDao.getListCongTy();
+									<%
+										ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
+										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
 										for (int i = 0; i < listPhongBan.size(); i++) {
 									%>
 									<tr class="gradeA">
-										<td><%=i+1%></td>
-											<!--Lenh edit ten phong ban -->
-											<%String idphongban = (String) request.getAttribute("editphongban");
-											String id = listPhongBan.get(i).getPhongBanID();
-											if ((idphongban!=null) && (idphongban.equals(id))){%>
-												<form action="ManagerPhongBan" method="get">
-												<td><input type="text" class="form-control" name="txt_tenphongban"
-											placeholder="Group name" value="<%=listPhongBan.get(i).getTenPhongBan()%>"></td>
-											<input type="hidden" name="txt_idphongban" value="<%=listPhongBan.get(i).getPhongBanID()%>"></input>
-											<input type="hidden" name="command" value="update"></input>
-											<%}else{%>
-										<td><%=listPhongBan.get(i).getTenPhongBan()%></td>
-											<%}%>
-										<%for (int j = 0; j < listCongTy.size(); j++) {
-											if(listPhongBan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())){%>
-										<td><%=listCongTy.get(j).getTenCongTy()%></td>
-										<%}} %>
-										<td> 
-											<%String idphongban1 = (String) request.getAttribute("editphongban");
-												String id1 = listPhongBan.get(i).getPhongBanID();
-												if ((idphongban1!=null) && (idphongban1.equals(id1))){%>
-												<button type="submit" class="btn btn-success glyphicon glyphicon-ok-sign"></button></form>
-													
-												<%}else{%>
-										<a href="<%=request.getContextPath()%>/ManagerPhongBan?command=edit&phongbanid=<%=listPhongBan.get(i).getPhongBanID()%>&tenphongban=<%=listPhongBan.get(i).getTenPhongBan()%>"><button type="button"
-													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
-													<%} %>
-										&nbsp;&nbsp; <a href="<%=request.getContextPath()%>/ManagerPhongBan?command=delete&phongbanid=<%=listPhongBan.get(i).getPhongBanID()%>"><button type="button"
-													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
+										<td><%=i + 1%></td>
+										<!--Lenh edit ten phong ban -->
+										<%
+											String idphongban = (String) request.getAttribute("editphongban");
+												String id = listPhongBan.get(i).getPhongBanID();
+												if ((idphongban != null) && (idphongban.equals(id))) {
+										%>
+										<form action="ManagerPhongBan" method="get">
+											<td><input type="text" class="form-control"
+												name="txt_tenphongban" placeholder="Group name"
+												value="<%=listPhongBan.get(i).getTenPhongBan()%>"></td> <input
+												type="hidden" name="txt_idphongban"
+												value="<%=listPhongBan.get(i).getPhongBanID()%>"></input> <input
+												type="hidden" name="command" value="update"></input>
+											<%
+												} else {
+											%>
+											<td><%=listPhongBan.get(i).getTenPhongBan()%></td>
+											<%
+												}
+											%>
+											<%
+												for (int j = 0; j < listCongTy.size(); j++) {
+														if (listPhongBan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
+											%>
+											<td><%=listCongTy.get(j).getTenCongTy()%></td>
+											<%
+												}
+													}
+											%>
+											<td>
+												<%
+													String idphongban1 = (String) request.getAttribute("editphongban");
+														String id1 = listPhongBan.get(i).getPhongBanID();
+														if ((idphongban1 != null) && (idphongban1.equals(id1))) {
+												%>
+												<button type="submit"
+													class="btn btn-success glyphicon glyphicon-ok-sign"></button>
+										</form>
+
+										<%
+											} else {
+										%>
+										<a
+											href="<%=request.getContextPath()%>/ManagerPhongBan?command=edit&phongbanid=<%=listPhongBan.get(i).getPhongBanID()%>&tenphongban=<%=listPhongBan.get(i).getTenPhongBan()%>"><button
+												type="button"
+												class="btn btn-primary glyphicon glyphicon-edit"></button></a>
+										<%
+											}
+										%>
+										&nbsp;&nbsp;
+										<a
+											href="<%=request.getContextPath()%>/ManagerPhongBan?command=delete&phongbanid=<%=listPhongBan.get(i).getPhongBanID()%>"><button
+												type="button"
+												class="btn btn-danger glyphicon glyphicon-trash"></button></a>
 										</td>
 									</tr>
 									<%
 										}
 									%>
 
-									
+
 
 
 								</tbody>
@@ -209,13 +207,9 @@
 		<!-- /.content-wrapper -->
 
 		<!-- ---FOOTER--- -->
-		<footer class="main-footer">
-		<div class="pull-right hidden-xs">
-			<b>Version</b> 1.0.0
-		</div>
-		<strong>Copyright &copy; 2017 <a
-			href="https://www.facebook.com/trunghieu.shura">ATHL</a>.
-		</strong> All rights reserved. </footer>
+		<!-- Include this in all index page -->
+		<jsp:include page="footer.jsp"></jsp:include>
+		<!-- /.Include this in all index page -->
 	</div>
 	<!-- ./wrapper -->
 

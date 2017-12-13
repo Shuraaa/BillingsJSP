@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Group add</title>
+<title>Group update</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -28,13 +28,13 @@
 
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>Thêm phòng/ban mới</h1>
+			<h1>Cập nhật thông tin</h1>
 			<ol class="breadcrumb">
 				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
 						BillingsSystem</a></li>
 				<li><a href="#">Quản trị hệ thống</a></li>
 				<li><a href="admin_group.jsp">Quản lí phòng/ban</a></li>
-				<li class="active">Thêm phòng/ban</li>
+				<li class="active">Cập nhật thông tin</li>
 			</ol>
 			</section>
 
@@ -120,5 +120,6 @@
 		<!-- /.Include this in all index page -->
 	</div>
 	<!-- /.End of wrapper -->
+
 </body>
 </html>
