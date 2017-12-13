@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dao.TaiKhoanDao;
-import Dao.Validation;
+import model.Validation;
 
 /**
  * Servlet implementation class ManagerTaiKhoan
