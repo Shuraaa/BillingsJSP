@@ -46,7 +46,6 @@ public class TaiKhoanDao {
 
 			PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
 			ps.executeUpdate();
-			System.out.println("thanh cmn cong");
 		} catch (SQLException e) {
 
 			e.printStackTrace();

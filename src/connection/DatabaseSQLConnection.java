@@ -10,7 +10,7 @@ public class DatabaseSQLConnection {
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://localhost:3306/billings?autoReconnect=true&useSSL=false";
 		String user = "root";
-		String pass = "01667781178";
+		String pass = "123456";
 
 		 try {
 		 Class.forName(driver);

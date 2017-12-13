@@ -41,7 +41,9 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-
+<%
+	String username = (String) session.getAttribute("username");
+%>
 <body class="hold-transition skin-blue sidebar-mini">
 
 	<!-- Main Header -->
@@ -61,14 +63,13 @@
 			<li class="dropdown user user-menu"><a href="#"
 				class="dropdown-toggle" data-toggle="dropdown"> <img
 					src="dist/img/user2-160x160.jpg" class="user-image"
-					alt="User Image"> <span class="hidden-xs">Hieuuuuuuu</span>
+					alt="User Image"> <span class="hidden-xs"><%=username%></span>
 			</a>
 				<ul class="dropdown-menu">
 					<!-- User image -->
 					<li class="user-header"><img src="dist/img/user2-160x160.jpg"
 						class="img-circle" alt="User Image">
-
-						<p>Hieuuuuuuuuuu</p></li>
+						<p><%=username%></p></li>
 					<!--User Menu Footer-->
 					<li class="user-footer">
 						<div class="pull-left">
@@ -76,7 +77,7 @@
 								nhật thông tin</a>
 						</div>
 						<div class="pull-right">
-							<a href="#" class="btn btn-default btn-flat">Đăng xuất</a>
+							<a href="Logout" class="btn btn-default btn-flat">Đăng xuất</a>
 						</div>
 					</li>
 				</ul></li>
@@ -95,7 +96,8 @@
 				alt="User Image">
 		</div>
 		<div class="pull-left info">
-			<p>Trung Hieu</p>
+			<p>Welcome</p>
+			<p><%=username%></p>
 		</div>
 	</div>
 
