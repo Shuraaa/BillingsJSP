@@ -145,11 +145,11 @@
 													}
 												}
 										%>
-										<td><a href="<%=request.getContextPath()%>"><button
+										<td><a href="<%=request.getContextPath()%>/ManagerExtension?command=edit&extensionid=<%=listExtension.get(i).getExtensionID()%>&dauso=<%=listExtension.get(i).getDauSoSuDung()%>&phongbanid=<%=listExtension.get(i).getPhongBanID()%>"><button
 													type="button"
 													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
 											&nbsp;&nbsp; <a
-											href="<%=request.getContextPath()%>/ManagerExtension?command=delete&extensionid=<%=listExtension.get(i).getExtensionID()%>""><button
+											href="<%=request.getContextPath()%>/ManagerExtension?command=delete&extensionid=<%=listExtension.get(i).getExtensionID()%>"><button
 													type="button"
 													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
 										</td>

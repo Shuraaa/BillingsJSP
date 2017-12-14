@@ -1,5 +1,9 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="java.util.*"%>
+<%@page import="model.*"%>
+<%@page import="Dao.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -42,13 +46,48 @@
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
-								<i class="fa fa-pencil-square"></i> Thông tin Extension
+							
+								<i class="fa fa-pencil-square"></i> Thông tin Extension 
 							</h3>
 						</div>
 
-						<form action="#" role="form" class="form-horizontal">
+						<form action="<%=request.getContextPath()%>/ManagerExtension" method="get" role="form" class="form-horizontal">
 							<div class="box-body">
+							<form action="<%=request.getContextPath()%>/ManagerExtension" method="get" role="form" class="form-horizontal">
+							
+							<%String idcongty = (String) request.getAttribute("choncongty"); 
+							if ((idcongty == null)){%>
+								<!-- Form group -->
+								<div class="form-group">
+									<label for="inputCompany" class="col-sm-2 control-label">Chọn công
+										ti: </label>
+									<div class="col-sm-4">
+										<select class="form-control" name="congty">
+											<option selected="">Company name</option>
 
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+														<% 
+										ArrayList<CongTy> listCongTy =  CongTyDao.getListCongTy();
+										for (int i = 0; i < listCongTy.size(); i++) {
+										%>
+											<option selected="" value=<%=listCongTy.get(i).getCongTyID() %>><%=listCongTy.get(i).getTenCongTy() %></option>
+										<%
+										}
+										%>
+										</select>
+									
+									</div>
+									<input type="hidden" name="command" value="choncongty"></input>
+									<div class="col-sm-2">
+										<button type="submit" class="btn btn-primary">Xác nhận</button>
+									</div>
+									<div class="col-sm-2">
+										<a href="admin_company-add.jsp"
+											class="form-control btn btn-success">Thêm công ti</a>
+									</div>
+								</div>
+								</form>
+								<%}else{ %>
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="input_extension" class="col-sm-2 control-label">Extension:
@@ -67,15 +106,22 @@
 											placeholder="Number">
 									</div>
 								</div>
+								
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="inputGroup" class="col-sm-2 control-label">Phòng/ban:
 									</label>
 									<div class="col-sm-4">
-										<select class="form-control">
+										<select class="form-control" name="phongban">
 											<option selected="">Group name</option>
 
 											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<% 
+										ArrayList<PhongBan> listPhongBan =  PhongBanDao.getListPBCongTy(idcongty);
+										for (int i = 0; i < listPhongBan.size(); i++) {
+										%>
+											<option selected="selected" value=<%=listPhongBan.get(i).getPhongBanID() %>><%=listPhongBan.get(i).getTenPhongBan()%></option>
+										<%} %>
 
 										</select>
 									</div>
@@ -84,25 +130,9 @@
 											class="form-control btn btn-success">Thêm phòng/ban</a>
 									</div>
 								</div>
-								<!-- Form group -->
-								<div class="form-group">
-									<label for="inputCompany" class="col-sm-2 control-label">Công
-										ti: </label>
-									<div class="col-sm-4">
-										<select class="form-control">
-											<option selected="">Company name</option>
-
-											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
-
-										</select>
-									</div>
-									<div class="col-sm-2">
-										<a href="admin_company-add.jsp"
-											class="form-control btn btn-success">Thêm công ti</a>
-									</div>
-								</div>
-							</div>
+								
 							<!--  -->
+							<input type="hidden" name="command" value="add"></input>
 							<div class="box-footer text-center">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>
@@ -118,7 +148,7 @@
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->
-
+					<%} %>
 				</div>
 				<!-- End Left -->
 			</div>
@@ -137,3 +167,8 @@
 	<!-- /.End of wrapper -->
 </body>
 </html>
+
+
+
+
+

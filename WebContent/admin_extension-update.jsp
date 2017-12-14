@@ -1,5 +1,9 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="java.util.*"%>
+<%@page import="model.*"%>
+<%@page import="Dao.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,7 +50,7 @@
 							</h3>
 						</div>
 
-						<form action="#" role="form" class="form-horizontal">
+						<form action="<%=request.getContextPath()%>/ManagerExtension" method="get" role="form" class="form-horizontal">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -55,7 +59,7 @@
 									</label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_extension"
-											placeholder="Extension name">
+											placeholder="Extension name" value="<%=(String) request.getAttribute("editextension")%>">
 									</div>
 								</div>
 								<!-- Form group -->
@@ -64,7 +68,7 @@
 										số: </label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_DauSo"
-											placeholder="Number">
+											placeholder="Number" value="<%=(String) request.getAttribute("editdauso")%>">
 									</div>
 								</div>
 								<!-- Form group -->
@@ -72,10 +76,17 @@
 									<label for="inputGroup" class="col-sm-2 control-label">Phòng/ban:
 									</label>
 									<div class="col-sm-4">
-										<select class="form-control">
+										<select class="form-control" name="phongban">
 											<option selected="">Group name</option>
 
 											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<% String idcongty = (String) request.getAttribute("editcongtyid");
+										ArrayList<PhongBan> listPhongBan =  PhongBanDao.getListPBCongTy(idcongty);
+										for (int i = 0; i < listPhongBan.size(); i++) {
+										%>
+											<option selected="selected" value=<%=listPhongBan.get(i).getPhongBanID() %>><%=listPhongBan.get(i).getTenPhongBan()%></option>
+										<%} %>
+											
 
 										</select>
 									</div>
@@ -84,25 +95,8 @@
 											class="form-control btn btn-success">Thêm phòng/ban</a>
 									</div>
 								</div>
-								<!-- Form group -->
-								<div class="form-group">
-									<label for="inputCompany" class="col-sm-2 control-label">Công
-										ti: </label>
-									<div class="col-sm-4">
-										<select class="form-control">
-											<option selected="">Company name</option>
-
-											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
-
-										</select>
-									</div>
-									<div class="col-sm-2">
-										<a href="admin_company-add.jsp"
-											class="form-control btn btn-success">Thêm công ti</a>
-									</div>
-								</div>
-							</div>
-							<!--  -->
+								<input type="hidden" name="extensioncu" value="<%=(String) request.getAttribute("editextension")%>"></input>
+								<input type="hidden" name="command" value="update"></input>
 							<div class="box-footer text-center">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>

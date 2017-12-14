@@ -37,9 +37,9 @@ public class ExtensionDao {
 		return ExtensionDao.listExtension;
 	}
 	//update
-			public void updatePhongBan(String idphongban, String tenPhongBanUpdate) {
+			public void updateExtension(String idextension, Extension ext) {
 				Connection connection = DatabaseSQLConnection.getConnection();
-				String sql = "update phongban set ten_phongban='" + tenPhongBanUpdate+ "'" + "where phongbanID='" + idphongban + "'";
+				String sql = "update extension set extensionID='" + ext.getExtensionID()+ "',dauso_sudung='"+ext.getDauSoSuDung()+ "',phongbanID='"+ext.getPhongBanID()+ "'where extensionID='" + idextension + "'";
 				try {
 
 					PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
@@ -52,9 +52,9 @@ public class ExtensionDao {
 
 			}
 			// insert
-			public boolean themPhongBan(PhongBan pb) {
+			public boolean themExtension(Extension ext) {
 				Connection con = DatabaseSQLConnection.getConnection();
-				String sql = "  insert into phongban values ('"+pb.getPhongBanID()+"','"+pb.getTenPhongBan()+"','"+pb.getCongTyID()+"');";
+				String sql = "insert into extension values ('"+ext.getExtensionID()+"','"+ext.getTenNguoiDung()+"','"+ext.getDauSoSuDung()+"','"+ext.getPhongBanID()+"');";
 				try {
 
 					PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
@@ -83,7 +83,10 @@ public class ExtensionDao {
 			}
 			public static void main(String[] args) {
 				ExtensionDao a = new ExtensionDao();
-				a.xoaExtension("842100");
+				//a.xoaExtension("842100");
+				Extension e = new Extension("1212343323", "", "232233", "pb02");
+				a.updateExtension("12123433", e);
+			//	a.themExtension(e);
 				//a.updatePhongBan("pb04", "phongban4");
 //				System.out.println(a.themPhongBan(new PhongBan("pb12", "phngban12", "ct01")));
 //				System.out.println(a.xoaPhongBan("pb02"));

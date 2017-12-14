@@ -14,6 +14,7 @@ import connection.DatabaseSQLConnection;
 
 public class PhongBanDao {
 	private static ArrayList<PhongBan> listPhongBan;
+	
 	public static ArrayList<PhongBan> getListPhongBan() {
 		listPhongBan = new ArrayList<>();
 		// Them cac don hang vao danh sach bang cach thu cong
@@ -86,9 +87,33 @@ public class PhongBanDao {
 			}
 			return false;
 		}
+		// get phong ban cua cong ty
+		public static ArrayList<PhongBan> getListPBCongTy(String congtyid) {
+			ArrayList<PhongBan> listpbcongty = new ArrayList<>();
+			// Them cac don hang vao danh sach bang cach thu cong
+
+			try {
+				Connection connection = DatabaseSQLConnection.getConnection();
+				Statement statement = connection.createStatement();
+				String sql = "SELECT * FROM phongban where congtyID ='"+congtyid+"';";
+				ResultSet rs = statement.executeQuery(sql);
+				while (rs.next()) {
+					String phongBanID = rs.getString("phongbanID");
+					String tenPhongBan = rs.getString("ten_phongban");
+					String congtyID = rs.getString("congtyID");
+					listpbcongty.add(new PhongBan(phongBanID, tenPhongBan, congtyID) );
+				}
+				statement.close();
+				connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return listpbcongty;
+		}
 		public static void main(String[] args) {
 			PhongBanDao a = new PhongBanDao();
 			a.updatePhongBan("pb04", "phongban4");
+			System.out.println(a.getListPBCongTy("ct01").size());
 //			System.out.println(a.themPhongBan(new PhongBan("pb12", "phngban12", "ct01")));
 //			System.out.println(a.xoaPhongBan("pb02"));
 			//System.out.println(a.addTaiKhoan("sad", "a", 1, "ct02"));
