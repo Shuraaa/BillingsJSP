@@ -21,8 +21,6 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 <link rel="stylesheet" href="dist/css/style.css">
-<!-- iCheck -->
-<link rel="stylesheet" href="plugins/iCheck/all.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,6 +30,14 @@
   <![endif]-->
 </head>
 <body class="hold-transition login-page">
+
+	<%
+		String error = (String) request.getAttribute("error");
+		if (error == null) {
+			error = "";
+		}
+	%>
+
 	<div class="login-box">
 		<div class="login-logo">
 			<a href="login.jsp"><b>Billings</b> System</a>
@@ -43,8 +49,8 @@
 
 			<form action="ForgotPass" method="post">
 				<div class="form-group has-feedback">
-					<input type="text" class="form-control"
-						placeholder="Nhập tên tài khoản"> <span
+					<input type="email" id="emailInput" class="form-control"
+						placeholder="Địa chỉ Email" name="email"> <span
 						class="glyphicon glyphicon-envelope form-control-feedback text-blue"></span>
 				</div>
 				<div class="row" align="center">
@@ -71,16 +77,5 @@
 	<script src="plugins/jQuery/jQuery-2.2.0.min.js"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<!-- iCheck -->
-	<script src="plugins/iCheck/icheck.min.js"></script>
-	<script>
-		$(function() {
-			$('input').iCheck({
-				checkboxClass : 'icheckbox_square-blue',
-				radioClass : 'iradio_square-blue',
-				increaseArea : '20%' // optional
-			});
-		});
-	</script>
 </body>
 </html>
