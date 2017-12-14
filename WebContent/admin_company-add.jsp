@@ -45,7 +45,7 @@
 							</h3>
 						</div>
 
-						<form action="#" role="form" class="form-horizontal">
+						<form action="ManagerCongTy" method ="post" role="form" class="form-horizontal">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -53,7 +53,7 @@
 									<label for="input_tenCongTi" class="col-sm-2 control-label">Tên
 										công ti: </label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_tenCongTi"
+										<input type="text" class="form-control" name="txt_tenCongTy"
 											placeholder="Tên công ti">
 									</div>
 									<label for="inputImg" class="col-sm-2 control-label">Logo:
@@ -114,6 +114,7 @@
 								</div>
 							</div>
 							<!--  -->
+							<input type="hide" name="command" value="add">
 							<div class="box-footer text-center">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>

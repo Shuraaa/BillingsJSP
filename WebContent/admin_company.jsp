@@ -1,3 +1,6 @@
+<%@page import="Dao.CongTyDao"%>
+<%@page import="model.CongTy"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -114,7 +117,7 @@
 								<tbody id="myTable">
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
 									<%
-										ArrayList<Congty> listCongTy = CongTyDao.getListCongTy();
+										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
 										for (int i = 0; i < listCongTy.size(); i++) {
 									%>
 									<tr class="gradeA">
@@ -126,10 +129,10 @@
 										<td><%=listCongTy.get(i).getEmail()%></td>
 										<td><%=listCongTy.get(i).getDienThoai()%></td>
 										<td><%=listCongTy.get(i).getTiLeMakeUp()%></td>
-										<td><a href="<%=request.getContextPath()%>"><button
+										<td><a href="<%=request.getContextPath()%>/ManagerCongTy?command=edit&congtyid=<%=listCongTy.get(i).getCongTyID()%>"><button
 													type="button"
 													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
-											&nbsp;&nbsp; <a href="<%=request.getContextPath()%>"><button
+											&nbsp;&nbsp; <a href="<%=request.getContextPath()%>/ManagerCongTy?command=delete&congtyid=<%=listCongTy.get(i).getCongTyID()%>"><button
 													type="button"
 													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
 										</td>
