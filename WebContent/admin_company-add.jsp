@@ -10,6 +10,10 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.validate.js">
+	</script>
+	
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -45,7 +49,8 @@
 							</h3>
 						</div>
 
-						<form action="ManagerCongTy" method ="post" role="form" class="form-horizontal">
+						<form action="ManagerCongTy" method="post" role="form"
+							class="form-horizontal" id="form">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -54,7 +59,14 @@
 										công ti: </label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_tenCongTy"
-											placeholder="Tên công ti">
+											placeholder="Tên công ti"> <br>
+										<%
+										//	if (request.getAttribute("name_err") != null) {
+										%>
+										<label style="color: red; size: 6px"><%=request.getAttribute("name_err")%></label>
+										<%
+											//}
+										%>
 									</div>
 									<label for="inputImg" class="col-sm-2 control-label">Logo:
 									</label>
@@ -88,22 +100,44 @@
 									</label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_email"
-											placeholder="Email">
+											id="txt_email" placeholder="Email"> <br>
+										<%
+											if (request.getAttribute("email_err") != null) {
+										%>
+										<label style="color: red; size: 6px"><%=request.getAttribute("email_err")%></label>
+										<%
+											}
+										%>
 									</div>
 									<label for="inputBirthPlace" class="col-sm-2 control-label">ĐTDĐ:
 									</label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_dtdd"
-											placeholder="Điện thoại di động">
+											placeholder="Điện thoại di động"> <br>
+										<%
+											if (request.getAttribute("sdt_err") != null) {
+										%>
+										<label style="color: red; size: 6px"><%=request.getAttribute("sdt_err")%></label>
+										<%
+											}
+										%>
 									</div>
 								</div>
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="inputMakeup" class="col-sm-2 control-label">Tỉ
 										lệ Make-up: </label>
+
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_makeup"
-											placeholder="Theo %">
+											placeholder="Theo tỉ lệ %. Vd:10;20;25"> <br>
+										<%
+											if (request.getAttribute("tile_mk_err") != null) {
+										%>
+										<label style="color: red; size: 6px"><%=request.getAttribute("tile_mk_err")%></label>
+										<%
+											}
+										%>
 									</div>
 									<label for="inputOther" class="col-sm-2 control-label">Thông
 										tin khác: </label>
@@ -114,9 +148,10 @@
 								</div>
 							</div>
 							<!--  -->
-							<input type="hide" name="command" value="add">
+							<input type="hidden" name="command" value="add">
 							<div class="box-footer text-center">
-								<button type="submit" class="btn btn-primary">Xác nhận</button>
+								<button type="submit" class="btn btn-primary" value="Validate!">Xác
+									nhận</button>
 							</div>
 							<div class="alert alert-success alert-dismissible">
 								<button type="button" class="close" data-dismiss="alert"
@@ -128,6 +163,18 @@
 							</div>
 
 						</form>
+						<!-- java script -->>
+						<script>
+							
+							$("#form").validate({
+								rules : {
+									txt_tenCongTy : {
+										required : true,
+										email : true
+									}
+								}
+							});
+						</script>
 					</div>
 					<!-- Cập nhật thông tin -->
 
@@ -147,6 +194,8 @@
 		<!-- /.Include this in all index page -->
 	</div>
 	<!-- /.End of wrapper -->
+
+
 
 </body>
 </html>

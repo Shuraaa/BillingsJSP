@@ -10,6 +10,9 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -45,16 +48,27 @@
 							</h3>
 						</div>
 
-						<form action="#" role="form" class="form-horizontal">
-							<div class="box-body">
 
+						<form action="ManagerCongTy" method="get" role="form"
+							class="form-horizontal">
+							<div class="box-body">
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="input_tenCongTi" class="col-sm-2 control-label">Tên
 										công ti: </label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_tenCongTi"
-											placeholder="Tên công ti">
+										<input type="hidden" name="congTyID_update"
+											value=<%=request.getParameter("congtyid")%>> <input
+											type="text" class="form-control" name="txt_tenCongTi_update"
+											placeholder="Tên công ti"
+											value="<%=request.getParameter("tencongty")%> required">
+										<%
+											if (request.getAttribute("name_err") != null) {
+										%>
+										<label style="color: red; size: 6px"><%=request.getAttribute("name_err")%></label>
+										<%
+											}
+										%>
 									</div>
 									<label for="inputImg" class="col-sm-2 control-label">Logo:
 									</label>
@@ -72,8 +86,9 @@
 									<label for="inputDiaChi" class="col-sm-2 control-label">Địa
 										chỉ: </label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_DiaChi"
-											placeholder="Địa chỉ">
+										<input type="text" class="form-control"
+											name="txt_DiaChi_update" placeholder="Địa chỉ"
+											value="<%=request.getParameter("diachi")%>">
 									</div>
 									<label for="inputMST" class="col-sm-2 control-label">Mã
 										số thuế: </label>
@@ -115,6 +130,7 @@
 							</div>
 							<!--  -->
 							<div class="box-footer text-center">
+								<input type="hidden" name="command" value="edit">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>
 							<div class="alert alert-success alert-dismissible">
@@ -146,5 +162,6 @@
 		<!-- /.Include this in all index page -->
 	</div>
 	<!-- /.End of wrapper -->
+	
 </body>
 </html>

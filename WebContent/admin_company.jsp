@@ -129,10 +129,12 @@
 										<td><%=listCongTy.get(i).getEmail()%></td>
 										<td><%=listCongTy.get(i).getDienThoai()%></td>
 										<td><%=listCongTy.get(i).getTiLeMakeUp()%></td>
-										<td><a href="<%=request.getContextPath()%>/ManagerCongTy?command=edit&congtyid=<%=listCongTy.get(i).getCongTyID()%>"><button
+										<td><a
+											href="admin_company-update.jsp?congtyid=<%=listCongTy.get(i).getCongTyID()%>&tencongty=<%=listCongTy.get(i).getTenCongTy()%>&diachi=<%=listCongTy.get(i).getDiaChi()%>"><button
 													type="button"
 													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
-											&nbsp;&nbsp; <a href="<%=request.getContextPath()%>/ManagerCongTy?command=delete&congtyid=<%=listCongTy.get(i).getCongTyID()%>"><button
+											&nbsp;&nbsp; <a
+											href="<%=request.getContextPath()%>/ManagerCongTy?command=delete&congtyid=<%=listCongTy.get(i).getCongTyID()%>"><button
 													type="button"
 													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
 										</td>

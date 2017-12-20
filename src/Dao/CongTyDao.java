@@ -2,8 +2,12 @@ package Dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -15,7 +19,6 @@ public class CongTyDao {
 
 	public static ArrayList<CongTy> getListCongTy() {
 		listCongTy = new ArrayList<>();
-		// Them cac don hang vao danh sach bang cach thu cong
 
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
@@ -41,9 +44,6 @@ public class CongTyDao {
 			e.printStackTrace();
 		}
 
-		// listTaiKhoan.add(new TaiKhoan("admin", "123", 1, "cty1"));
-		// listTaiKhoan.add(new TaiKhoan("nguoidung", "123", 1, "cty2"));
-		//
 		return CongTyDao.listCongTy;
 	}
 
@@ -55,25 +55,25 @@ public class CongTyDao {
 			pre1.setString(1, congTyID);
 			pre1.execute();
 
-			String sql2 = "delete from dauso where congtyid =?";
+			String sql2 = "delete from log_call where extensionID in  (select extensionID from extension e join phongban p on e.phongbanID = p.phongbanID where  p.congtyID= ? )";
 			PreparedStatement pre2 = (PreparedStatement) conn.prepareStatement(sql2);
 			pre2.setString(1, congTyID);
 			pre2.execute();
 
-			String sql3 = "delete from phongban where congtyid =?";
+			String sql3 = "delete from extension where phongbanID in (select phongbanID from phongban where  congtyID= ?)";
 			PreparedStatement pre3 = (PreparedStatement) conn.prepareStatement(sql3);
 			pre3.setString(1, congTyID);
 			pre3.execute();
 
-//			String sql4 = "delete from phongban where congtyid =?";
-//			PreparedStatement pre4 = (PreparedStatement) conn.prepareStatement(sql4);
-//			pre4.setString(1, congTyID);
-//			pre4.execute();
-//
-//			String sql5 = "delete from dauso where congtyid =?";
-//			PreparedStatement pre5 = (PreparedStatement) conn.prepareStatement(sql5);
-//			pre5.setString(1, congTyID);
-//			pre5.execute();
+			String sql4 = "delete from phongban where congtyid =?";
+			PreparedStatement pre4 = (PreparedStatement) conn.prepareStatement(sql4);
+			pre4.setString(1, congTyID);
+			pre4.execute();
+			//
+			String sql5 = "delete from dauso where congtyid =?";
+			PreparedStatement pre5 = (PreparedStatement) conn.prepareStatement(sql5);
+			pre5.setString(1, congTyID);
+			pre5.execute();
 
 			String sql6 = "delete from congty where congtyid =?";
 			PreparedStatement pre6 = (PreparedStatement) conn.prepareStatement(sql6);
@@ -83,10 +83,10 @@ public class CongTyDao {
 			pre1.close();
 			pre2.close();
 			pre3.close();
-//			pre4.close();
-//			pre5.close();
+			pre4.close();
+			pre5.close();
 			pre6.close();
-			
+
 			conn.close();
 			return true;
 		} catch (Exception e) {
@@ -100,7 +100,13 @@ public class CongTyDao {
 			Connection conn = DatabaseSQLConnection.getConnection();
 			String sql = "insert into congty values (?,?,?,?,?,?,?,?);";
 			PreparedStatement pre = (PreparedStatement) conn.prepareStatement(sql);
-			pre.setString(1, congTy.getCongTyID());
+			CongTyDao ctDAO = new CongTyDao();
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+			// tạo 1 đối tượng có định dạng thời gian yyyy-MM-dd HH:mm:ss
+			Date date = new Date(); // lấy thời gian hệ thống
+			String stringDate = dateFormat.format(date);// Định dạng thời gian
+														// theo trên
+			pre.setString(1, stringDate);
 			pre.setString(2, congTy.getTenCongTy());
 			pre.setString(3, congTy.getLogo());
 			pre.setString(4, congTy.getMaSoThue());
@@ -119,9 +125,38 @@ public class CongTyDao {
 
 	}
 
+	public static boolean updateCongTy(CongTy congTy) {
+		//
+		try {
+			Connection conn = DatabaseSQLConnection.getConnection();
+			String sql = "update congty set ten_congty = ? , maso_thue = ?,dia_chi =?,dienthoai = ?,email = ?,ti_le_make_up = ? where congtyID = ?";
+			PreparedStatement pre = (PreparedStatement) conn.prepareStatement(sql);
+
+			pre.setString(1, congTy.getTenCongTy());
+			// pre.setString(2, congTy.getLogo());
+			pre.setString(2, congTy.getMaSoThue());
+			pre.setString(3, congTy.getDiaChi());
+			pre.setString(4, congTy.getDienThoai());
+			pre.setString(5, congTy.getEmail());
+			pre.setDouble(6, congTy.getTiLeMakeUp());
+			pre.setString(7, congTy.getCongTyID());
+			pre.execute();
+			pre.close();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
+	}
+
 	// Test
 	public static void main(String[] args) {
-		//System.out.println(addTaiKhoan(new CongTy("ct05", "c", "c", "c", "c", "c", "c", 0.1)));
-		System.out.println(deleteCongTy("ct04"));
+		// System.out.println(addCongTy((new CongTy("", "c", "c", "c", "c", "c",
+		// "c", 0.1))));
+		System.out.println(getListCongTy());
+		System.out.println(updateCongTy(new CongTy("20171215111239", "edited", "edited", "", "", "", "", 0.3)));
+		System.out.println(getListCongTy());
+
 	}
 }
