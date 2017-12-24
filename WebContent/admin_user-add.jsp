@@ -52,7 +52,7 @@
 						</div>
 
 						<form action="<%=request.getContextPath()%>/ManagerTaiKhoan"
-							method="post" role="form" class="form-horizontal">
+							method="get" role="form" class="form-horizontal">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -63,11 +63,12 @@
 										<input type="text" class="form-control" name="username"
 											placeholder="Username">
 									</div>
+									<!-- xử lý ngoại lệ username-->
 									<%
-										String a = (String) request.getAttribute("errorUserName");
-										if (a != null) {
+										String erroruser = (String) request.getAttribute("erroruser");
+										if (erroruser != null) {
 									%>
-									<p style="color: red;">Tài khoản đã tồn tại</p>
+									<p style="color: red;"><%=erroruser %></p>
 									<%
 										}
 									%>
@@ -80,12 +81,12 @@
 										<input type="password" class="form-control" name="password"
 											placeholder="Password">
 									</div>
+									<!-- xử lý ngoại lệ bỏ password-->
 									<%
-										String b = (String) request.getAttribute("errorPass");
-										if (b != null) {
+										String errorpass = (String) request.getAttribute("errorpass");
+										if (errorpass != null) {
 									%>
-									<p style="color: red;">Mật khẩu phải trùng với xác nhận mật
-										khẩu</p>
+									<p style="color: red;"><%=errorpass %></p>
 									<%
 										}
 									%>

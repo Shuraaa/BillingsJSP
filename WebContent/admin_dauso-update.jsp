@@ -1,6 +1,6 @@
-<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.awt.List"%>
 <%@page import="java.util.*"%>
 <%@page import="model.*"%>
 <%@page import="Dao.*"%>
@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Group add</title>
+<title>Headnumber update</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -17,6 +17,13 @@
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+	<%
+		if (session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+		} else {
+	%>
+
 	<div class="wrapper">
 
 		<!-- Include this in all index page -->
@@ -28,13 +35,13 @@
 
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>Thêm phòng/ban mới</h1>
+			<h1>Chỉnh sửa thông tin</h1>
 			<ol class="breadcrumb">
 				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
 						BillingsSystem</a></li>
 				<li><a href="#">Quản trị hệ thống</a></li>
-				<li><a href="admin_group.jsp">Quản lí phòng/ban</a></li>
-				<li class="active">Thêm phòng/ban</li>
+				<li><a href="admin_dauso.jsp">Quản lí Đầu số</a></li>
+				<li class="active">Chỉnh sửa đầu số</li>
 			</ol>
 			</section>
 
@@ -46,42 +53,46 @@
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
-								<i class="fa fa-pencil-square"></i> Thông tin phòng/ban
+								<i class="fa fa-pencil-square"></i> Thông tin Đầu số
 							</h3>
 						</div>
 
-						<form action="<%=request.getContextPath()%>/ManagerPhongBan"
+						<form action="<%=request.getContextPath()%>/ManagerDauso"
 							method="get" role="form" class="form-horizontal">
 							<div class="box-body">
 
 								<!-- Form group -->
 								<div class="form-group">
-									<label for="input_tenGroup" class="col-sm-2 control-label">Tên
-										phòng/ban: </label>
+									<label for="inputDauso" class="col-sm-2 control-label">
+										Đầu số: </label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_tenGroup"
-											placeholder="Group name">
+										<input type="text" class="form-control" name="txt_DauSo"
+											placeholder="Number">
 									</div>
-									<!-- xử lý ngoại lệ Tên phòng ban-->
-									<%
-										String errorphongban = (String) request.getAttribute("errorphongban");
-										if (errorphongban != null) {
-									%>
-									<p style="color: red;"><%=errorphongban %></p>
-									<%
-										}
-									%>
 								</div>
+
 								<!-- Form group -->
 								<div class="form-group">
-									<label for="inputCompany" class="col-sm-2 control-label">Tên
-										công ti: </label>
+									<label for="inputNhaMang" class="col-sm-2 control-label">
+										Nhà mạng: </label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="txt_NhaMang"
+											placeholder="Nhà mạng">
+									</div>
+								</div>
+
+								<!-- Form group -->
+								<div class="form-group">
+									<label for="inputCongTy" class="col-sm-2 control-label">
+										Công ti: </label>
 									<div class="col-sm-4">
 										<select class="form-control" name="congty">
-											<!-- hien thi cobobox danh sach cong ty -->
+											<option selected="">Company name</option>
+
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
 											<%
 												ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-												for (int i = 0; i < listCongTy.size(); i++) {
+													for (int i = 0; i < listCongTy.size(); i++) {
 											%>
 											<option selected=""
 												value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
@@ -89,26 +100,16 @@
 												}
 											%>
 										</select>
-									</div>
-									<div class="col-sm-2">
-										<a href="admin_company-add.jsp"
-											class="form-control btn btn-success">Thêm công ti</a>
+
 									</div>
 								</div>
-								<!--  -->
-								<!-- input chua bien command = add -->
-								<input type="hidden" name="command" value="add"></input>
-								<div class="box-footer text-center">
-									<button type="submit" class="btn btn-primary">Xác nhận</button>
-								</div>
-								<div class="alert alert-success alert-dismissible">
-									<button type="button" class="close" data-dismiss="alert"
-										aria-hidden="true">×</button>
-									<h4>
-										<i class="icon fa fa-check"></i> Chúc mừng!!!
-									</h4>
-									Thông tin đã cập nhật thành công.
-								</div>
+
+							</div>
+							<!--  -->
+							<input type="hidden" name="command" value="add"></input>
+							<div class="box-footer text-center">
+								<button type="submit" class="btn btn-primary">Xác nhận</button>
+							</div>
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->
@@ -127,7 +128,12 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
+		<%
+			}
+		%>
 	</div>
 	<!-- /.End of wrapper -->
 </body>
+</html>
+
 </html>

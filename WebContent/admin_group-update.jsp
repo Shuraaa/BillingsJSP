@@ -91,6 +91,7 @@
 								<input type="hidden" name="command" value="add"></input>
 								<div class="box-footer text-center">
 									<button type="submit" class="btn btn-primary">Xác nhận</button>
+									
 								</div>
 								<div class="alert alert-success alert-dismissible">
 									<button type="button" class="close" data-dismiss="alert"

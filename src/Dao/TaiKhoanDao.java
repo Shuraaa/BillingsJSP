@@ -83,14 +83,37 @@ public class TaiKhoanDao {
 		}
 		return false;
 	}
+	//Kiểm tra tài khoản đã tồn tại hay không
+	public static boolean kiemTraTaiKhoan(String usernames) {
+		ArrayList<TaiKhoan> listTK = new ArrayList<>();
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "SELECT * FROM taikhoan_nguoidung where username ='"+usernames+"';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String username = rs.getString("username");
+				String userpass = rs.getString("userpass");
+				int role = rs.getInt("role");
+				String congtyID = rs.getString("congtyID");
+				listTK.add(new TaiKhoan(username, userpass, role, congtyID) );
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return listTK.size()==1;
+	}
 	public static void main(String[] args) {
 		
 		//TaiKhoanDao.deleteTaiKhoan("admin");
-		System.out.println(TaiKhoanDao.getListTaiKhoan().size());
+		//System.out.println(TaiKhoanDao.getListTaiKhoan().size());
 		TaiKhoanDao a = new TaiKhoanDao();
-		a.updataNumber( "cuccuc","admion");
+		//a.updataNumber( "cuccuc","admion");
 		//System.out.println(a.themTaiKhoan(new TaiKhoan("adadad", "ada", 2, "ct01")));
-		System.out.println(a.xoaTaiKhoan("dao"));
+		//System.out.println(a.xoaTaiKhoan("dao"));
 		//System.out.println(a.addTaiKhoan("sad", "a", 1, "ct02"));
+		//System.out.println(a.kiemTraTaiKhoan("admin 302"));
 	}
 }

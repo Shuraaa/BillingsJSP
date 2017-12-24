@@ -110,10 +110,54 @@ public class PhongBanDao {
 			}
 			return listpbcongty;
 		}
+		//kiểm tra phòng ban nhập vào đã tồn tại hay không
+		public static boolean kiemTraPhongBan(String congtyid,String tenphongban) {
+			ArrayList<PhongBan> listPB = new ArrayList<>();
+			try {
+				Connection connection = DatabaseSQLConnection.getConnection();
+				Statement statement = connection.createStatement();
+				String sql = "SELECT * FROM phongban where congtyID='"+congtyid+"'and ten_phongban='"+tenphongban+"';";
+				ResultSet rs = statement.executeQuery(sql);
+				while (rs.next()) {
+					String phongBanID = rs.getString("phongbanID");
+					String tenPhongBan = rs.getString("ten_phongban");
+					String congtyID = rs.getString("congtyID");
+					listPB.add(new PhongBan(phongBanID, tenPhongBan, congtyID) );
+				}
+				statement.close();
+				connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return listPB.size()==1;
+		}
+		//lấy id cong ty khi biết phòng ban
+				public static String getIDCongTy(String phongbanid) {
+					String congtyID = "";
+					try {
+						Connection connection = DatabaseSQLConnection.getConnection();
+						Statement statement = connection.createStatement();
+						String sql = "SELECT * FROM phongban where phongbanID='"+phongbanid+"';";
+						ResultSet rs = statement.executeQuery(sql);
+						while (rs.next()) {
+							String phongBanID = rs.getString("phongbanID");
+							String tenPhongBan = rs.getString("ten_phongban");
+							congtyID = rs.getString("congtyID");
+							//listPB.add(new PhongBan(phongBanID, tenPhongBan, congtyID) );
+						}
+						statement.close();
+						connection.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return congtyID;
+				}
 		public static void main(String[] args) {
 			PhongBanDao a = new PhongBanDao();
-			a.updatePhongBan("pb04", "phongban4");
-			System.out.println(a.getListPBCongTy("ct01").size());
+			//System.out.println(a.kiemTraPhongBan("ct01", "dao12"));
+			System.out.println(a.getIDCongTy("pb052"));
+			//a.updatePhongBan("pb04", "phongban4");
+			//System.out.println(a.getListPBCongTy("ct01").size());
 //			System.out.println(a.themPhongBan(new PhongBan("pb12", "phngban12", "ct01")));
 //			System.out.println(a.xoaPhongBan("pb02"));
 			//System.out.println(a.addTaiKhoan("sad", "a", 1, "ct02"));

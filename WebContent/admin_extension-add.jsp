@@ -96,18 +96,38 @@
 										<input type="text" class="form-control" name="txt_extension"
 											placeholder="Extension name">
 									</div>
-								</div>
-								<!-- Form group -->
-								<div class="form-group">
-									<label for="inputDauSo" class="col-sm-2 control-label">Đầu
-										số: </label>
-									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_DauSo"
-											placeholder="Number">
-									</div>
+									<!-- xử lý ngoại lệ extension-->
+									<%
+										String errorextension = (String) request.getAttribute("errorextension");
+										if (errorextension!= null) {
+									%>
+									<p style="color: red;"><%=errorextension %></p>
+									<%
+										}
+									%>
 								</div>
 								
 								<!-- Form group -->
+								<div class="form-group">
+									<label for="inputGroup" class="col-sm-2 control-label">Đầu số:
+									</label>
+									<div class="col-sm-4">
+										<select class="form-control" name="txt_DauSo">
+											<option selected="">Group name</option>
+
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<% 
+										ArrayList<DauSo> listDauSo =  DauSoDao.getListDauSoCongTy(idcongty);
+										for (int i = 0; i < listDauSo.size(); i++) {
+										%>
+											<option selected="selected" value=<%=listDauSo.get(i).getDauSoSuDung() %>><%=listDauSo.get(i).getDauSoSuDung()%></option>
+										<%} %>
+
+										</select>
+									</div>
+								</div>
+								
+							<!--  -->
 								<div class="form-group">
 									<label for="inputGroup" class="col-sm-2 control-label">Phòng/ban:
 									</label>

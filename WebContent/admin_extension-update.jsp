@@ -61,18 +61,38 @@
 										<input type="text" class="form-control" name="txt_extension"
 											placeholder="Extension name" value="<%=(String) request.getAttribute("editextension")%>">
 									</div>
+									<!-- xử lý ngoại lệ extension-->
+									<%
+										String errorextension = (String) request.getAttribute("errorextension");
+										if (errorextension!= null) {
+									%>
+									<p style="color: red;"><%=errorextension %></p>
+									<%
+										}
+									%>
 								</div>
 								<!-- Form group -->
 								<div class="form-group">
-									<label for="inputDauSo" class="col-sm-2 control-label">Đầu
-										số: </label>
+									<label for="inputGroup" class="col-sm-2 control-label">Đầu số:
+									</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_DauSo"
-											placeholder="Number" value="<%=(String) request.getAttribute("editdauso")%>">
+										<select class="form-control" name="txt_DauSo">
+											<option selected="">Group name</option>
+
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<% String idcongty = (String) request.getAttribute("choncongty");
+										ArrayList<DauSo> listDauSo =  DauSoDao.getListDauSoCongTy(idcongty);
+										for (int i = 0; i < listDauSo.size(); i++) {
+										%>
+											<option selected="selected" value=<%=listDauSo.get(i).getDauSoSuDung() %>><%=listDauSo.get(i).getDauSoSuDung()%></option>
+										<%} %>
+
+										</select>
 									</div>
 								</div>
-								<!-- Form group -->
-								<div class="form-group">
+								
+							<!--  -->
+							<div class="form-group">
 									<label for="inputGroup" class="col-sm-2 control-label">Phòng/ban:
 									</label>
 									<div class="col-sm-4">
@@ -80,7 +100,7 @@
 											<option selected="">Group name</option>
 
 											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
-											<% String idcongty = (String) request.getAttribute("editcongtyid");
+											<% 
 										ArrayList<PhongBan> listPhongBan =  PhongBanDao.getListPBCongTy(idcongty);
 										for (int i = 0; i < listPhongBan.size(); i++) {
 										%>
@@ -99,6 +119,7 @@
 								<input type="hidden" name="command" value="update"></input>
 							<div class="box-footer text-center">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
+								<a href="<%=request.getContextPath()%>/admin_extension.jsp"><button type="button" class="btn btn-primary">Hủy</button></a>
 							</div>
 							<div class="alert alert-success alert-dismissible">
 								<button type="button" class="close" data-dismiss="alert"

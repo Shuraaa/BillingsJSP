@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.Extension;
+
 import com.mysql.jdbc.PreparedStatement;
 
-import model.*;
 import connection.DatabaseSQLConnection;
 
 public class ExtensionDao {
@@ -41,7 +42,6 @@ public class ExtensionDao {
 				Connection connection = DatabaseSQLConnection.getConnection();
 				String sql = "update extension set extensionID='" + ext.getExtensionID()+ "',dauso_sudung='"+ext.getDauSoSuDung()+ "',phongbanID='"+ext.getPhongBanID()+ "'where extensionID='" + idextension + "'";
 				try {
-
 					PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
 					ps.executeUpdate();
 					System.out.println("thanh cmn cong");
@@ -67,8 +67,8 @@ public class ExtensionDao {
 				}
 				return false;
 			}
-			//delete
-			public boolean xoaExtension(String extensionid) {
+		//delete
+		public boolean xoaExtension(String extensionid) {
 				Connection con = DatabaseSQLConnection.getConnection();
 				String sql = "DELETE FROM extension WHERE extensionID = ?";
 				try {
@@ -81,11 +81,34 @@ public class ExtensionDao {
 				}
 				return false;
 			}
+		// kiểm tra extension có tồn tại hay không
+		public static boolean kiemTraExtension(String extension, String dauso) {
+			ArrayList<Extension> listEx = new ArrayList<>();
+			try {
+				Connection connection = DatabaseSQLConnection.getConnection();
+				Statement statement = connection.createStatement();
+				String sql = "SELECT * FROM extension where extensionID='"+extension+"' and dauso_sudung = '"+dauso+"';";
+				ResultSet rs = statement.executeQuery(sql);
+				while (rs.next()) {
+					String extensionID = rs.getString("extensionID");
+					String tenNguoiDung = rs.getString("tennguoidung");
+					String dauSoSuDung = rs.getString("dauso_sudung");
+					String phongBanID = rs.getString("phongbanID");
+					listEx.add(new Extension(extensionID, tenNguoiDung, dauSoSuDung, phongBanID) );
+				}
+				statement.close();
+				connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return listEx.size()==1;
+		}
 			public static void main(String[] args) {
 				ExtensionDao a = new ExtensionDao();
 				//a.xoaExtension("842100");
 				Extension e = new Extension("1212343323", "", "232233", "pb02");
-				a.updateExtension("12123433", e);
+			//	System.out.println(a.kiemTraExtension("1234543", "123443"));
+			//	a.updateExtension("12123433", e);
 			//	a.themExtension(e);
 				//a.updatePhongBan("pb04", "phongban4");
 //				System.out.println(a.themPhongBan(new PhongBan("pb12", "phngban12", "ct01")));
