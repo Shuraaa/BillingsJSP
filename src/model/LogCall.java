@@ -1,108 +1,90 @@
 package model;
 
+import java.util.Date;
+
 public class LogCall {
-
-	private int logID;
-
+	private String tenCongTy;
 	private String extensionID;
-
 	private String thueBaoNhan;
-
+	private String phongBan;
 	private int thoiGianGoi;
-
-	private double giaTien;
-
+	private Date ngayGoi;
 	private String loaiCuocGoi;
-
-	private String nhaMangID;
-
-	private String maCuocGoi;
-
-	public LogCall(int logID, String extensionID, String thueBaoNhan, int thoiGianGoi, double giaTien,
-			String loaiCuocGoi, String nhaMangID, String maCuocGoi) {
+	private double giaTien;
+	public LogCall(String tenCongTy, String extensionID, String thueBaoNhan,
+			String phongBan, int thoiGianGoi, Date ngayGoi, String loaiCuocGoi,
+			double giaTien) {
 		super();
-		this.logID = logID;
+		this.tenCongTy = tenCongTy;
 		this.extensionID = extensionID;
 		this.thueBaoNhan = thueBaoNhan;
+		this.phongBan = phongBan;
 		this.thoiGianGoi = thoiGianGoi;
-		this.giaTien = giaTien;
+		this.ngayGoi = ngayGoi;
 		this.loaiCuocGoi = loaiCuocGoi;
-		this.nhaMangID = nhaMangID;
-		this.maCuocGoi = maCuocGoi;
+		this.giaTien = giaTien;
 	}
-
-	public int getLogID() {
-		return logID;
+	public String getTenCongTy() {
+		return tenCongTy;
 	}
-
-	public void setLogID(int logID) {
-		this.logID = logID;
+	public void setTenCongTy(String tenCongTy) {
+		this.tenCongTy = tenCongTy;
 	}
-
 	public String getExtensionID() {
 		return extensionID;
 	}
-
 	public void setExtensionID(String extensionID) {
 		this.extensionID = extensionID;
 	}
-
 	public String getThueBaoNhan() {
 		return thueBaoNhan;
 	}
-
 	public void setThueBaoNhan(String thueBaoNhan) {
 		this.thueBaoNhan = thueBaoNhan;
 	}
-
+	public String getPhongBan() {
+		return phongBan;
+	}
+	public void setPhongBan(String phongBan) {
+		this.phongBan = phongBan;
+	}
 	public int getThoiGianGoi() {
 		return thoiGianGoi;
 	}
-
 	public void setThoiGianGoi(int thoiGianGoi) {
 		this.thoiGianGoi = thoiGianGoi;
 	}
-
-	public double getGiaTien() {
-		return giaTien;
+	public Date getNgayGoi() {
+		return ngayGoi;
 	}
-
-	public void setGiaTien(double giaTien) {
-		this.giaTien = giaTien;
+	public void setNgayGoi(Date ngayGoi) {
+		this.ngayGoi = ngayGoi;
 	}
-
 	public String getLoaiCuocGoi() {
 		return loaiCuocGoi;
 	}
-
 	public void setLoaiCuocGoi(String loaiCuocGoi) {
 		this.loaiCuocGoi = loaiCuocGoi;
 	}
-
-	public String getNhaMangID() {
-		return nhaMangID;
+	public double getGiaTien() {
+		return giaTien;
 	}
-
-	public void setNhaMangID(String nhaMangID) {
-		this.nhaMangID = nhaMangID;
+	public void setGiaTien(double giaTien) {
+		this.giaTien = giaTien;
 	}
-
-	public String getMaCuocGoi() {
-		return maCuocGoi;
-	}
-
-	public void setMaCuocGoi(String maCuocGoi) {
-		this.maCuocGoi = maCuocGoi;
-	}
-
-	public LogCall() {
-		super();
-	}
-
 	@Override
 	public String toString() {
-		return "LogCall [logID=" + logID + ", extensionID=" + extensionID + ", thueBaoNhan=" + thueBaoNhan
-				+ ", thoiGianGoi=" + thoiGianGoi + ", giaTien=" + giaTien + ", loaiCuocGoi=" + loaiCuocGoi
-				+ ", nhaMangID=" + nhaMangID + ", maCuocGoi=" + maCuocGoi + "]";
+		return "LogCall [tenCongTy=" + tenCongTy + ", extensionID="
+				+ extensionID + ", thueBaoNhan=" + thueBaoNhan + ", phongBan="
+				+ phongBan + ", thoiGianGoi=" + thoiGianGoi + ", ngayGoi="
+				+ ngayGoi + ", loaiCuocGoi=" + loaiCuocGoi + ", giaTien="
+				+ giaTien + "]";
 	}
+	
+	
+
+	
+	
 }
+
+	
