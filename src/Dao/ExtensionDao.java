@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Extension;
+import model.PhongBan;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -103,6 +104,52 @@ public class ExtensionDao {
 			}
 			return listEx.size()==1;
 		}
+		// get extension cua phong ban
+				public static ArrayList<Extension> getListEXPhongBan(String phongbanid) {
+					ArrayList<Extension> listexphongban = new ArrayList<>();
+
+					try {
+						Connection connection = DatabaseSQLConnection.getConnection();
+						Statement statement = connection.createStatement();
+						String sql = "SELECT * FROM extension where phongbanID ='"+phongbanid+"';";
+						ResultSet rs = statement.executeQuery(sql);
+						while (rs.next()) {
+							String extensionID = rs.getString("extensionID");
+							String tenNguoiDung = rs.getString("tennguoidung");
+							String dauSoSuDung = rs.getString("dauso_sudung");
+							String phongBanID = rs.getString("phongbanID");
+							listexphongban.add(new Extension(extensionID, tenNguoiDung, dauSoSuDung, phongBanID) );
+						}
+						statement.close();
+						connection.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return listexphongban;
+				}
+				// get extension cua phong ban
+		public static ArrayList<Extension> getListEXCongTy(String congtyid) {
+					ArrayList<Extension> listexcongty = new ArrayList<>();
+
+					try {
+						Connection connection = DatabaseSQLConnection.getConnection();
+						Statement statement = connection.createStatement();
+						String sql = " SELECT e.extensionID, e.tennguoidung, e.dauso_sudung, e.phongbanID FROM extension e join phongban pb on e.phongbanID = pb.phongbanID  where congtyID = '"+congtyid+"';";
+						ResultSet rs = statement.executeQuery(sql);
+						while (rs.next()) {
+							String extensionID = rs.getString("extensionID");
+							String tenNguoiDung = rs.getString("tennguoidung");
+							String dauSoSuDung = rs.getString("dauso_sudung");
+							String phongBanID = rs.getString("phongbanID");
+							listexcongty.add(new Extension(extensionID, tenNguoiDung, dauSoSuDung, phongBanID) );
+						}
+						statement.close();
+						connection.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return listexcongty;
+			}
 			public static void main(String[] args) {
 				ExtensionDao a = new ExtensionDao();
 				//a.xoaExtension("842100");

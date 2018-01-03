@@ -90,7 +90,6 @@ public class PhongBanDao {
 		// get phong ban cua cong ty
 		public static ArrayList<PhongBan> getListPBCongTy(String congtyid) {
 			ArrayList<PhongBan> listpbcongty = new ArrayList<>();
-			// Them cac don hang vao danh sach bang cach thu cong
 
 			try {
 				Connection connection = DatabaseSQLConnection.getConnection();
