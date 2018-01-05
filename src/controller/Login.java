@@ -34,6 +34,7 @@ public class Login extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		int role;
 		String error = "";
 
 		Validation validate = new Validation();
@@ -50,7 +51,9 @@ public class Login extends HttpServlet {
 		try {
 			if (error.length() == 0) {
 				HttpSession session = request.getSession();
+				role = userLogin.getUserInfo(username).getRole();
 				session.setAttribute("username", username);
+				session.setAttribute("role", role);
 				url = "/index.jsp";
 			} else {
 				url = "/login.jsp";
@@ -58,8 +61,7 @@ public class Login extends HttpServlet {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
 			rd.forward(request, response);
 		} catch (Exception e) {
-			url = "/500.jsp";
+			url = "/page_500.jsp";
 		}
-
 	}
 }

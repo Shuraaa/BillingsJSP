@@ -7,8 +7,10 @@ import java.util.ArrayList;
 
 import model.*;
 import connection.DatabaseSQLConnection;
+import com.mysql.jdbc.PreparedStatement;
 
 public class CongTyDao {
+
 	private static ArrayList<CongTy> listCongTy;
 
 	public static ArrayList<CongTy> getListCongTy() {
@@ -45,46 +47,85 @@ public class CongTyDao {
 		return CongTyDao.listCongTy;
 	}
 
-	public static void deleteTaiKhoan(String userName) {
-		// try {
-		// Connection conn = DatabaseSQLConnection.getConnection();
-		// Statement stmt = conn.createStatement();
-		// String sql = " insert into taikhoan_nguoidung
-		// (username,userpass,role,congtyID) values ('admin','123',1,'ct01');";
-		// ResultSet ra = stmt.executeQuery(sql);
-		// stmt.close();
-		// conn.close();
-		// CongTyDao.getListCongTy().add(new TaiKhoan("aa", "d", 1, "ct7"));
-		// }catch (Exception e) {
-		// e.printStackTrace();
-		// }
-	}
-
-	public static boolean addTaiKhoan(String userName, String userPass, int role, String congTyID) {
+	// Delete Company
+	public static boolean deleteCongTy(String congTyID) {
 		try {
 			Connection conn = DatabaseSQLConnection.getConnection();
-			Statement stmt = conn.createStatement();
-			// String sql = "insert into taikhoan_nguoidung values
-			// ('"+userName+"','"+userPass+"',"+role+",'"+congTyID+"');";
-			String sql = "   insert into taikhoan_nguoidung (username,userpass,role,congtyID) values ('user 4.1','123',0,'ct03');";
-			ResultSet rs = stmt.executeQuery(sql);
-			stmt.close();
+			String sql1 = "delete from taikhoan_nguoidung where congtyid =?";
+			PreparedStatement pre1 = (PreparedStatement) conn.prepareStatement(sql1);
+			pre1.setString(1, congTyID);
+			pre1.execute();
+
+			String sql2 = "delete from dauso where congtyid =?";
+			PreparedStatement pre2 = (PreparedStatement) conn.prepareStatement(sql2);
+			pre2.setString(1, congTyID);
+			pre2.execute();
+
+			String sql3 = "delete from phongban where congtyid =?";
+			PreparedStatement pre3 = (PreparedStatement) conn.prepareStatement(sql3);
+			pre3.setString(1, congTyID);
+			pre3.execute();
+
+			// String sql4 = "delete from phongban where congtyid =?";
+			// PreparedStatement pre4 = (PreparedStatement)
+			// conn.prepareStatement(sql4);
+			// pre4.setString(1, congTyID);
+			// pre4.execute();
+			//
+			// String sql5 = "delete from dauso where congtyid =?";
+			// PreparedStatement pre5 = (PreparedStatement)
+			// conn.prepareStatement(sql5);
+			// pre5.setString(1, congTyID);
+			// pre5.execute();
+
+			String sql6 = "delete from congty where congtyid =?";
+			PreparedStatement pre6 = (PreparedStatement) conn.prepareStatement(sql6);
+			pre6.setString(1, congTyID);
+			pre6.execute();
+
+			pre1.close();
+			pre2.close();
+			pre3.close();
+			// pre4.close();
+			// pre5.close();
+			pre6.close();
+
 			conn.close();
-			// return true;
-			// System.out.println("a");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	// Add Company
+	public static boolean addCongTy(CongTy congTy) {
+		try {
+			Connection conn = DatabaseSQLConnection.getConnection();
+			String sql = "insert into congty values (?,?,?,?,?,?,?,?);";
+			PreparedStatement pre = (PreparedStatement) conn.prepareStatement(sql);
+			pre.setString(1, congTy.getCongTyID());
+			pre.setString(2, congTy.getTenCongTy());
+			pre.setString(3, congTy.getLogo());
+			pre.setString(4, congTy.getMaSoThue());
+			pre.setString(5, congTy.getDiaChi());
+			pre.setString(6, congTy.getDienThoai());
+			pre.setString(7, congTy.getEmail());
+			pre.setDouble(8, congTy.getTiLeMakeUp());
+			pre.execute();
+			pre.close();
+			conn.close();
 			return true;
 		} catch (Exception e) {
 			System.err.println("error");
 			return false;
 		}
-
 	}
 
 	// Test
 	public static void main(String[] args) {
-		// TaiKhoanDao.deleteTaiKhoan("admin");
-		System.out.println(CongTyDao.getListCongTy().size());
-		// TaiKhoanDao a = new TaiKhoanDao();
-		// System.out.println(a.addTaiKhoan("sad", "a", 1, "ct02"));
+		// System.out.println(addTaiKhoan(new CongTy("ct05", "c", "c", "c", "c",
+		// "c", "c", 0.1)));
+		System.out.println(deleteCongTy("ct04"));
 	}
 }

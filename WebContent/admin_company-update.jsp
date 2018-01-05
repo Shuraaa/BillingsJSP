@@ -12,6 +12,13 @@
 	name="viewport">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+	<%
+		if (session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+		} else {
+	%>
+
 	<div class="wrapper">
 
 		<!-- Include this in all index page -->
@@ -117,15 +124,6 @@
 							<div class="box-footer text-center">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>
-							<div class="alert alert-success alert-dismissible">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">×</button>
-								<h4>
-									<i class="icon fa fa-check"></i> Chúc mừng!!!
-								</h4>
-								Thông tin công ti đã cập nhật thành công.
-							</div>
-
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->
@@ -144,6 +142,9 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
+		<%
+			}
+		%>
 	</div>
 	<!-- /.End of wrapper -->
 </body>

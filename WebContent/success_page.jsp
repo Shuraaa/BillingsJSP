@@ -13,6 +13,13 @@
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+	<%
+		if (session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+		} else {
+	%>
+
 	<div class="wrapper">
 
 
@@ -46,6 +53,10 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
+
+		<%
+			}
+		%>
 	</div>
 	<!-- ./wrapper -->
 

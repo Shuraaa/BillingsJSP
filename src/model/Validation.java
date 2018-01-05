@@ -7,14 +7,16 @@ public class Validation {
 	public boolean checkNull(String st) {
 		if (st.length() == 0) {
 			return true;
+		} else if (st.contains(" ")) {
+			return true;
 		}
 		return false;
 
 	}
 
 	// Check Length
-	public boolean checkLength(String st, int min) {
-		if (st.length() >= min) {
+	public boolean checkLength(String st, int min, int max) {
+		if (st.length() >= min && st.length() <= max) {
 			return true;
 		}
 		return false;

@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Group Management</title>
+<title>Headnumber Management</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -36,12 +36,12 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>Quản lí công ti</h1>
+			<h1>Quản lí đầu số</h1>
 			<ol class="breadcrumb">
 				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
 						BillingsSystem</a></li>
 				<li><a href="#">Quản trị hệ thống</a></li>
-				<li class="active">Quản lí phòng/ban</li>
+				<li class="active">Quản lí đầu số</li>
 			</ol>
 
 			</section>
@@ -74,24 +74,22 @@
 
 						<div class="box-header with-border">
 							<h3 class="box-title">
-								<i class="glyphicon glyphicon-plus"></i> Add Group
+								<i class="glyphicon glyphicon-plus"></i> Add Number
 							</h3>
 						</div>
 						<form action="#" class="form-horizontal">
 							<div class="box-body">
-								<a href="admin_group-add.jsp" class="btn btn-primary btn-block">
-									<i class="glyphicon glyphicon-plus"></i> Thêm phòng/ban
+								<a href="admin_dauso-add.jsp" class="btn btn-primary btn-block">
+									<i class="glyphicon glyphicon-plus"></i> Thêm Đầu số
 								</a>
 							</div>
 						</form>
-
 					</div>
 				</div>
 
 				<!--  -->
 
 				<div class="col-md-12">
-
 					<div class="box box-primary">
 						<div class="box-header">
 							<h3 class="box-title">Danh sách</h3>
@@ -111,8 +109,9 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Phòng/ban</th>
+										<th>Đầu số</th>
 										<th>Công ti</th>
+										<th>Phòng/ban</th>
 										<th>Tác vụ</th>
 									</tr>
 								</thead>
@@ -120,73 +119,6 @@
 
 
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
-									<%
-										ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
-											ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-											for (int i = 0; i < listPhongBan.size(); i++) {
-									%>
-									<tr class="gradeA">
-										<td><%=i + 1%></td>
-										<!--Lenh edit ten phong ban -->
-										<%
-											String idphongban = (String) request.getAttribute("editphongban");
-													String id = listPhongBan.get(i).getPhongBanID();
-													if ((idphongban != null) && (idphongban.equals(id))) {
-										%>
-										<form action="ManagerPhongBan" method="get">
-											<td><input type="text" class="form-control"
-												name="txt_tenphongban" placeholder="Group name"
-												value="<%=listPhongBan.get(i).getTenPhongBan()%>"></td> <input
-												type="hidden" name="txt_idphongban"
-												value="<%=listPhongBan.get(i).getPhongBanID()%>"></input> <input
-												type="hidden" name="command" value="update"></input>
-											<%
-												} else {
-											%>
-											<td><%=listPhongBan.get(i).getTenPhongBan()%></td>
-											<%
-												}
-											%>
-											<%
-												for (int j = 0; j < listCongTy.size(); j++) {
-															if (listPhongBan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
-											%>
-											<td><%=listCongTy.get(j).getTenCongTy()%></td>
-											<%
-												}
-														}
-											%>
-											<td>
-												<%
-													String idphongban1 = (String) request.getAttribute("editphongban");
-															String id1 = listPhongBan.get(i).getPhongBanID();
-															if ((idphongban1 != null) && (idphongban1.equals(id1))) {
-												%>
-												<button type="submit"
-													class="btn btn-success glyphicon glyphicon-ok-sign"></button>
-										</form>
-
-										<%
-											} else {
-										%>
-										<a
-											href="<%=request.getContextPath()%>/ManagerPhongBan?command=edit&phongbanid=<%=listPhongBan.get(i).getPhongBanID()%>&tenphongban=<%=listPhongBan.get(i).getTenPhongBan()%>"><button
-												type="button"
-												class="btn btn-primary glyphicon glyphicon-edit"></button></a>
-										<%
-											}
-										%>
-										&nbsp;&nbsp;
-										<a
-											href="<%=request.getContextPath()%>/ManagerPhongBan?command=delete&phongbanid=<%=listPhongBan.get(i).getPhongBanID()%>"><button
-												type="button"
-												class="btn btn-danger glyphicon glyphicon-trash"></button></a>
-										</td>
-									</tr>
-									<%
-										}
-									%>
-
 
 
 

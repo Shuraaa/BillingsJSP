@@ -26,6 +26,25 @@
 
 </head>
 <body class="hold-position login-page">
+	<%
+		String error = (String) request.getAttribute("error");
+		if (error == null) {
+			error = "";
+		}
+		String error2 = (String) request.getAttribute("error2");
+		if (error2 == null) {
+			error2 = "";
+		}
+	%>
+	<%
+		String username = (String) session.getAttribute("username");
+	%>
+	<%
+		if (username == null) {
+	%>
+	<%
+		} else {
+	%>
 	<div class="login-box">
 		<div class="login-logo">
 			<a href="login.jsp"><b>Billings</b> System</a>
@@ -35,15 +54,17 @@
 			<p class="login-box-msg" style="font-size: 20px">Khôi phục mật
 				khẩu</p>
 
-			<form action="#" method="post">
+			<form action="<%=request.getContextPath()%>/ChangePassLogin"
+				method="post">
 				<div class="form-group has-feedback">
 					<input type="password" class="form-control"
-						placeholder="Mật khẩu mới"> <span
+						placeholder="Mật khẩu mới" name="newpass"> <span
 						class="glyphicon glyphicon-lock form-control-feedback text-blue"></span>
 				</div>
 				<div class="form-group has-feedback">
 					<input type="password" class="form-control"
-						placeholder="Xác nhận mật khẩu mới"> <span
+						placeholder="Xác nhận mật khẩu mới" name="newpassconfirm">
+					<span
 						class="glyphicon glyphicon-lock form-control-feedback text-blue"></span>
 				</div>
 				<div class="row">
@@ -55,15 +76,18 @@
 				</div>
 			</form>
 			<div class="text-left marginTop">
-				<a href="src/main/webapp/WEB-INF/pages/login.jsp"><i class="fa fa-sign-in" aria-hidden="true"></i>
-					Đăng nhập</a> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
-				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a
-					href="guide.jsp"><i class="fa fa-book" aria-hidden="true"></i>
-					Hướng dẫn</a>
+				<a href="src/main/webapp/WEB-INF/pages/login.jsp"><i
+					class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập</a> &nbsp;
+				&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="guide.jsp"><i
+					class="fa fa-book" aria-hidden="true"></i> Hướng dẫn</a>
 			</div>
 		</div>
 		<!-- /.login-box-body -->
 	</div>
+	<%
+		}
+	%>
 	<!-- /.login-box -->
 
 	<!-- jQuery 2.2.0 -->

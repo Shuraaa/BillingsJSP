@@ -10,10 +10,16 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-
-
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+	<%
+		int role = (int) session.getAttribute("role");
+		if (session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+		} else {
+	%>
+
 	<div class="wrapper">
 
 		<!-- Include this in all index page -->
@@ -104,8 +110,35 @@
 							</div>
 
 							<div class="box-footer text-center">
+								<%
+									if (role == 0 || role == 1) {
+								%>
 								<button type="submit" class="btn btn-primary">Cập nhật
 									thông tin</button>
+								<%
+									} else if (role == 2) {
+								%>
+								<button id="confirm-box" type="submit" class="btn btn-primary"
+									disabled>Cập nhật thông tin</button>
+
+								<dialog id="confirm" class="site-dialog"> <header
+									class="dialog-header">
+								<h1>Alert</h1>
+								</header>
+								<div class="dialog-content">
+									<p>Bạn không có quyền để chỉnh sửa nội dung này !!!</p>
+								</div>
+								<div class="btn-group cf">
+									<button class="btn btn-primary" id="home">
+										<a href="index.jsp">Trang chủ</a>
+									</button>
+									<button class="btn btn-cancel" id="cancel">Cancel</button>
+								</div>
+								</dialog>
+								<%
+									}
+								%>
+
 							</div>
 
 							<div class="alert alert-success alert-dismissible">
@@ -173,8 +206,27 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
+		<%
+			}
+		%>
 	</div>
 	<!-- /.End of wrapper -->
-
+	<script>
+		(function($) {
+			'use strict';
+			var $accountDelete = $('#confirm-box'), $accountDeleteDialog = $('#confirm'), transition;
+			$accountDelete.on('click', function() {
+				$accountDeleteDialog[0].showModal();
+				transition = window.setTimeout(function() {
+					$accountDeleteDialog.addClass('dialog-scale');
+				}, 0.5);
+			});
+			$('#cancel').on('click', function() {
+				$accountDeleteDialog[0].close();
+				$accountDeleteDialog.removeClass('dialog-scale');
+				clearTimeout(transition);
+			});
+		})(jQuery);
+	</script>
 </body>
 </html>

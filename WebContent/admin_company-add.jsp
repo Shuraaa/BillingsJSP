@@ -12,6 +12,11 @@
 	name="viewport">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+	<%
+		if (session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+		} else {
+	%>
 	<div class="wrapper">
 
 		<!-- Include this in all index page -->
@@ -45,7 +50,8 @@
 							</h3>
 						</div>
 
-						<form action="#" role="form" class="form-horizontal">
+						<form action="<%=request.getContextPath()%>/ManagerCongTy"
+							role="form" class="form-horizontal">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -53,7 +59,7 @@
 									<label for="input_tenCongTi" class="col-sm-2 control-label">Tên
 										công ti: </label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_tenCongTi"
+										<input type="text" class="form-control" name="txt_tenCongTy"
 											placeholder="Tên công ti">
 									</div>
 									<label for="inputImg" class="col-sm-2 control-label">Logo:
@@ -114,18 +120,10 @@
 								</div>
 							</div>
 							<!--  -->
+							<input type="hidden" name="command" value="add">
 							<div class="box-footer text-center">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>
-							<div class="alert alert-success alert-dismissible">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">×</button>
-								<h4>
-									<i class="icon fa fa-check"></i> Chúc mừng!!!
-								</h4>
-								Thông tin công ti đã cập nhật thành công.
-							</div>
-
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->
@@ -144,6 +142,10 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
+		<%
+			}
+		%>
+
 	</div>
 	<!-- /.End of wrapper -->
 

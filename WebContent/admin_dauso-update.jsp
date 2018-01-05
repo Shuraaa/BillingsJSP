@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Extension update</title>
+<title>Headnumber update</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -35,13 +35,13 @@
 
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>Cập nhật thông tin</h1>
+			<h1>Chỉnh sửa thông tin</h1>
 			<ol class="breadcrumb">
 				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
 						BillingsSystem</a></li>
 				<li><a href="#">Quản trị hệ thống</a></li>
-				<li><a href="admin_extension.jsp">Quản lí Extension</a></li>
-				<li class="active">Cập nhật thông tin</li>
+				<li><a href="admin_dauso.jsp">Quản lí Đầu số</a></li>
+				<li class="active">Chỉnh sửa đầu số</li>
 			</ol>
 			</section>
 
@@ -53,67 +53,60 @@
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
-								<i class="fa fa-pencil-square"></i> Thông tin Extension
+								<i class="fa fa-pencil-square"></i> Thông tin Đầu số
 							</h3>
 						</div>
 
-						<form action="<%=request.getContextPath()%>/ManagerExtension"
+						<form action="<%=request.getContextPath()%>/ManagerDauso"
 							method="get" role="form" class="form-horizontal">
 							<div class="box-body">
 
 								<!-- Form group -->
 								<div class="form-group">
-									<label for="input_extension" class="col-sm-2 control-label">Extension:
-									</label>
-									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_extension"
-											placeholder="Extension name"
-											value="<%=(String) request.getAttribute("editextension")%>">
-									</div>
-								</div>
-								<!-- Form group -->
-								<div class="form-group">
-									<label for="inputDauSo" class="col-sm-2 control-label">Đầu
-										số: </label>
+									<label for="inputDauso" class="col-sm-2 control-label">
+										Đầu số: </label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_DauSo"
-											placeholder="Number"
-											value="<%=(String) request.getAttribute("editdauso")%>">
+											placeholder="Number">
 									</div>
 								</div>
+
 								<!-- Form group -->
 								<div class="form-group">
-									<label for="inputGroup" class="col-sm-2 control-label">Phòng/ban:
-									</label>
+									<label for="inputNhaMang" class="col-sm-2 control-label">
+										Nhà mạng: </label>
 									<div class="col-sm-4">
-										<select class="form-control" name="phongban">
-											<option selected="">Group name</option>
+										<input type="text" class="form-control" name="txt_NhaMang"
+											placeholder="Nhà mạng">
+									</div>
+								</div>
+
+								<!-- Form group -->
+								<div class="form-group">
+									<label for="inputCongTy" class="col-sm-2 control-label">
+										Công ti: </label>
+									<div class="col-sm-4">
+										<select class="form-control" name="congty">
+											<option selected="">Company name</option>
 
 											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
 											<%
-												String idcongty = (String) request.getAttribute("editcongtyid");
-													ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPBCongTy(idcongty);
-													for (int i = 0; i < listPhongBan.size(); i++) {
+												ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+													for (int i = 0; i < listCongTy.size(); i++) {
 											%>
-											<option selected="selected"
-												value=<%=listPhongBan.get(i).getPhongBanID()%>><%=listPhongBan.get(i).getTenPhongBan()%></option>
+											<option selected=""
+												value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
 											<%
 												}
 											%>
-
-
 										</select>
-									</div>
-									<div class="col-sm-2">
-										<a href="admin_group-add.jsp"
-											class="form-control btn btn-success">Thêm phòng/ban</a>
+
 									</div>
 								</div>
+
 							</div>
-							<input type="hidden" name="extensioncu"
-								value="<%=(String) request.getAttribute("editextension")%>"></input>
-							<input type="hidden" name="command" value="update"></input>
 							<!--  -->
+							<input type="hidden" name="command" value="add"></input>
 							<div class="box-footer text-center">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>
@@ -135,11 +128,12 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
-
 		<%
 			}
 		%>
 	</div>
 	<!-- /.End of wrapper -->
 </body>
+</html>
+
 </html>

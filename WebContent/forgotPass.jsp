@@ -46,11 +46,12 @@
 		<div class="login-box-body">
 			<p class="login-box-msg" style="font-size: 20px">Khôi phục mật
 				khẩu</p>
-
-			<form action="ForgotPass" method="post">
+			<form action="<%=request.getContextPath()%>/ForgotPassword"
+				method="POST">
 				<div class="form-group has-feedback">
-					<input type="email" id="emailInput" class="form-control"
-						placeholder="Địa chỉ Email" name="email"> <span
+					<p style="color: red"><%=error%></p>
+					<input type="text" id="usernameInput" class="form-control"
+						placeholder="Username" name="username"> <span
 						class="glyphicon glyphicon-envelope form-control-feedback text-blue"></span>
 				</div>
 				<div class="row" align="center">

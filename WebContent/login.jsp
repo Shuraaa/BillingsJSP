@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta charset="utf-8">
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+</script>
+<![endif]-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Billings SYSTEM | Login</title>
 <!-- Tell the browser to be responsive to screen width -->
@@ -44,15 +48,16 @@
 				Đăng nhập hệ thống <b>Billings</b>
 			</p>
 			<p style="color: red"><%=error%></p>
-			<form action="Login" id="loginForm" method="POST">
+			<form action="<%=request.getContextPath()%>/Login" id="loginForm"
+				method="POST">
 				<div class="form-group has-feedback">
 					<input type="text" name="username" class="form-control"
-						placeholder="Tên đăng nhập" value=""> <span
+						placeholder="Tên đăng nhập" maxlength="15"> <span
 						class="glyphicon glyphicon-envelope form-control-feedback text-blue"></span>
 				</div>
 				<div class="form-group has-feedback">
 					<input type="password" name="password" class="form-control"
-						placeholder="Mật khẩu" value=""> <span
+						placeholder="Mật khẩu" maxlength="10"> <span
 						class="glyphicon glyphicon-lock form-control-feedback text-blue"></span>
 				</div>
 				<div class="row">
@@ -65,7 +70,7 @@
 					<!-- /.col -->
 					<div class="col-xs-5">
 						<button type="submit" class="btn btn-primary btn-block"
-							value="Login">
+							value="<%=request.getContextPath()%>/Login">
 							<i class="fa fa-sign-in"></i> Đăng nhập
 						</button>
 					</div>
@@ -96,6 +101,23 @@
 				checkboxClass : 'icheckbox_flat-blue',
 				radioClass : 'iradio_flat-blue'
 			});
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			$(document).on("contextmenu", function(e) {
+				return false;
+			});
+		});
+		s
+	</script>
+	<script>
+		$(document).keydown(function(event) {
+			if (event.keyCode == 123) {
+				return false;
+			} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+				return false;
+			}
 		});
 	</script>
 </body>

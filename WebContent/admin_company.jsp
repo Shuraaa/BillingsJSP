@@ -1,4 +1,7 @@
 <%@page import="java.awt.List"%>
+<%@page import="Dao.CongTyDao"%>
+<%@page import="model.CongTy"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,6 +17,13 @@
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+	<%
+		if (session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+		} else {
+	%>
+
 	<div class="wrapper">
 
 		<!-- Include this in all index page -->
@@ -114,8 +124,8 @@
 								<tbody id="myTable">
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
 									<%
-										ArrayList<Congty> listCongTy = CongTyDao.getListCongTy();
-										for (int i = 0; i < listCongTy.size(); i++) {
+										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+											for (int i = 0; i < listCongTy.size(); i++) {
 									%>
 									<tr class="gradeA">
 										<td><%=i + 1%></td>
@@ -126,10 +136,12 @@
 										<td><%=listCongTy.get(i).getEmail()%></td>
 										<td><%=listCongTy.get(i).getDienThoai()%></td>
 										<td><%=listCongTy.get(i).getTiLeMakeUp()%></td>
-										<td><a href="<%=request.getContextPath()%>"><button
+										<td><a
+											href="<%=request.getContextPath()%>/ManagerCongTy?command=edit&congtyid=<%=listCongTy.get(i).getCongTyID()%>"><button
 													type="button"
 													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
-											&nbsp;&nbsp; <a href="<%=request.getContextPath()%>"><button
+											&nbsp;&nbsp; <a
+											href="<%=request.getContextPath()%>/ManagerCongTy?command=delete&congtyid=<%=listCongTy.get(i).getCongTyID()%>"><button
 													type="button"
 													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
 										</td>
@@ -163,6 +175,9 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
+		<%
+			}
+		%>
 	</div>
 	<!-- ./wrapper -->
 

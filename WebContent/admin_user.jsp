@@ -17,6 +17,13 @@
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+	<%
+		if (session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+		} else {
+	%>
+
 	<div class="wrapper">
 
 
@@ -114,8 +121,8 @@
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
 									<%
 										ArrayList<TaiKhoan> listTaiKhoan = TaiKhoanDao.getListTaiKhoan();
-										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-										for (int i = 0; i < listTaiKhoan.size(); i++) {
+											ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+											for (int i = 0; i < listTaiKhoan.size(); i++) {
 									%>
 									<tr class="gradeA">
 										<td><%=i + 1%></td>
@@ -124,12 +131,12 @@
 										<!-- cot ten cong ty-->
 										<%
 											for (int j = 0; j < listCongTy.size(); j++) {
-													if (listTaiKhoan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
+														if (listTaiKhoan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
 										%>
 										<td><%=listCongTy.get(j).getTenCongTy()%></td>
 										<%
 											}
-												}
+													}
 										%>
 										<!-- cot quyen-->
 										<%
@@ -191,6 +198,10 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
+
+		<%
+			}
+		%>
 	</div>
 	<!-- ./wrapper -->
 

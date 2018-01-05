@@ -17,6 +17,13 @@
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+	<%
+		if (session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+		} else {
+	%>
+
 	<div class="wrapper">
 
 
@@ -116,9 +123,9 @@
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
 									<%
 										ArrayList<Extension> listExtension = ExtensionDao.getListExtension();
-										ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
-										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-										for (int i = 0; i < listExtension.size(); i++) {
+											ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
+											ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+											for (int i = 0; i < listExtension.size(); i++) {
 									%>
 									<tr class="gradeA">
 										<td><%=i + 1%></td>
@@ -129,27 +136,28 @@
 										<!-- cot ten phong ban -->
 										<%
 											for (int j = 0; j < listPhongBan.size(); j++) {
-													if (listExtension.get(i).getPhongBanID().equals(listPhongBan.get(j).getPhongBanID())) {
+														if (listExtension.get(i).getPhongBanID().equals(listPhongBan.get(j).getPhongBanID())) {
 										%>
 										<td><%=listPhongBan.get(j).getTenPhongBan()%></td>
 										<!-- cot ten cong ty-->
 										<%
 											for (int k = 0; k < listCongTy.size(); k++) {
-															if (listPhongBan.get(j).getCongTyID().equals(listCongTy.get(k).getCongTyID())) {
+																if (listPhongBan.get(j).getCongTyID().equals(listCongTy.get(k).getCongTyID())) {
 										%>
 										<td><%=listCongTy.get(k).getTenCongTy()%></td>
 
 										<%
 											}
+															}
 														}
 													}
-												}
 										%>
-										<td><a href="<%=request.getContextPath()%>"><button
+										<td><a
+											href="<%=request.getContextPath()%>/ManagerExtension?command=edit&extensionid=<%=listExtension.get(i).getExtensionID()%>&dauso=<%=listExtension.get(i).getDauSoSuDung()%>&phongbanid=<%=listExtension.get(i).getPhongBanID()%>"><button
 													type="button"
 													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
 											&nbsp;&nbsp; <a
-											href="<%=request.getContextPath()%>/ManagerExtension?command=delete&extensionid=<%=listExtension.get(i).getExtensionID()%>""><button
+											href="<%=request.getContextPath()%>/ManagerExtension?command=delete&extensionid=<%=listExtension.get(i).getExtensionID()%>"><button
 													type="button"
 													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
 										</td>
@@ -186,6 +194,9 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
+		<%
+			}
+		%>
 	</div>
 	<!-- ./wrapper -->
 

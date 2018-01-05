@@ -18,6 +18,12 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
+	<%
+		if (session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+		} else {
+	%>
+
 	<div class="wrapper">
 
 		<!-- Include this in all index page -->
@@ -65,7 +71,7 @@
 									</div>
 									<%
 										String a = (String) request.getAttribute("errorUserName");
-										if (a != null) {
+											if (a != null) {
 									%>
 									<p style="color: red;">Tài khoản đã tồn tại</p>
 									<%
@@ -82,7 +88,7 @@
 									</div>
 									<%
 										String b = (String) request.getAttribute("errorPass");
-										if (b != null) {
+											if (b != null) {
 									%>
 									<p style="color: red;">Mật khẩu phải trùng với xác nhận mật
 										khẩu</p>
@@ -108,7 +114,7 @@
 										<select class="form-control" name="congty">
 											<%
 												ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-												for (int i = 0; i < listCongTy.size(); i++) {
+													for (int i = 0; i < listCongTy.size(); i++) {
 											%>
 											<option selected=""
 												value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
@@ -165,6 +171,9 @@
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
+		<%
+			}
+		%>
 	</div>
 	<!-- /.End of wrapper -->
 </body>

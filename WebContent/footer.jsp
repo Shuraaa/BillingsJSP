@@ -17,5 +17,24 @@
 	</div>
 	<strong>Copyright &copy; 2017 <a href="#">ATHL</a>.
 	</strong> All rights reserved. </footer>
+
+	<script>
+		$(document).ready(function() {
+			$(document).on("contextmenu", function(e) {
+				return false;
+			});
+		});
+		s
+	</script>
+	<script>
+		$(document).keydown(function(event) {
+			if (event.keyCode == 123) {
+				return false;
+			} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+				return false;
+			}
+		});
+	</script>
+
 </body>
 </html>
