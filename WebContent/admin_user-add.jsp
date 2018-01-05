@@ -125,9 +125,9 @@
 										truy cập: </label>
 									<div class="col-sm-5">
 										<select class="form-control" name="select">
-											<option selected="" value=0>admin</option>
-											<option selected="" value=1>user</option>
-											<option selected="" value=2>view</option>
+											<option selected="" value=0>Admin</option>
+											<option selected="" value=1>User</option>
+											<option selected="" value=2>Viewer</option>
 
 											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
 										</select>
