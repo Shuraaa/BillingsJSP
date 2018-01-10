@@ -62,13 +62,9 @@
 									</div>
 									<label for="inputImg" class="col-sm-2 control-label">Logo:
 									</label>
-									<div class="col-sm-1 block-img">
-										<a href="#" class="normal-img"><img
-											src="dist/img/user2-160x160.jpg" width="60" height="60"
-											></a>
-									</div>
-									<div class="col-sm-3">
-										<input type="file" class="form-control" name="input_img">
+									
+									<div class="col-sm-4">
+										<input type="file" class="form-control" name="input_img" id="input_img">
 									</div>
 								</div>
 								<!-- Form group -->
@@ -169,7 +165,11 @@
 																		},
 																		txt_dtdd : {
 																			number : true
+																		},
+																		input_img :{
+																			accept : "image/*"
 																		}
+																		
 																	},
 																	messages : {
 																		txt_tenCongTy : "Nhập vào tên công ty",
@@ -181,6 +181,9 @@
 																			number : "Nhập vào một số hợp lệ",
 																			min: "Không thể nhỏ hơn 0",
 																			max: "Không vượt quá 100"
+																		},
+																		input_img :{
+																			accept : "Vui lòng chọn file hình ảnh"
 																		}
 																	},
 																	errorElement : "em",
