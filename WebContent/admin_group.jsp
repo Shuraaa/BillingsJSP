@@ -114,7 +114,12 @@
 
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
 									<%
-										ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
+										int firstResult = 0;
+										if (request.getParameter("index") != null) {
+											firstResult = Integer.parseInt(request.getParameter("index"));
+										}
+
+										ArrayList<PhongBan> listPhongBan = PhongBanDao.getList10PhongBan(firstResult);
 										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
 										for (int i = 0; i < listPhongBan.size(); i++) {
 									%>
@@ -189,13 +194,31 @@
 
 
 						<!-- /.box-body -->
+						<!-- phan trang
+						     author: vinh phu
+						      -->
 						<div class="box-footer clearfix">
 							<ul class="pagination pagination-sm no-margin pull-right">
-								<li><a href="#">«</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">»</a></li>
+								<%
+									//get number of pages to show 
+									int pages = PhongBanDao.countPhongBanByCompany() / 10;
+									if (PhongBanDao.countPhongBanByCompany() >= 1) {
+										pages++;
+									}
+									for (int i = 0; i < pages; i++) {
+										if (firstResult / 10 == i) {
+								%>
+								<li class="active"><a
+									href="admin_group.jsp?index=<%=i * 10%>"><%=i + 1%></a></li>
+								<%
+									} else {
+								%>
+								<li><a href="admin_group.jsp?index=<%=i * 10%>"><%=i + 1%></a></li>
+								<%
+									}
+									}
+								%>
+
 							</ul>
 						</div>
 					</div>

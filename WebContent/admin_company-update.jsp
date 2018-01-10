@@ -50,7 +50,7 @@
 
 
 						<form action="ManagerCongTy" method="get" role="form"
-							class="form-horizontal">
+							class="form-horizontal" id="form">
 							<div class="box-body">
 								<!-- Form group -->
 								<div class="form-group">
@@ -61,14 +61,7 @@
 											value=<%=request.getParameter("congtyid")%>> <input
 											type="text" class="form-control" name="txt_tenCongTi_update"
 											placeholder="Tên công ti"
-											value="<%=request.getParameter("tencongty")%> required">
-										<%
-											if (request.getAttribute("name_err") != null) {
-										%>
-										<label style="color: red; size: 6px"><%=request.getAttribute("name_err")%></label>
-										<%
-											}
-										%>
+											value="<%=request.getParameter("tencongty")%>">
 									</div>
 									<label for="inputImg" class="col-sm-2 control-label">Logo:
 									</label>
@@ -162,6 +155,125 @@
 		<!-- /.Include this in all index page -->
 	</div>
 	<!-- /.End of wrapper -->
-	
+	<!-- java script -->
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							var validator = $("#form")
+									.validate(
+											{
+												rules : {
+													txt_tenCongTy : "required",
+													txt_email : {
+														required : true,
+														email : true
+													},
+													txt_makeup : {
+														number : true,
+														min:0,
+														max:100
+													},
+													txt_dtdd : {
+														number : true
+													}
+												},
+												messages : {
+													txt_tenCongTy : "Nhập vào tên công ty",
+													txt_email : {
+														required : "Nhập vào địa chỉ email",
+														email : "Địa chỉ email không hợp lệ"
+													},
+													txt_makeup : {
+														number : "Nhập vào một số hợp lệ",
+														min: "Không thể nhỏ hơn 0",
+														max: "Không vượt quá 100"
+													}
+												},
+												errorElement : "em",
+												errorPlacement : function(
+														error, element) {
+													// Add the `help-block` class to the error element
+													error
+															.addClass("help-block");
+
+													// Add `has-feedback` class to the parent div.form-group
+													// in order to add icons to inputs
+													element
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-feedback");
+
+													if (element.prop("type") === "checkbox") {
+														error
+																.insertAfter(element
+																		.parent("label"));
+													} else {
+														error
+																.insertAfter(element);
+													}
+
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!element.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
+																.insertAfter(
+																		element);
+													}
+												},
+												success : function(label,
+														element) {
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!$(element)
+															.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
+																.insertAfter(
+																		$(element));
+													}
+												},
+												highlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-error")
+															.removeClass(
+																	"has-success");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-remove")
+															.removeClass(
+																	"glyphicon-ok");
+												},
+												unhighlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-success")
+															.removeClass(
+																	"has-error");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-ok")
+															.removeClass(
+																	"glyphicon-remove");
+												}
+											});
+
+						});
+	</script>
+
 </body>
 </html>

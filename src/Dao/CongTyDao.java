@@ -1,5 +1,6 @@
 package Dao;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +12,8 @@ import java.util.Date;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import model.*;
 import connection.DatabaseSQLConnection;
+import model.CongTy;
 
 public class CongTyDao {
 	private static ArrayList<CongTy> listCongTy;
@@ -28,7 +29,7 @@ public class CongTyDao {
 			while (rs.next()) {
 				String congTyID = rs.getString("congtyID");
 				String ten_congty = rs.getString("ten_congty");
-				String logo = rs.getString("logo");
+				Blob logo = rs.getBlob("logo");
 				String maso_thue = rs.getString("maso_thue");
 				String dia_chi = rs.getString("dia_chi");
 				String dienthoai = rs.getString("dienthoai");
@@ -100,7 +101,6 @@ public class CongTyDao {
 			Connection conn = DatabaseSQLConnection.getConnection();
 			String sql = "insert into congty values (?,?,?,?,?,?,?,?);";
 			PreparedStatement pre = (PreparedStatement) conn.prepareStatement(sql);
-			CongTyDao ctDAO = new CongTyDao();
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 			// tạo 1 đối tượng có định dạng thời gian yyyy-MM-dd HH:mm:ss
 			Date date = new Date(); // lấy thời gian hệ thống
@@ -108,7 +108,7 @@ public class CongTyDao {
 														// theo trên
 			pre.setString(1, stringDate);
 			pre.setString(2, congTy.getTenCongTy());
-			pre.setString(3, congTy.getLogo());
+			pre.setBlob(3, congTy.getLogo());
 			pre.setString(4, congTy.getMaSoThue());
 			pre.setString(5, congTy.getDiaChi());
 			pre.setString(6, congTy.getDienThoai());
@@ -150,13 +150,58 @@ public class CongTyDao {
 		}
 	}
 
+	// author: vinh
+	public static ArrayList<CongTy> getList10CongTy(int firstResult)
+			throws SQLException {
+		Connection connection = DatabaseSQLConnection.getConnection();
+		String sql = "SELECT * FROM congty limit ?,10";
+		PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
+		ps.setInt(1, firstResult);
+		ResultSet rs = ps.executeQuery();
+		ArrayList<CongTy> list = new ArrayList<>();
+		while (rs.next()) {
+			String congTyID = rs.getString("congtyID");
+			String ten_congty = rs.getString("ten_congty");
+			Blob logo = rs.getBlob("logo");
+			String maso_thue = rs.getString("maso_thue");
+			String dia_chi = rs.getString("dia_chi");
+			String dienthoai = rs.getString("dienthoai");
+			String email = rs.getString("email");
+			double ti_le_make_up = rs.getDouble("ti_le_make_up");
+			list.add(new CongTy(congTyID, ten_congty, logo, maso_thue, dia_chi, dienthoai, email, ti_le_make_up));
+		}
+		ps.close();
+		connection.close();
+		return list;
+	}
+
+	public static int countAllOfCompany() {
+		Connection connection = DatabaseSQLConnection.getConnection();
+		String sql = "SELECT count(congtyID) FROM congty";
+		int numberOfCompany = 0;
+		try {
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				numberOfCompany = rs.getInt(1);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return numberOfCompany;
+	}
+
 	// Test
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		// System.out.println(addCongTy((new CongTy("", "c", "c", "c", "c", "c",
 		// "c", 0.1))));
-		System.out.println(getListCongTy());
-		System.out.println(updateCongTy(new CongTy("20171215111239", "edited", "edited", "", "", "", "", 0.3)));
-		System.out.println(getListCongTy());
+		System.out.println(getList10CongTy(0));
+		// System.out.println(updateCongTy(new CongTy("20171215111239", "edited",
+		// "edited", "", "", "", "", 0.3)));
+		//System.out.println(countAllOfCompany());
 
 	}
 }

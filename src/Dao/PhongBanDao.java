@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.mysql.jdbc.PreparedStatement;
 
+import model.DauSo;
 import model.PhongBan;
 import model.TaiKhoan;
 import connection.DatabaseSQLConnection;
@@ -86,11 +87,47 @@ public class PhongBanDao {
 			}
 			return false;
 		}
-		public static void main(String[] args) {
-			PhongBanDao a = new PhongBanDao();
-			a.updatePhongBan("pb04", "phongban4");
-//			System.out.println(a.themPhongBan(new PhongBan("pb12", "phngban12", "ct01")));
-//			System.out.println(a.xoaPhongBan("pb02"));
-			//System.out.println(a.addTaiKhoan("sad", "a", 1, "ct02"));
+		// author: vinh
+				public static ArrayList<PhongBan> getList10PhongBan(int firstResult)
+						throws SQLException {
+					Connection connection = DatabaseSQLConnection.getConnection();
+					String sql = "SELECT * FROM phongban order by congtyID limit ?,10 ";
+					PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
+					//ps.setString(1, congtyID);
+					ps.setInt(1, firstResult);
+					ResultSet rs = ps.executeQuery();
+					ArrayList<PhongBan> list = new ArrayList<>();
+					while (rs.next()) {
+						String phongBanID = rs.getString("phongbanID");
+						String congTyID = rs.getString("congtyID");
+						String tenPhongBan = rs.getString("ten_phongban");
+						list.add(new PhongBan(phongBanID, tenPhongBan, congTyID));
+					}
+					ps.close();
+					connection.close();
+					return list;
+				}
+
+				public static int countPhongBanByCompany() {
+					Connection connection = DatabaseSQLConnection.getConnection();
+					String sql = "select count(phongbanID) from phongban";
+					int numberOfCompany = 0;
+					try {
+						Statement st = connection.createStatement();
+						ResultSet rs = st.executeQuery(sql);
+						while (rs.next()) {
+							numberOfCompany = rs.getInt(1);
+
+						}
+
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return numberOfCompany;
+				}
+		public static void main(String[] args) throws SQLException {
+		System.out.println(getList10PhongBan(0));
+            //System.out.println(countPhongBanByCompany());
 		}
 }

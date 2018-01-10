@@ -1,7 +1,11 @@
+<%@page import="java.io.InputStream"%>
 <%@page import="Dao.CongTyDao"%>
 <%@page import="model.CongTy"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.awt.List"%>
+<%@page import="java.sql.Blob"%>
+<%@page import="java.io.*"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -99,7 +103,7 @@
 						<!-- /.box-header -->
 						<div class="box-body no-padding">
 							<table id="datatable-responsive"
-								class="table table-striped table-bordered dt-responsive nowrap"
+								class="table table-striped table-bordered dt-responsive nowrap table-hover"
 								cellspacing="0" width="100%">
 								<thead>
 									<tr>
@@ -107,17 +111,23 @@
 										<th>Tên công ti</th>
 										<th>Địa chỉ</th>
 										<th>Mã số thuế( Mã khách hàng)</th>
-										<th>Logo</th>
 										<th>Email</th>
 										<th>ĐTDĐ</th>
 										<th>Make-up(%)</th>
+										<th>Logo</th>
 										<th>Tác vụ</th>
 									</tr>
 								</thead>
 								<tbody id="myTable">
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
+									<!-- phân trang -->
 									<%
-										ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+										int firstResult = 0;
+										if (request.getParameter("index") != null) {
+											firstResult = Integer.parseInt(request.getParameter("index"));
+										}
+
+										ArrayList<CongTy> listCongTy = CongTyDao.getList10CongTy(firstResult);
 										for (int i = 0; i < listCongTy.size(); i++) {
 									%>
 									<tr class="gradeA">
@@ -125,20 +135,23 @@
 										<td><%=listCongTy.get(i).getTenCongTy()%></td>
 										<td><%=listCongTy.get(i).getDiaChi()%></td>
 										<td><%=listCongTy.get(i).getMaSoThue()%></td>
-										<td><%=listCongTy.get(i).getLogo()%></td>
 										<td><%=listCongTy.get(i).getEmail()%></td>
 										<td><%=listCongTy.get(i).getDienThoai()%></td>
 										<td><%=listCongTy.get(i).getTiLeMakeUp()%></td>
+										<td><img class="img-responsive img-thumbnail"
+											src="ManagerDisplayImg?congtyid=<%=listCongTy.get(i).getCongTyID()%>" width ="40px" height="40px"
+											></td>
 										<td><a
 											href="admin_company-update.jsp?congtyid=<%=listCongTy.get(i).getCongTyID()%>&tencongty=<%=listCongTy.get(i).getTenCongTy()%>&diachi=<%=listCongTy.get(i).getDiaChi()%>"><button
 													type="button"
 													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
-											&nbsp;&nbsp; <a
-											href="<%=request.getContextPath()%>/ManagerCongTy?command=delete&congtyid=<%=listCongTy.get(i).getCongTyID()%>"><button
-													type="button"
-													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
-										</td>
+											&nbsp;&nbsp; <a href="#" class="linkDelete"><button
+													type="button" id="<%=i + 1%>"
+													onclick="clickBt($(this).val())"
+													class="btn btn-danger glyphicon glyphicon-trash "
+													value="<%=listCongTy.get(i).getCongTyID()%>"></button></a></td>
 									</tr>
+
 									<%
 										}
 									%>
@@ -146,14 +159,33 @@
 							</table>
 						</div>
 
+
+						<!-- phan trang
+						     author: vinh phu
+						      -->
 						<!-- /.box-body -->
 						<div class="box-footer clearfix">
 							<ul class="pagination pagination-sm no-margin pull-right">
-								<li><a href="#">«</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">»</a></li>
+								<%
+									//get number of pages to show 
+									int pages = CongTyDao.countAllOfCompany() / 10;
+									if (CongTyDao.countAllOfCompany() % 10 >= 1) {
+										pages++;
+									}
+									for (int i = 0; i < pages; i++) {
+										if (firstResult / 10 == i) {
+								%>
+								<li class="active"><a
+									href="admin_company.jsp?index=<%=i * 10%>"><%=i + 1%></a></li>
+								<%
+									} else {
+								%>
+								<li><a href="admin_company.jsp?index=<%=i * 10%>"><%=i + 1%></a></li>
+								<%
+									}
+									}
+								%>
+
 							</ul>
 						</div>
 					</div>
@@ -164,6 +196,7 @@
 		</div>
 		<!-- /.content-wrapper -->
 
+
 		<!-- ---FOOTER--- -->
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
@@ -173,6 +206,9 @@
 
 	<!-- REQUIRED JS SCRIPTS -->
 	<!-- Search item in table -->
+	<script type="text/javascript" src="js/jquery-ui.js">
+		
+	</script>
 	<script>
 		$(document)
 				.ready(
@@ -196,7 +232,25 @@
 																									value) > -1)
 																});
 											});
+							/*$(".btnDelete")
+									.click(
+											function() {
+												if (confirm("Bạn có chắc chắn muốn xóa?"+$(".btnDelete").val())) {
+													$(".linkDelete")
+															.attr(
+																	"href",
+																	"ManagerCongTy?command=delete&congtyid="
+																			+ $("#btnDelete").val());
+												}
+											});*/
+
 						});
+		function clickBt(text) {
+			if (confirm("Bạn có chắc chắn muốn xóa?") == true) {
+				$(".linkDelete").attr("href",
+						"ManagerCongTy?command=delete&congtyid=" + text);
+			}
+		}
 	</script>
 </body>
 </html>

@@ -14,7 +14,9 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -52,7 +54,7 @@
 						</div>
 
 						<form action="<%=request.getContextPath()%>/ManagerTaiKhoan"
-							method="post" role="form" class="form-horizontal">
+							method="post" role="form" class="form-horizontal" id="form">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -61,7 +63,7 @@
 										tài khoản: </label>
 									<div class="col-sm-5">
 										<input type="text" class="form-control" name="username"
-											placeholder="Username">
+											placeholder="Username" id="username">
 									</div>
 									<%
 										String a = (String) request.getAttribute("errorUserName");
@@ -78,7 +80,7 @@
 										khẩu: </label>
 									<div class="col-sm-5">
 										<input type="password" class="form-control" name="password"
-											placeholder="Password">
+											placeholder="Password" id="password">
 									</div>
 									<%
 										String b = (String) request.getAttribute("errorPass");
@@ -97,7 +99,7 @@
 										nhận mật khẩu: </label>
 									<div class="col-sm-5">
 										<input type="password" class="form-control" name="pwd_confirm"
-											placeholder="Confirm Password">
+											placeholder="Confirm Password" id="pwd_confirm">
 									</div>
 								</div>
 								<!-- Form group -->
@@ -126,7 +128,7 @@
 										<select class="form-control" name="select">
 											<option selected="" value=0>admin</option>
 											<option selected="" value=1>user</option>
-											<option selected="" value=2>view</option>
+											<option selected="" value=2>viewer</option>
 
 											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
 										</select>
@@ -167,5 +169,118 @@
 		<!-- /.Include this in all index page -->
 	</div>
 	<!-- /.End of wrapper -->
+	<!-- java script -->
+	
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							var validator = $("#form")
+									.validate(
+											{
+												rules : {
+													username : "required",
+													password : {
+													   required: true,
+													   minlength: 6
+													},
+													pwd_confirm:{
+														 equalTo: "#password"
+													}
+												},
+												messages : {
+													username : "Nhập vào tài khoản người dùng",
+													password : {
+														required: "Nhập vào mật khâ",
+														minlength: "Mật khẩu ít nhất 6 kí tự"}
+												
+												},
+												errorElement : "em",
+												errorPlacement : function(
+														error, element) {
+													// Add the `help-block` class to the error element
+													error
+															.addClass("help-block");
+
+													// Add `has-feedback` class to the parent div.form-group
+													// in order to add icons to inputs
+													element
+															.parents(
+																	".col-sm-5")
+															.addClass(
+																	"has-feedback");
+
+													if (element.prop("type") === "checkbox") {
+														error
+																.insertAfter(element
+																		.parent("label"));
+													} else {
+														error
+																.insertAfter(element);
+													}
+
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!element.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
+																.insertAfter(
+																		element);
+													}
+												},
+												success : function(label,
+														element) {
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!$(element)
+															.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
+																.insertAfter(
+																		$(element));
+													}
+												},
+												highlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-5")
+															.addClass(
+																	"has-error")
+															.removeClass(
+																	"has-success");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-remove")
+															.removeClass(
+																	"glyphicon-ok");
+												},
+												unhighlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-5")
+															.addClass(
+																	"has-success")
+															.removeClass(
+																	"has-error");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-ok")
+															.removeClass(
+																	"glyphicon-remove");
+												}
+											});
+
+						});
+		$(function() {
+			$("#dialog").dialog();
+		});
+	</script>
 </body>
 </html>
