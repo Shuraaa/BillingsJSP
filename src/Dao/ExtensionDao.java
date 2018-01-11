@@ -127,7 +127,7 @@ public class ExtensionDao {
 					}
 					return listexphongban;
 				}
-				// get extension cua phong ban
+				// get extension cua CONG TY
 		public static ArrayList<Extension> getListEXCongTy(String congtyid) {
 					ArrayList<Extension> listexcongty = new ArrayList<>();
 
@@ -150,6 +150,29 @@ public class ExtensionDao {
 					}
 					return listexcongty;
 			}
+		// get extension cua phong ban
+		public static ArrayList<Extension> getListEXDauSo(String dauso) {
+			ArrayList<Extension> listexdauso = new ArrayList<>();
+
+			try {
+				Connection connection = DatabaseSQLConnection.getConnection();
+				Statement statement = connection.createStatement();
+				String sql = "SELECT * FROM extension where dauso_sudung ='"+dauso+"';";
+				ResultSet rs = statement.executeQuery(sql);
+				while (rs.next()) {
+					String extensionID = rs.getString("extensionID");
+					String tenNguoiDung = rs.getString("tennguoidung");
+					String dauSoSuDung = rs.getString("dauso_sudung");
+					String phongBanID = rs.getString("phongbanID");
+					listexdauso.add(new Extension(extensionID, tenNguoiDung, dauSoSuDung, phongBanID) );
+				}
+				statement.close();
+				connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return listexdauso;
+		}
 			public static void main(String[] args) {
 				ExtensionDao a = new ExtensionDao();
 				//a.xoaExtension("842100");

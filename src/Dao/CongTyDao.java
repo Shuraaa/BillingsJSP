@@ -79,7 +79,28 @@ public class CongTyDao {
 		}
 
 	}
+	// lay ra ti le make up cua cong ty
+	public static double getTiLeMakeUp(String idcongty) {
+			double tile_makeup =0;
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "select ct.ti_le_make_up from congty ct where ct.congtyID = '"+idcongty+"';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				tile_makeup = rs.getDouble("ti_le_make_up");
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		// listTaiKhoan.add(new TaiKhoan("admin", "123", 1, "cty1"));
+		// listTaiKhoan.add(new TaiKhoan("nguoidung", "123", 1, "cty2"));
+		//
+		return tile_makeup;
+	}
 	// Test
 	public static void main(String[] args) {
 		// TaiKhoanDao.deleteTaiKhoan("admin");

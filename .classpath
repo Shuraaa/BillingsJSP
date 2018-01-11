@@ -13,6 +13,7 @@
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/commons-io-2.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.38.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/sqljdbc42.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/iText-5.0.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

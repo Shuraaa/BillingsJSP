@@ -118,6 +118,30 @@ public class DauSoDao {
 				}
 				return listDS.size()==1;
 			}
+			
+			// lấy ra list đầu số tương ứng với nha mang
+			public static ArrayList<DauSo> getListDauSoNhaMang(String nhamang) {
+				ArrayList<DauSo> listDS = new ArrayList<>();
+				// Them cac don hang vao danh sach bang cach thu cong
+
+				try {
+					Connection connection = DatabaseSQLConnection.getConnection();
+					Statement statement = connection.createStatement();
+					String sql = "SELECT * FROM dauso where nhamang_id='"+nhamang+"' ;";
+					ResultSet rs = statement.executeQuery(sql);
+					while (rs.next()) {
+						String dauSoSuDung = rs.getString("dauso_sudung");
+						String congtyID = rs.getString("congtyID");
+						String nhamangID = rs.getString("nhamang_ID");
+						listDS.add(new DauSo(dauSoSuDung, congtyID, nhamangID));
+					}
+					statement.close();
+					connection.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return listDS;
+			}
 
 	// Test
 	public static void main(String[] args) {
