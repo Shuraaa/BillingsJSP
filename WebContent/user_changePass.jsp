@@ -15,6 +15,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 	<%
+		int role = (int) session.getAttribute("role");
 		if (session.getAttribute("username") == null) {
 			response.sendRedirect("login.jsp");
 		} else {
@@ -46,8 +47,8 @@
 			<section class="content-header">
 			<h1>Thông tin công ti</h1>
 			<ol class="breadcrumb">
-				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
-						BillingsSystem</a></li>
+				<li><a href="<%=request.getContextPath()%>/index.jsp"><i
+						class="fa fa-dashboard"></i> BillingsSystem</a></li>
 				<li><a href="#">Thông tin công ti</a></li>
 				<li class="active">Đổi mật khẩu</li>
 			</ol>
@@ -100,12 +101,39 @@
 
 							<!-- /.box-body -->
 							<div class="box-footer">
-								<a href="index.jsp" class="btn btn-danger"> <i
-									class="fa fa-remove"></i> Hủy
+								<a href="<%=request.getContextPath()%>/index.jsp"
+									class="btn btn-danger"> <i class="fa fa-remove"></i> Hủy
 								</a>
+								<%
+									if (role == 0 || role == 1) {
+								%>
 								<button class="btn btn-primary pull-right" type="submit">
 									<i class="fa fa-refresh"></i> Đổi mật khẩu
 								</button>
+								<%
+									} else if (role == 2) {
+								%><button class="btn btn-primary pull-right" type="submit"
+									disabled>
+									<i class="fa fa-refresh"></i> Đổi mật khẩu
+								</button>
+								<dialog id="confirm" class="site-dialog"> <header
+									class="dialog-header">
+								<h1>Alert</h1>
+								</header>
+								<div class="dialog-content">
+									<p>Bạn không có quyền để chỉnh sửa nội dung này !!!</p>
+								</div>
+								<div class="btn-group cf">
+									<button class="btn btn-primary" id="home">
+										<a href="<%=request.getContextPath()%>/index.jsp">Trang
+											chủ</a>
+									</button>
+									<button class="btn btn-cancel" id="cancel">Cancel</button>
+								</div>
+								</dialog>
+								<%
+									}
+								%>
 							</div>
 						</form>
 						<!-- /.box-body -->

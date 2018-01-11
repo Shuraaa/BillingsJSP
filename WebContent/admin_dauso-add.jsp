@@ -57,7 +57,7 @@
 							</h3>
 						</div>
 
-						<form action="<%=request.getContextPath()%>/ManagerDauso"
+						<form action="<%=request.getContextPath()%>/ManagerDauSo"
 							method="get" role="form" class="form-horizontal">
 							<div class="box-body">
 
@@ -69,18 +69,31 @@
 										<input type="text" class="form-control" name="txt_DauSo"
 											placeholder="Number">
 									</div>
+									<%
+										String errordauso = (String) request.getAttribute("errordauso");
+											if (errordauso != null) {
+									%>
+									<p style="color: red;"><%=errordauso%></p>
+									<%
+										}
+									%>
 								</div>
 
 								<!-- Form group -->
 								<div class="form-group">
-									<label for="inputNhaMang" class="col-sm-2 control-label">
+									<label for="inputCongTy" class="col-sm-2 control-label">
 										Nhà mạng: </label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_NhaMang"
-											placeholder="Nhà mạng">
+										<select class="form-control" name="nhamang">
+											<option selected="" value="FPT">FPT</option>
+											<option selected="" value="CMC">CMC</option>
+
+										</select>
+
 									</div>
 								</div>
 
+								<!--  -->
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="inputCongTy" class="col-sm-2 control-label">

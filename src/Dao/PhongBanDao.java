@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import model.PhongBan;
+import model.*;
 import connection.DatabaseSQLConnection;
 
 public class PhongBanDao {
@@ -17,7 +17,6 @@ public class PhongBanDao {
 	public static ArrayList<PhongBan> getListPhongBan() {
 		listPhongBan = new ArrayList<>();
 		// Them cac don hang vao danh sach bang cach thu cong
-
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
@@ -44,7 +43,6 @@ public class PhongBanDao {
 		String sql = "update phongban set ten_phongban='" + tenPhongBanUpdate + "'" + "where phongbanID='" + idphongban
 				+ "'";
 		try {
-
 			PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
 			ps.executeUpdate();
 			System.out.println("thanh cmn cong");
@@ -52,7 +50,6 @@ public class PhongBanDao {
 
 			e.printStackTrace();
 		}
-
 	}
 
 	// insert
@@ -61,7 +58,6 @@ public class PhongBanDao {
 		String sql = "  insert into phongban values ('" + pb.getPhongBanID() + "','" + pb.getTenPhongBan() + "','"
 				+ pb.getCongTyID() + "');";
 		try {
-
 			PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
 			ps.executeUpdate();
 			System.out.println("thanh cmn cong");
@@ -94,7 +90,6 @@ public class PhongBanDao {
 	// get phong ban cua cong ty
 	public static ArrayList<PhongBan> getListPBCongTy(String congtyid) {
 		ArrayList<PhongBan> listpbcongty = new ArrayList<>();
-		// Them cac don hang vao danh sach bang cach thu cong
 
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
@@ -115,13 +110,86 @@ public class PhongBanDao {
 		return listpbcongty;
 	}
 
-	public static void main(String[] args) {
-		PhongBanDao a = new PhongBanDao();
-		a.updatePhongBan("pb04", "phongban4");
-		System.out.println(a.getListPBCongTy("ct01").size());
-		// System.out.println(a.themPhongBan(new PhongBan("pb12", "phngban12",
-		// "ct01")));
-		// System.out.println(a.xoaPhongBan("pb02"));
-		// System.out.println(a.addTaiKhoan("sad", "a", 1, "ct02"));
+	// kiểm tra phòng ban nhập vào đã tồn tại hay không
+	public static boolean kiemTraPhongBan(String congtyid, String tenphongban) {
+		ArrayList<PhongBan> listPB = new ArrayList<>();
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "SELECT * FROM phongban where congtyID='" + congtyid + "'and ten_phongban='" + tenphongban
+					+ "';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String phongBanID = rs.getString("phongbanID");
+				String tenPhongBan = rs.getString("ten_phongban");
+				String congtyID = rs.getString("congtyID");
+				listPB.add(new PhongBan(phongBanID, tenPhongBan, congtyID));
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listPB.size() == 1;
+	}
+
+	// lấy id cong ty khi biết phòng ban
+	public static String getIDCongTy(String phongbanid) {
+		String congtyID = "";
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "SELECT * FROM phongban where phongbanID='" + phongbanid + "';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String phongBanID = rs.getString("phongbanID");
+				String tenPhongBan = rs.getString("ten_phongban");
+				congtyID = rs.getString("congtyID");
+				// listPB.add(new PhongBan(phongBanID, tenPhongBan, congtyID) );
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return congtyID;
+	}
+
+	// author: vinh
+	public static ArrayList<PhongBan> getList20PhongBan(int firstResult) throws SQLException {
+		Connection connection = DatabaseSQLConnection.getConnection();
+		String sql = "SELECT * FROM phongban order by congtyID limit ?,20 ";
+		PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
+		// ps.setString(1, congtyID);
+		ps.setInt(1, firstResult);
+		ResultSet rs = ps.executeQuery();
+		ArrayList<PhongBan> list = new ArrayList<>();
+		while (rs.next()) {
+			String phongBanID = rs.getString("phongbanID");
+			String congTyID = rs.getString("congtyID");
+			String tenPhongBan = rs.getString("ten_phongban");
+			list.add(new PhongBan(phongBanID, tenPhongBan, congTyID));
+		}
+		ps.close();
+		connection.close();
+		return list;
+	}
+
+	public static int countPhongBanByCompany() {
+		Connection connection = DatabaseSQLConnection.getConnection();
+		String sql = "select count(phongbanID) from phongban";
+		int numberOfCompany = 0;
+		try {
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				numberOfCompany = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return numberOfCompany;
 	}
 }

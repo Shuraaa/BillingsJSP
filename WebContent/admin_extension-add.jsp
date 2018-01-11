@@ -53,6 +53,7 @@
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
+
 								<i class="fa fa-pencil-square"></i> Thông tin Extension
 							</h3>
 						</div>
@@ -60,97 +61,130 @@
 						<form action="<%=request.getContextPath()%>/ManagerExtension"
 							method="get" role="form" class="form-horizontal">
 							<div class="box-body">
+								<form action="<%=request.getContextPath()%>/ManagerExtension"
+									method="get" role="form" class="form-horizontal">
 
+									<%
+										String idcongty = (String) request.getAttribute("choncongty");
+											if ((idcongty == null)) {
+									%>
+									<!-- Form group -->
+									<div class="form-group">
+										<label for="inputCompany" class="col-sm-2 control-label">Chọn
+											công ti: </label>
+										<div class="col-sm-4">
+											<select class="form-control" name="congty">
+												<option selected="">Company name</option>
+
+												<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+												<%
+													ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+															for (int i = 0; i < listCongTy.size(); i++) {
+												%>
+												<option selected=""
+													value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
+												<%
+													}
+												%>
+											</select>
+
+										</div>
+										<input type="hidden" name="command" value="choncongty"></input>
+										<div class="col-sm-2">
+											<button type="submit" class="btn btn-primary">Xác
+												nhận</button>
+										</div>
+										<div class="col-sm-2">
+											<a href="admin_company-add.jsp"
+												class="form-control btn btn-success">Thêm công ti</a>
+										</div>
+									</div>
+								</form>
 								<%
-									String idcongty = (String) request.getAttribute("choncongty");
-										if ((idcongty == null)) {
+									} else {
 								%>
-
 								<!-- Form group -->
 								<div class="form-group">
-									<label for="inputCompany" class="col-sm-2 control-label">Chọn
-										công ti: </label>
+									<label for="input_extension" class="col-sm-2 control-label">Extension:
+									</label>
 									<div class="col-sm-4">
-										<select class="form-control" name="congty">
-											<option selected="">Company name</option>
-
-											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
-											<%
-												ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-														for (int i = 0; i < listCongTy.size(); i++) {
-											%>
-											<option selected=""
-												value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
-											<%
-												}
-											%>
-										</select>
-
+										<input type="text" class="form-control" name="txt_extension"
+											placeholder="Extension name">
 									</div>
-									<input type="hidden" name="command" value="choncongty"></input>
-									<div class="col-sm-2">
-										<button type="submit" class="btn btn-primary">Xác
-											nhận</button>
-									</div>
-									<div class="col-sm-2">
-										<a href="admin_company-add.jsp"
-											class="form-control btn btn-success">Thêm công ti</a>
-									</div>
-								</div>
-						</form>
-						<%
-							} else {
-						%>
-						<!-- Form group -->
-						<div class="form-group">
-							<label for="input_extension" class="col-sm-2 control-label">Extension:
-							</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" name="txt_extension"
-									placeholder="Extension name">
-							</div>
-						</div>
-						<!-- Form group -->
-						<div class="form-group">
-							<label for="inputDauSo" class="col-sm-2 control-label">Đầu
-								số: </label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" name="txt_DauSo"
-									placeholder="Number">
-							</div>
-						</div>
-						<!-- Form group -->
-						<div class="form-group">
-							<label for="inputGroup" class="col-sm-2 control-label">Phòng/ban:
-							</label>
-							<div class="col-sm-4">
-								<select class="form-control" name="phongban">
-									<option selected="">Group name</option>
-
-									<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+									<!-- xử lý ngoại lệ extension-->
 									<%
-										ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPBCongTy(idcongty);
-												for (int i = 0; i < listPhongBan.size(); i++) {
+										String errorextension = (String) request.getAttribute("errorextension");
+												if (errorextension != null) {
 									%>
-									<option selected="selected"
-										value=<%=listPhongBan.get(i).getPhongBanID()%>><%=listPhongBan.get(i).getTenPhongBan()%></option>
+									<p style="color: red;"><%=errorextension%></p>
 									<%
 										}
 									%>
+								</div>
 
-								</select>
-							</div>
-							<div class="col-sm-2">
-								<a href="admin_group-add.jsp"
-									class="form-control btn btn-success">Thêm phòng/ban</a>
-							</div>
-						</div>
-						<!--  -->
-						<input type="hidden" name="command" value="add"></input>
-						<div class="box-footer text-center">
-							<button type="submit" class="btn btn-primary">Xác nhận</button>
-						</div>
+								<!-- Form group -->
+								<div class="form-group">
+									<label for="inputGroup" class="col-sm-2 control-label">Đầu
+										số: </label>
+									<div class="col-sm-4">
+										<select class="form-control" name="txt_DauSo">
+											<option selected="">Group name</option>
 
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<%
+												ArrayList<DauSo> listDauSo = DauSoDao.getListDauSoCongTy(idcongty);
+														for (int i = 0; i < listDauSo.size(); i++) {
+											%>
+											<option selected="selected"
+												value=<%=listDauSo.get(i).getDauSoSuDung()%>><%=listDauSo.get(i).getDauSoSuDung()%></option>
+											<%
+												}
+											%>
+
+										</select>
+									</div>
+								</div>
+
+								<!--  -->
+								<div class="form-group">
+									<label for="inputGroup" class="col-sm-2 control-label">Phòng/ban:
+									</label>
+									<div class="col-sm-4">
+										<select class="form-control" name="phongban">
+											<option selected="">Group name</option>
+
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<%
+												ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPBCongTy(idcongty);
+														for (int i = 0; i < listPhongBan.size(); i++) {
+											%>
+											<option selected="selected"
+												value=<%=listPhongBan.get(i).getPhongBanID()%>><%=listPhongBan.get(i).getTenPhongBan()%></option>
+											<%
+												}
+											%>
+
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<a href="admin_group-add.jsp"
+											class="form-control btn btn-success">Thêm phòng/ban</a>
+									</div>
+								</div>
+
+								<!--  -->
+								<input type="hidden" name="command" value="add"></input>
+								<div class="box-footer text-center">
+									<button type="submit" class="btn btn-primary">Xác nhận</button>
+								</div>
+								<div class="alert alert-success alert-dismissible">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-hidden="true">×</button>
+									<h4>
+										<i class="icon fa fa-check"></i> Chúc mừng!!!
+									</h4>
+									Thông tin đã cập nhật thành công.
+								</div>
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->

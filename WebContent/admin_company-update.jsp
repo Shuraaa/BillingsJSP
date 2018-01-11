@@ -10,6 +10,8 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -35,7 +37,8 @@
 				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
 						BillingsSystem</a></li>
 				<li><a href="#">Quản trị hệ thống</a></li>
-				<li><a href="admin_company.jsp">Quản lí công ti</a></li>
+				<li><a href="<%=request.getContextPath()%>/admin_company.jsp">Quản
+						lí công ti</a></li>
 				<li class="active">Cập nhật thông tin</li>
 			</ol>
 			</section>
@@ -52,16 +55,19 @@
 							</h3>
 						</div>
 
-						<form action="#" role="form" class="form-horizontal">
+						<form action="<%=request.getContextPath()%>/ManagerCongTy"
+							method="get" role="form" class="form-horizontal" id="form">
 							<div class="box-body">
-
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="input_tenCongTi" class="col-sm-2 control-label">Tên
 										công ti: </label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_tenCongTi"
-											placeholder="Tên công ti">
+										<input type="hidden" name="congTyID_update"
+											value=<%=request.getParameter("congtyid")%>> <input
+											type="text" class="form-control" name="txt_tenCongTi_update"
+											placeholder="Tên công ti"
+											value="<%=request.getParameter("tencongty")%>">
 									</div>
 									<label for="inputImg" class="col-sm-2 control-label">Logo:
 									</label>
@@ -79,8 +85,9 @@
 									<label for="inputDiaChi" class="col-sm-2 control-label">Địa
 										chỉ: </label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_DiaChi"
-											placeholder="Địa chỉ">
+										<input type="text" class="form-control"
+											name="txt_DiaChi_update" placeholder="Địa chỉ"
+											value="<%=request.getParameter("diachi")%>">
 									</div>
 									<label for="inputMST" class="col-sm-2 control-label">Mã
 										số thuế: </label>
@@ -122,8 +129,18 @@
 							</div>
 							<!--  -->
 							<div class="box-footer text-center">
+								<input type="hidden" name="command" value="edit">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>
+							<div class="alert alert-success alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-hidden="true">×</button>
+								<h4>
+									<i class="icon fa fa-check"></i> Chúc mừng!!!
+								</h4>
+								Thông tin công ti đã cập nhật thành công.
+							</div>
+
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->
@@ -147,5 +164,119 @@
 		%>
 	</div>
 	<!-- /.End of wrapper -->
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							var validator = $("#form")
+									.validate(
+											{
+												rules : {
+													txt_tenCongTy : "required",
+													txt_email : {
+														required : true,
+														email : true
+													},
+													txt_makeup : {
+														number : true,
+														min : 0,
+														max : 100
+													},
+													txt_dtdd : {
+														number : true
+													}
+												},
+												messages : {
+													txt_tenCongTy : "Nhập vào tên công ty",
+													txt_email : {
+														required : "Nhập vào địa chỉ email",
+														email : "Địa chỉ email không hợp lệ"
+													},
+													txt_makeup : {
+														number : "Nhập vào một số hợp lệ",
+														min : "Không thể nhỏ hơn 0",
+														max : "Không vượt quá 100"
+													}
+												},
+												errorElement : "em",
+												errorPlacement : function(
+														error, element) {
+													// Add the `help-block` class to the error element
+													error
+															.addClass("help-block");
+													// Add `has-feedback` class to the parent div.form-group
+													// in order to add icons to inputs
+													element
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-feedback");
+													if (element.prop("type") === "checkbox") {
+														error
+																.insertAfter(element
+																		.parent("label"));
+													} else {
+														error
+																.insertAfter(element);
+													}
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!element.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
+																.insertAfter(
+																		element);
+													}
+												},
+												success : function(label,
+														element) {
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!$(element)
+															.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
+																.insertAfter(
+																		$(element));
+													}
+												},
+												highlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-error")
+															.removeClass(
+																	"has-success");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-remove")
+															.removeClass(
+																	"glyphicon-ok");
+												},
+												unhighlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-success")
+															.removeClass(
+																	"has-error");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-ok")
+															.removeClass(
+																	"glyphicon-remove");
+												}
+											});
+						});
+	</script>
 </body>
 </html>

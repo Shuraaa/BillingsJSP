@@ -50,63 +50,20 @@
 			<section class="content">
 			<div class="row">
 
-				<!--  -->
-				<div class="col-sm-7 pull-left">
-					<div class="box box-primary">
-
-						<div class="box-header with-border">
-							<h3 class="box-title">
-								<i class="glyphicon glyphicon-search"></i> Search
-							</h3>
-						</div>
-						<form action="#" class="form-horizontal">
-							<div class="box-body">
-								<input class="form-control" id="myInput" type="text"
-									placeholder="Search...">
-							</div>
-						</form>
-
-					</div>
-				</div>
-				<!--  -->
-				<div class="col-sm-3 pull-right">
-					<div class="box box-primary">
-
-						<div class="box-header with-border">
-							<h3 class="box-title">
-								<i class="glyphicon glyphicon-plus"></i> Add Group
-							</h3>
-						</div>
-						<form action="#" class="form-horizontal">
-							<div class="box-body">
-								<a href="admin_group-add.jsp" class="btn btn-primary btn-block">
-									<i class="glyphicon glyphicon-plus"></i> Thêm phòng/ban
-								</a>
-							</div>
-						</form>
-
-					</div>
-				</div>
-
-				<!--  -->
-
 				<div class="col-md-12">
-
 					<div class="box box-primary">
 						<div class="box-header">
 							<h3 class="box-title">Danh sách</h3>
-							<ul class="pagination pagination-sm no-margin pull-right">
-								<li><a href="#">«</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">»</a></li>
-							</ul>
+							<div class="col-sm-2 pull-right">
+								<a href="admin_group-add.jsp" class="btn btn-primary btn-block">
+									<i class="ion-person-stalker"></i> Thêm phòng ban
+								</a>
+							</div>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body no-padding">
 							<table id="datatable-responsive"
-								class="table table-striped table-bordered dt-responsive nowrap"
+								class="display table table-striped table-bordered dt-responsive"
 								cellspacing="0" width="100%">
 								<thead>
 									<tr>
@@ -116,7 +73,7 @@
 										<th>Tác vụ</th>
 									</tr>
 								</thead>
-								<tbody id="myTable">
+								<tbody>
 
 
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
@@ -187,23 +144,8 @@
 										}
 									%>
 
-
-
-
 								</tbody>
 							</table>
-						</div>
-
-
-						<!-- /.box-body -->
-						<div class="box-footer clearfix">
-							<ul class="pagination pagination-sm no-margin pull-right">
-								<li><a href="#">«</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">»</a></li>
-							</ul>
 						</div>
 					</div>
 					<!-- /.box -->
@@ -223,32 +165,5 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- REQUIRED JS SCRIPTS -->
-	<!-- Search item in table -->
-	<script>
-		$(document)
-				.ready(
-						function() {
-							$("#myInput")
-									.on(
-											"keyup",
-											function() {
-												var value = $(this).val()
-														.toLowerCase();
-												$("#myTable tr")
-														.filter(
-																function() {
-																	$(this)
-																			.toggle(
-																					$(
-																							this)
-																							.text()
-																							.toLowerCase()
-																							.indexOf(
-																									value) > -1)
-																});
-											});
-						});
-	</script>
 </body>
 </html>

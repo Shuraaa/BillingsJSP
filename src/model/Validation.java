@@ -11,12 +11,11 @@ public class Validation {
 			return true;
 		}
 		return false;
-
 	}
 
 	// Check Length
-	public boolean checkLength(String st, int min, int max) {
-		if (st.length() >= min && st.length() <= max) {
+	public boolean checkLength(String st) {
+		if (st.length() >= 6 && st.length() <= 15) {
 			return true;
 		}
 		return false;
@@ -37,5 +36,27 @@ public class Validation {
 		Pattern p = Pattern.compile(EMAIL_PATTERN);
 		Matcher m = p.matcher(st);
 		return m.matches();
+	}
+
+	// check ti le make up
+	public boolean checkTiLeMakeUp(String st) {
+		String number_pattern = "^[0-9]{1,3}$";
+		Pattern p = Pattern.compile(number_pattern);
+		Matcher m = p.matcher(st);
+		if (this.checkNull(st))
+			return true;
+		else
+			return m.matches();
+	}
+
+	// check sdt
+	public boolean checkPhoneNumber(String phoneNumber) {
+		String PHONE_PATTERN = "^[0-9+]{6,15}$";
+		Pattern p = Pattern.compile(PHONE_PATTERN);
+		Matcher m = p.matcher(phoneNumber);
+		if (this.checkNull(phoneNumber))
+			return true;
+		else
+			return m.matches();
 	}
 }

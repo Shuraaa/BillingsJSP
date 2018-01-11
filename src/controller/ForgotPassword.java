@@ -38,11 +38,12 @@ public class ForgotPassword extends HttpServlet {
 		pass = context.getInitParameter("pass");
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		
+
 		String username = request.getParameter("username");
 		String error = "";
 		Validation validate = new Validation();
@@ -57,19 +58,22 @@ public class ForgotPassword extends HttpServlet {
 
 		try {
 			if (error.length() == 0) {
-				HttpSession session = request.getSession();
-				session.setAttribute("username", username);
+
 				String oldPass = userLogin.getUserInfo(username).getUserPass();
-				String email = userLogin.getEmailByUser(username).getEmail();
+				String email = userLogin.getCompanyInfo(username).getEmail();
 
 				String text = "Kính chào quý khách," + "\n"
-						+ "Chúng tôi vừa nhận được yêu cầu thay đổi mật khẩu trên Billings cho Username: " + "\n"
+						+ "Chúng tôi vừa nhận được yêu cầu lấy lại mật khẩu trên Billings cho Username: " + "\n"
 						+ username + "\n" + "Đây là mật khẩu của quý khách: " + oldPass + "\n"
 						+ "Vui lòng truy cập lại vào website để thay đổi mật khẩu." + "\n"
 						+ "Nếu có vấn đề trong việc truy cập tài khoản, vui lòng gửi Email cho chúng tôi: trunghieuit191@gmail.com"
-						+ "\n" + "Cám ơn, " + "\n" + "Billings Team";
+						+ "\n" + "Trân trọng, " + "\n" + "Billings Team";
+
+				HttpSession session = request.getSession();
 				sm.sendEmail("smtp.gmail.com", "587", "michelhung258@gmail.com", "arthurpendragon191", email,
 						"Xác nhận mật khẩu", text);
+				session.setAttribute("username", username);
+				session.setAttribute("email", email);
 				response.sendRedirect("forgotPass_pending.jsp");
 
 			} else {
@@ -81,8 +85,8 @@ public class ForgotPassword extends HttpServlet {
 		}
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request, response);
+		doGet(request, response);
 	}
 }

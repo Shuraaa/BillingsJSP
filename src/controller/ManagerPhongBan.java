@@ -10,74 +10,86 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.PhongBan;
-import model.TaiKhoan;
+import model.Validation;
 import Dao.PhongBanDao;
-import Dao.TaiKhoanDao;
 
-/**
- * Servlet implementation class ManagerGroup
- */
 @WebServlet("/ManagerPhongBan")
 public class ManagerPhongBan extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ManagerPhongBan() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ManagerPhongBan() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String command = request.getParameter("command");
 		PhongBanDao pbd = new PhongBanDao();
-		//delete
-		if(command.equals("delete")){
-			String phongbanid = request.getParameter("phongbanid");
+		Validation vl = new Validation();
+		String url = "";
+		String phongbanid = "";
+		String tenphongban = "";
+		String congtyID = "";
+		String errorphongban = "";
+		switch (command) {
+
+		// delete phòng ban
+		case "delete":
+			phongbanid = request.getParameter("phongbanid");
 			pbd.xoaPhongBan(phongbanid);
-			response.sendRedirect(request.getContextPath()+"/admin_group.jsp");
-		
-		}
-		if(command.equals("edit")){
-			String phongbanid = request.getParameter("phongbanid");
-			String tenphongban = request.getParameter("tenphongban");
+			url = "/admin_group.jsp";
+			break;
+
+		// add phòng ban
+		case "add":
+			tenphongban = request.getParameter("txt_tenGroup");
+			congtyID = request.getParameter("congty");
+			PhongBan pb = new PhongBan(tenphongban + congtyID, tenphongban, congtyID);
+			int count = 0;
+			// xử lý ngoại lệ form thêm phòng ban
+			if (pbd.kiemTraPhongBan(congtyID, tenphongban)) {
+				errorphongban = "Tên phòng ban đã tồn tại!";
+				request.setAttribute("errorphongban", errorphongban);
+				count++;
+			}
+			if (vl.checkNull(tenphongban)) {
+				errorphongban = "Tên phòng ban không được để trống!";
+				request.setAttribute("errorphongban", errorphongban);
+				count++;
+			}
+			url = "/admin_group-add.jsp";
+			// thêm phòng ban
+			if (count == 0) {
+				pbd.themPhongBan(pb);
+				url = "/admin_group.jsp";
+			}
+			break;
+
+		// xử lý form edit phòng ban
+		case "edit":
+			phongbanid = request.getParameter("phongbanid");
+			tenphongban = request.getParameter("tenphongban");
 			request.setAttribute("editphongban", phongbanid);
 			request.setAttribute("edittenphongban", tenphongban);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin_group.jsp");
-			rd.forward(request, response);
-			
-		}
-		if(command.equals("update")){
-			String phongbanid = request.getParameter("txt_idphongban");
-			String tenphongban = request.getParameter("txt_tenphongban");
+			url = "/admin_group.jsp";
+			break;
+		// update tên phòng ban
+		case "update":
+			phongbanid = request.getParameter("txt_idphongban");
+			tenphongban = request.getParameter("txt_tenphongban");
 			pbd.updatePhongBan(phongbanid, tenphongban);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin_group.jsp");
-			rd.forward(request, response);
-			
+			url = "/admin_group.jsp";
+			break;
+
+		default:
+			break;
 		}
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String command = request.getParameter("command");
-		//add
-			if(command.equals("add")){	
-						String tenphongban = request.getParameter("txt_tenGroup");	
-						String congtyID = request.getParameter("congty");
-						PhongBanDao pbd = new PhongBanDao();
-						PhongBan pb = new PhongBan(tenphongban+congtyID, tenphongban, congtyID);
-						pbd.themPhongBan(pb);
-						response.sendRedirect(request.getContextPath()+"/admin_group.jsp");
-							}
-			
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
 	}
 }
-

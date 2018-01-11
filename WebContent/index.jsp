@@ -17,6 +17,8 @@
 
 	<%
 		int role = (int) session.getAttribute("role");
+		String iD = (String) session.getAttribute("companyID");
+		String name = (String) session.getAttribute("companyName");
 		if (session.getAttribute("username") == null) {
 			response.sendRedirect("login.jsp");
 		} else {
@@ -49,6 +51,9 @@
 			<div class="row">
 				<div class="col-lg-3 col-xs-6">
 					<!-- small box -->
+					<%
+						if (role == 1 || role == 2) {
+					%>
 					<div class="small-box bg-aqua">
 						<div class="inner">
 
@@ -59,16 +64,36 @@
 						<div class="icon">
 							<i class="ion-person-stalker"></i>
 						</div>
-						<a href="user_update.jsp" class="small-box-footer">Chi tiết <i
+						<a href="<%=request.getContextPath()%>/user_update.jsp"
+							class="small-box-footer">Chi tiết <i
 							class="fa fa-arrow-circle-right"></i></a>
 					</div>
+					<%
+						} else if (role == 0) {
+					%>
+					<div class="small-box bg-aqua">
+						<div class="inner">
+
+							<h1>
+								<b>Đổi mật khẩu</b>
+							</h1>
+						</div>
+						<div class="icon">
+							<i class="ion-person-stalker"></i>
+						</div>
+						<a href="<%=request.getContextPath()%>/user_changePass.jsp"
+							class="small-box-footer">Chi tiết <i
+							class="fa fa-arrow-circle-right"></i></a>
+					</div>
+					<%
+						}
+					%>
 				</div>
 				<!-- ./col -->
 				<div class="col-lg-3 col-xs-6">
 					<!-- small box -->
 					<div class="small-box bg-green">
 						<div class="inner">
-
 							<h1>
 								<b>Billings</b>
 							</h1>
@@ -76,8 +101,22 @@
 						<div class="icon">
 							<i class="ion ion-stats-bars"></i>
 						</div>
-						<a href="billings.jsp" class="small-box-footer">Chi tiết <i
+						<%
+							if (role == 0) {
+						%>
+						<a href="<%=request.getContextPath()%>/billings_total.jsp"
+							class="small-box-footer">Chi tiết <i
 							class="fa fa-arrow-circle-right"></i></a>
+						<%
+							} else if (role == 1 || role == 2) {
+						%>
+						<a
+							href="<%=request.getContextPath()%>/ManagerBilling?command=detail&congtyid=<%=iD%>&tencongty=<%=name%>"
+							class="small-box-footer">Chi tiết <i
+							class="fa fa-arrow-circle-right"></i></a>
+						<%
+							}
+						%>
 					</div>
 				</div>
 				<!-- ./col -->
@@ -97,7 +136,8 @@
 						<div class="icon">
 							<i class="ion-locked"></i>
 						</div>
-						<a href="admin.jsp" class="small-box-footer">Chi tiết <i
+						<a href="<%=request.getContextPath()%>/admin.jsp"
+							class="small-box-footer">Chi tiết <i
 							class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
@@ -118,7 +158,8 @@
 						<div class="icon">
 							<i class="ion-document-text"></i>
 						</div>
-						<a href="guide.jsp" class="small-box-footer">Chi tiết <i
+						<a href="<%=request.getContextPath()%>/guide.jsp"
+							class="small-box-footer">Chi tiết <i
 							class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>

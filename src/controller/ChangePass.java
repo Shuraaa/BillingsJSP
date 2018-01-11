@@ -51,7 +51,7 @@ public class ChangePass extends HttpServlet {
 		}
 		if (validation.checkNull(newPass) || validation.checkNull(oldPass) || validation.checkNull(confirmPass)) {
 			error = "Vui lòng điền đầy đủ thông tin";
-		} else if (!validation.checkLength(newPass, 6, 15)) {
+		} else if (!validation.checkLength(newPass)) {
 			error = "Mật khẩu phải chứa ít nhất 6 ký tự và tối đa 15 ký tự";
 		}
 		if (error.length() > 0) {

@@ -47,7 +47,7 @@
 			<p class="login-box-msg" style="font-size: 20px">Khôi phục mật
 				khẩu</p>
 			<form action="<%=request.getContextPath()%>/ForgotPassword"
-				method="POST">
+				method="POST" role="form">
 				<div class="form-group has-feedback">
 					<p style="color: red"><%=error%></p>
 					<input type="text" id="usernameInput" class="form-control"
@@ -57,7 +57,7 @@
 				<div class="row" align="center">
 					<div class="col-sm-4"></div>
 					<div class="col-sm-4">
-						<button type="submit" class="btn btn-primary">Xác nhận</button>
+						<input type="submit" value="Xác nhận" class="btn btn-primary">
 					</div>
 					<!-- /.col -->
 				</div>

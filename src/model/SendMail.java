@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 
 public class SendMail {
 
-	public static void sendEmail(String host, String port, final String userName, final String password,
+	public void sendEmail(String host, String port, final String userName, final String password,
 			String toAddress, String subject, String message) throws AddressException, MessagingException {
 
 		// sets SMTP server properties

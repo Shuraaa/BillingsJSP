@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.Extension;
+
 import com.mysql.jdbc.PreparedStatement;
 
-import model.*;
 import connection.DatabaseSQLConnection;
 
 public class ExtensionDao {
@@ -45,7 +46,6 @@ public class ExtensionDao {
 				+ ext.getDauSoSuDung() + "',phongbanID='" + ext.getPhongBanID() + "'where extensionID='" + idextension
 				+ "'";
 		try {
-
 			PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
 			ps.executeUpdate();
 			System.out.println("thanh cmn cong");
@@ -53,7 +53,6 @@ public class ExtensionDao {
 
 			e.printStackTrace();
 		}
-
 	}
 
 	// insert
@@ -62,13 +61,11 @@ public class ExtensionDao {
 		String sql = "insert into extension values ('" + ext.getExtensionID() + "','" + ext.getTenNguoiDung() + "','"
 				+ ext.getDauSoSuDung() + "','" + ext.getPhongBanID() + "');";
 		try {
-
 			PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
 			ps.executeUpdate();
 			System.out.println("thanh cmn cong");
 			return true;
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
 		return false;
@@ -89,17 +86,100 @@ public class ExtensionDao {
 		return false;
 	}
 
-	public static void main(String[] args) {
-		ExtensionDao a = new ExtensionDao();
-		// a.xoaExtension("842100");
-		Extension e = new Extension("1212343323", "", "232233", "pb02");
-		a.updateExtension("12123433", e);
-		// a.themExtension(e);
-		// a.updatePhongBan("pb04", "phongban4");
-		// System.out.println(a.themPhongBan(new PhongBan("pb12", "phngban12",
-		// "ct01")));
-		// System.out.println(a.xoaPhongBan("pb02"));
-		// System.out.println(a.addTaiKhoan("sad", "a", 1, "ct02"));
+	// kiểm tra extension có tồn tại hay không
+	public static boolean kiemTraExtension(String extension, String dauso) {
+		ArrayList<Extension> listEx = new ArrayList<>();
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "SELECT * FROM extension where extensionID='" + extension + "' and dauso_sudung = '" + dauso
+					+ "';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String extensionID = rs.getString("extensionID");
+				String tenNguoiDung = rs.getString("tennguoidung");
+				String dauSoSuDung = rs.getString("dauso_sudung");
+				String phongBanID = rs.getString("phongbanID");
+				listEx.add(new Extension(extensionID, tenNguoiDung, dauSoSuDung, phongBanID));
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listEx.size() == 1;
 	}
 
+	// get extension cua phong ban
+	public static ArrayList<Extension> getListEXPhongBan(String phongbanid) {
+		ArrayList<Extension> listexphongban = new ArrayList<>();
+
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "SELECT * FROM extension where phongbanID ='" + phongbanid + "';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String extensionID = rs.getString("extensionID");
+				String tenNguoiDung = rs.getString("tennguoidung");
+				String dauSoSuDung = rs.getString("dauso_sudung");
+				String phongBanID = rs.getString("phongbanID");
+				listexphongban.add(new Extension(extensionID, tenNguoiDung, dauSoSuDung, phongBanID));
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listexphongban;
+	}
+
+	// get extension cua CONG TY
+	public static ArrayList<Extension> getListEXCongTy(String congtyid) {
+		ArrayList<Extension> listexcongty = new ArrayList<>();
+
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = " SELECT e.extensionID, e.tennguoidung, e.dauso_sudung, e.phongbanID FROM extension e join phongban pb on e.phongbanID = pb.phongbanID  where congtyID = '"
+					+ congtyid + "';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String extensionID = rs.getString("extensionID");
+				String tenNguoiDung = rs.getString("tennguoidung");
+				String dauSoSuDung = rs.getString("dauso_sudung");
+				String phongBanID = rs.getString("phongbanID");
+				listexcongty.add(new Extension(extensionID, tenNguoiDung, dauSoSuDung, phongBanID));
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listexcongty;
+	}
+
+	// get extension theo dau so
+	public static ArrayList<Extension> getListEXDauSo(String dauso) {
+		ArrayList<Extension> listexdauso = new ArrayList<>();
+
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "SELECT * FROM extension where dauso_sudung ='" + dauso + "';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String extensionID = rs.getString("extensionID");
+				String tenNguoiDung = rs.getString("tennguoidung");
+				String dauSoSuDung = rs.getString("dauso_sudung");
+				String phongBanID = rs.getString("phongbanID");
+				listexdauso.add(new Extension(extensionID, tenNguoiDung, dauSoSuDung, phongBanID));
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listexdauso;
+	}
 }

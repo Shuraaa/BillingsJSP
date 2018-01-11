@@ -1,12 +1,14 @@
 package model;
 
+import java.sql.Blob;
+
 public class CongTy {
 
 	private String congTyID;
 
 	private String tenCongTy;
 
-	private String logo;
+	private Blob logo;
 
 	private String maSoThue;
 
@@ -18,9 +20,8 @@ public class CongTy {
 
 	private double tiLeMakeUp;
 
-	public CongTy(String congTyID, String tenCongTy, String logo, String maSoThue, String diaChi, String dienThoai,
+	public CongTy(String congTyID, String tenCongTy, Blob logo, String maSoThue, String diaChi, String dienThoai,
 			String email, double tiLeMakeUp) {
-		super();
 		this.congTyID = congTyID;
 		this.tenCongTy = tenCongTy;
 		this.logo = logo;
@@ -47,11 +48,11 @@ public class CongTy {
 		this.tenCongTy = tenCongTy;
 	}
 
-	public String getLogo() {
+	public Blob getLogo() {
 		return logo;
 	}
 
-	public void setLogo(String logo) {
+	public void setLogo(Blob logo) {
 		this.logo = logo;
 	}
 

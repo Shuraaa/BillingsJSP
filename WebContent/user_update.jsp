@@ -33,8 +33,8 @@
 			<section class="content-header">
 			<h1>Thông tin công ti</h1>
 			<ol class="breadcrumb">
-				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
-						BillingsSystem</a></li>
+				<li><a href="<%=request.getContextPath()%>/index.jsp"><i
+						class="fa fa-dashboard"></i> BillingsSystem</a></li>
 				<li><a href="#">Thông tin công ti</a></li>
 				<li class="active">Cập nhật thông tin</li>
 			</ol>
@@ -130,7 +130,8 @@
 								</div>
 								<div class="btn-group cf">
 									<button class="btn btn-primary" id="home">
-										<a href="index.jsp">Trang chủ</a>
+										<a href="<%=request.getContextPath()%>/index.jsp">Trang
+											chủ</a>
 									</button>
 									<button class="btn btn-cancel" id="cancel">Cancel</button>
 								</div>

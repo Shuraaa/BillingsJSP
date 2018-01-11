@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Blob;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Dao.UserLogin;
+import javafx.scene.image.Image;
 import model.Validation;
 
 @WebServlet("/Login")
@@ -35,6 +37,8 @@ public class Login extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		int role;
+		String companyName;
+		String companyID;
 		String error = "";
 
 		Validation validate = new Validation();
@@ -52,7 +56,11 @@ public class Login extends HttpServlet {
 			if (error.length() == 0) {
 				HttpSession session = request.getSession();
 				role = userLogin.getUserInfo(username).getRole();
+				companyName = userLogin.getCompanyInfo(username).getTenCongTy();
+				companyID = userLogin.getCompanyInfo(username).getCongTyID();
 				session.setAttribute("username", username);
+				session.setAttribute("companyName", companyName);
+				session.setAttribute("companyID", companyID);
 				session.setAttribute("role", role);
 				url = "/index.jsp";
 			} else {

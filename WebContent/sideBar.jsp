@@ -1,3 +1,4 @@
+<%@page import="com.mysql.jdbc.Blob"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="Dao.*"%>
@@ -15,8 +16,6 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-<!-- Bootstrap 3.3.6 -->
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -31,6 +30,15 @@
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet"
 	href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css" />
+<style type="text/css">
+div.dataTables_wrapper {
+	margin: 8px 5px 5px 5px;
+}
+</style>
 
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -42,6 +50,8 @@
 </head>
 <%
 	String username = (String) session.getAttribute("username");
+	String name = (String) session.getAttribute("companyName");
+	String iD = (String) session.getAttribute("companyID");
 	int role = (int) session.getAttribute("role");
 	String url = "";
 	if (username.equals("")) {
@@ -53,9 +63,9 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 	<!-- Main Header -->
-	<header class="main-header"> <!-- Logo --> <a href="index.jsp"
-		class="logo"> <!-- mini logo for sidebar mini 50x50 pixels --> <span
-		class="logo-mini"><b>B</b>S</span> <!-- logo for regular state and mobile devices -->
+	<header class="main-header"> <!-- Logo --> <a
+		href="<%=request.getContextPath()%>/index.jsp" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+		<span class="logo-mini"><b>B</b>S</span> <!-- logo for regular state and mobile devices -->
 		<span class="logo-lg"><b>Billings</b>System</span>
 	</a> <!-- Header Navbar: style can be found in header.less --> <nav
 		class="navbar navbar-static-top"> <!-- Sidebar toggle button-->
@@ -68,7 +78,7 @@
 			<!-- User Account: style can be found in dropdown.less -->
 			<li class="dropdown user user-menu"><a href="#"
 				class="dropdown-toggle" data-toggle="dropdown"> <img
-					src="dist/img/user2-160x160.jpg" class="user-image"
+					src="ManagerDisplayImg?congtyid=<%=iD%>" class="user-image"
 					alt="User Image"> <%
  	if (role == 0) {
  %> <span class="hidden-xs" style="color: #ff3333; font-style: bold;">
@@ -79,11 +89,12 @@
  	} else if (role == 2) {
  %> <span class="hidden-xs" style="font-style: bold;"> <%
  	}
- %> <%=username%></span></a>
+ %> <%=name%></span></a>
 				<ul class="dropdown-menu">
 					<!-- User image -->
-					<li class="user-header"><img src="dist/img/user2-160x160.jpg"
-						class="img-circle" alt="User Image"> <%
+					<li class="user-header"><img
+						src="ManagerDisplayImg?congtyid=<%=iD%>" class="img-circle"
+						alt="User Image"> <%
  	if (role == 0) {
  %>
 						<p style="color: #ff3333; font-style: bold; font-size: 25px;">
@@ -105,8 +116,19 @@
 					<!--User Menu Footer-->
 					<li class="user-footer">
 						<div class="pull-left">
-							<a href="user_update.jsp" class="btn btn-default btn-flat">Cập
-								nhật thông tin</a>
+							<%
+								if (role == 1) {
+							%>
+							<a href="<%=request.getContextPath()%>/user_update.jsp"
+								class="btn btn-default btn-flat">Cập nhật thông tin</a>
+							<%
+								} else {
+							%>
+							<a href="<%=request.getContextPath()%>/guide.jsp"
+								class="btn btn-default btn-flat">Hướng dẫn sử dụng</a>
+							<%
+								}
+							%>
 						</div>
 						<div class="pull-right">
 							<a href="<%=request.getContextPath()%>/Logout"
@@ -118,15 +140,13 @@
 	</div>
 	</nav> </header>
 
-
-
 	<!-- Left side column. contains the logo and sidebar -->
 	<aside class="main-sidebar"> <!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar"> <!-- Sidebar USER panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="dist/img/user2-160x160.jpg" class="img-circle"
-				alt="User Image">
+			<img src="ManagerDisplayImg?congtyid=<%=iD%>" width="60px"
+				height="60px" alt="User Image">
 		</div>
 		<div class="pull-left info">
 			<p>Welcome</p>
@@ -161,52 +181,51 @@
 				class="fa fa-angle-left pull-right"></i>
 		</a>
 			<ul class="treeview-menu">
-				<li><a href="user_update.jsp"><i
+				<%
+					if (role == 1 || role == 2) {
+				%>
+				<li><a href="<%=request.getContextPath()%>/user_update.jsp"><i
 						class="glyphicon glyphicon-pencil"></i> Cập nhật thông tin</a></li>
 				<%
+					}
 					if (role == 0 || role == 1) {
 				%>
-				<li><a href="user_changePass.jsp"><i
+				<li><a href="<%=request.getContextPath()%>/user_changePass.jsp"><i
 						class="glyphicon glyphicon-lock"></i> Cập nhật mật khẩu</a></li>
 				<%
 					}
 				%>
 			</ul></li>
-		<li class="treeview"><a href="#"> <i
-				class="glyphicon glyphicon-list-alt"></i> <span>Billings</span> <i
-				class="fa fa-angle-left pull-right"></i>
-		</a>
-			<ul class="treeview-menu">
-				<%
-					if (role == 0) {
-				%>
-				<li><a href="#"><i
-						class="glyphicon glyphicon-triangle-right"></i> Tổng</a></li>
-				<%
-					}
-				%>
-				<li><a href="#"><i
-						class="glyphicon glyphicon-triangle-right"></i> Chi tiết</a></li>
-			</ul></li>
-
 		<%
+			if (role == 1 || role == 2) {
+		%>
+		<li><a
+			href="<%=request.getContextPath()%>/ManagerBilling?command=detail&congtyid=<%=iD%>&tencongty=<%=name%>">
+				<i class="glyphicon glyphicon-list-alt"></i> <span>Billings</span>
+		</a></li>
+		<%
+			} else if (role == 0) {
+		%>
+		<li><a href="<%=request.getContextPath()%>/billings_total.jsp"><i
+				class="glyphicon glyphicon-list-alt"></i> <span>Billings</span></a></li>
+		<%
+			}
 			if (role == 0) {
 		%>
-
 		<li class="treeview"><a href="#"> <i
 				class="glyphicon glyphicon-lock"></i> <span>Quản trị hệ thống</span>
 				<i class="fa fa-angle-left pull-right"></i>
 		</a>
 			<ul class="treeview-menu">
-				<li><a href="admin_user.jsp"><i class="fa fa-users"></i>
-						Quản lí người dùng</a></li>
-				<li><a href="admin_company.jsp"><i
+				<li><a href="<%=request.getContextPath()%>/admin_user.jsp"><i
+						class="fa fa-users"></i> Quản lí người dùng</a></li>
+				<li><a href="<%=request.getContextPath()%>/admin_company.jsp"><i
 						class="glyphicon glyphicon-briefcase"></i> Quản lí công ti</a></li>
-				<li><a href="admin_group.jsp"><i
+				<li><a href="<%=request.getContextPath()%>/admin_group.jsp"><i
 						class="glyphicon glyphicon-th-large"></i> Quản lí phòng/ban</a></li>
-				<li><a href="admin_dauso.jsp"><i
+				<li><a href="<%=request.getContextPath()%>/admin_dauso.jsp"><i
 						class="glyphicon glyphicon-th-list"></i> Quản lí đầu số</a></li>
-				<li><a href="admin_extension.jsp"><i
+				<li><a href="<%=request.getContextPath()%>/admin_extension.jsp"><i
 						class="glyphicon glyphicon-th"></i> Quản lí Extension</a></li>
 			</ul></li>
 
@@ -224,10 +243,11 @@
 
 
 	<!-- REQUIRED JS SCRIPTS -->
-
-	<!-- jQuery 2.2.0 -->
-	<script src="plugins/jQuery/jQuery-2.2.0.min.js"></script>
-	<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+	<!-- Datatable -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<!-- Select2 -->

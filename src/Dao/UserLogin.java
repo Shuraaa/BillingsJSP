@@ -47,7 +47,7 @@ public class UserLogin {
 		return null;
 	}
 
-	public CongTy getEmailByUser(String username) {
+	public CongTy getCompanyInfo(String username) {
 		Connection connection = DatabaseSQLConnection.getConnection();
 		String sql = "SELECT * FROM congty c JOIN taikhoan_nguoidung t ON c.congtyID = t.congtyID WHERE username = '"
 				+ username + "'";
@@ -60,7 +60,7 @@ public class UserLogin {
 				ct.setDiaChi(rs.getString("dia_chi"));
 				ct.setDienThoai(rs.getString("dienthoai"));
 				ct.setEmail(rs.getString("email"));
-				ct.setLogo(rs.getString("logo"));
+				ct.setLogo(rs.getBlob("logo"));
 				ct.setMaSoThue(rs.getString("maso_thue"));
 				ct.setTenCongTy(rs.getString("ten_congty"));
 				ct.setTiLeMakeUp(rs.getInt("ti_le_make_up"));
@@ -95,7 +95,7 @@ public class UserLogin {
 		UserLogin us = new UserLogin();
 
 		// test get Email by User
-		System.out.println(us.getEmailByUser("admin").getEmail());
+		System.out.println(us.getCompanyInfo("admin").getEmail());
 
 		// test get User Info
 		// System.out.println(us.getUserInfo("admin").getUserPass());

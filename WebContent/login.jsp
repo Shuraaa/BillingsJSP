@@ -40,7 +40,7 @@
 
 	<div class="login-box">
 		<div class="login-logo text-green">
-			<a href="#"><b>Billings</b> System</a>
+			<a href="login.jsp"><b>Billings</b> System</a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
@@ -52,12 +52,12 @@
 				method="POST">
 				<div class="form-group has-feedback">
 					<input type="text" name="username" class="form-control"
-						placeholder="Tên đăng nhập" maxlength="15"> <span
+						placeholder="Tên đăng nhập" maxlength="30"> <span
 						class="glyphicon glyphicon-envelope form-control-feedback text-blue"></span>
 				</div>
 				<div class="form-group has-feedback">
 					<input type="password" name="password" class="form-control"
-						placeholder="Mật khẩu" maxlength="10"> <span
+						placeholder="Mật khẩu" maxlength="30"> <span
 						class="glyphicon glyphicon-lock form-control-feedback text-blue"></span>
 				</div>
 				<div class="row">
