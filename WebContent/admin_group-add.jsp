@@ -58,7 +58,7 @@
 						</div>
 
 						<form action="<%=request.getContextPath()%>/ManagerPhongBan"
-							method="post" role="form" class="form-horizontal">
+							method="get" role="form" class="form-horizontal">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -69,13 +69,24 @@
 										<input type="text" class="form-control" name="txt_tenGroup"
 											placeholder="Group name">
 									</div>
+									<!-- xử lý ngoại lệ Tên phòng ban-->
+									<%
+										String errorphongban = (String) request.getAttribute("errorphongban");
+											if (errorphongban != null) {
+									%>
+									<p style="color: red;"><%=errorphongban%></p>
+									<%
+										}
+									%>
 								</div>
+
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="inputCompany" class="col-sm-2 control-label">Tên
 										công ti: </label>
 									<div class="col-sm-4">
 										<select class="form-control" name="congty">
+
 											<!-- hien thi cobobox danh sach cong ty -->
 											<%
 												ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
@@ -89,24 +100,17 @@
 										</select>
 									</div>
 									<div class="col-sm-2">
-										<a href="admin_company-add.jsp"
+										<a href="<%=request.getContextPath()%>/admin_company-add.jsp"
 											class="form-control btn btn-success">Thêm công ti</a>
 									</div>
 								</div>
-								<!--  -->
+
 								<!-- input chua bien command = add -->
 								<input type="hidden" name="command" value="add"></input>
 								<div class="box-footer text-center">
 									<button type="submit" class="btn btn-primary">Xác nhận</button>
 								</div>
-								<div class="alert alert-success alert-dismissible">
-									<button type="button" class="close" data-dismiss="alert"
-										aria-hidden="true">×</button>
-									<h4>
-										<i class="icon fa fa-check"></i> Chúc mừng!!!
-									</h4>
-									Thông tin đã cập nhật thành công.
-								</div>
+							</div>
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->

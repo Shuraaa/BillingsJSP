@@ -64,7 +64,6 @@ public class ManagerPhongBan extends HttpServlet {
 				url = "/admin_group.jsp";
 			}
 			break;
-
 		// xử lý form edit phòng ban
 		case "edit":
 			phongbanid = request.getParameter("phongbanid");

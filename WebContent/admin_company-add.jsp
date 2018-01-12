@@ -75,12 +75,13 @@
 											id="input_img">
 									</div>
 								</div>
+
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="inputDiaChi" class="col-sm-2 control-label">Địa
 										chỉ: </label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="txt_diaChi"
+										<input type="text" class="form-control" name="txt_DiaChi"
 											placeholder="Địa chỉ">
 									</div>
 									<label for="inputMST" class="col-sm-2 control-label">Mã
@@ -105,6 +106,7 @@
 											placeholder="Điện thoại di động"> <br>
 									</div>
 								</div>
+
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="inputMakeup" class="col-sm-2 control-label">Tỉ
@@ -129,6 +131,7 @@
 									</div>
 								</div>
 							</div>
+
 							<!--  -->
 							<input type="hidden" name="command" value="add">
 							<div class="box-footer text-center">
@@ -179,6 +182,9 @@
 																			number : "Nhập vào một số hợp lệ",
 																			min : "Không thể nhỏ hơn 0",
 																			max : "Không vượt quá 100"
+																		},
+																		txt_dtdd : {
+																			number : "Số điện thoại không hợp lệ"
 																		},
 																		input_img : {
 																			accept : "Vui lòng chọn file hình ảnh"

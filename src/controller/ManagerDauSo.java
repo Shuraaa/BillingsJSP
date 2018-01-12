@@ -69,5 +69,4 @@ public class ManagerDauSo extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

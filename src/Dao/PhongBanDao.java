@@ -155,26 +155,6 @@ public class PhongBanDao {
 		return congtyID;
 	}
 
-	// author: vinh
-	public static ArrayList<PhongBan> getList20PhongBan(int firstResult) throws SQLException {
-		Connection connection = DatabaseSQLConnection.getConnection();
-		String sql = "SELECT * FROM phongban order by congtyID limit ?,20 ";
-		PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
-		// ps.setString(1, congtyID);
-		ps.setInt(1, firstResult);
-		ResultSet rs = ps.executeQuery();
-		ArrayList<PhongBan> list = new ArrayList<>();
-		while (rs.next()) {
-			String phongBanID = rs.getString("phongbanID");
-			String congTyID = rs.getString("congtyID");
-			String tenPhongBan = rs.getString("ten_phongban");
-			list.add(new PhongBan(phongBanID, tenPhongBan, congTyID));
-		}
-		ps.close();
-		connection.close();
-		return list;
-	}
-
 	public static int countPhongBanByCompany() {
 		Connection connection = DatabaseSQLConnection.getConnection();
 		String sql = "select count(phongbanID) from phongban";

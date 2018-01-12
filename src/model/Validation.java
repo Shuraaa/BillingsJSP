@@ -4,10 +4,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation {
+	
 	public boolean checkNull(String st) {
 		if (st.length() == 0) {
 			return true;
-		} else if (st.contains(" ")) {
+		}
+		return false;
+	}
+
+	// check space
+	public boolean checkSpace(String st) {
+		if (st.contains(" ")) {
 			return true;
 		}
 		return false;

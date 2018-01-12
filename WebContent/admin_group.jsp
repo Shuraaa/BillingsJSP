@@ -36,7 +36,7 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>Quản lí công ti</h1>
+			<h1>Quản lí phòng/ban</h1>
 			<ol class="breadcrumb">
 				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
 						BillingsSystem</a></li>

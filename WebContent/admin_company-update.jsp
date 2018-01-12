@@ -56,7 +56,8 @@
 						</div>
 
 						<form action="<%=request.getContextPath()%>/ManagerCongTy"
-							method="get" role="form" class="form-horizontal" id="form">
+							method="post" role="form" class="form-horizontal" id="form"
+							enctype="multipart/form-data">
 							<div class="box-body">
 								<!-- Form group -->
 								<div class="form-group">
@@ -71,10 +72,10 @@
 									</div>
 									<label for="inputImg" class="col-sm-2 control-label">Logo:
 									</label>
-									<div class="col-sm-1 block-img">
+									<div class="col-sm-1">
 										<a href="#" class="normal-img"><img
-											src="dist/img/user2-160x160.jpg" width="60" height="60"
-											alt=""></a>
+											src="ManagerDisplayImg?congtyid=<%=request.getParameter("congtyid")%>"
+											width="60px" height="60px" alt=""></a>
 									</div>
 									<div class="col-sm-3">
 										<input type="file" class="form-control" name="input_img">
@@ -93,22 +94,25 @@
 										số thuế: </label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_mst"
-											placeholder="Mã số thuế (Mã khách hàng)">
+											placeholder="Mã số thuế (Mã khách hàng)"
+											value="<%=request.getParameter("mst")%>">
 									</div>
 								</div>
+
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="inputEmail" class="col-sm-2 control-label">Email:
 									</label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_email"
-											placeholder="Email">
+											placeholder="Email"
+											value="<%=request.getParameter("email")%>">
 									</div>
-									<label for="inputBirthPlace" class="col-sm-2 control-label">ĐTDĐ:
+									<label for="inputDTDD" class="col-sm-2 control-label">ĐTDĐ:
 									</label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_dtdd"
-											placeholder="Điện thoại di động">
+											value="<%=request.getParameter("sdt")%>">
 									</div>
 								</div>
 								<!-- Form group -->
@@ -117,7 +121,7 @@
 										lệ Make-up: </label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_makeup"
-											placeholder="Theo %">
+											value="<%=request.getParameter("tlmk")%>">
 									</div>
 									<label for="inputOther" class="col-sm-2 control-label">Thông
 										tin khác: </label>
@@ -132,15 +136,6 @@
 								<input type="hidden" name="command" value="edit">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>
-							<div class="alert alert-success alert-dismissible">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">×</button>
-								<h4>
-									<i class="icon fa fa-check"></i> Chúc mừng!!!
-								</h4>
-								Thông tin công ti đã cập nhật thành công.
-							</div>
-
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->
@@ -189,6 +184,9 @@
 													},
 													txt_dtdd : {
 														number : true
+													},
+													input_img : {
+														accept : "image/*"
 													}
 												},
 												messages : {
@@ -201,6 +199,9 @@
 														number : "Nhập vào một số hợp lệ",
 														min : "Không thể nhỏ hơn 0",
 														max : "Không vượt quá 100"
+													},
+													input_img : {
+														accept : "Vui lòng chọn file hình ảnh"
 													}
 												},
 												errorElement : "em",

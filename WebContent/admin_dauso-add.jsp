@@ -87,13 +87,11 @@
 										<select class="form-control" name="nhamang">
 											<option selected="" value="FPT">FPT</option>
 											<option selected="" value="CMC">CMC</option>
-
 										</select>
-
 									</div>
 								</div>
-
 								<!--  -->
+
 								<!-- Form group -->
 								<div class="form-group">
 									<label for="inputCongTy" class="col-sm-2 control-label">
@@ -113,12 +111,12 @@
 												}
 											%>
 										</select>
-
 									</div>
 								</div>
 
 							</div>
 							<!--  -->
+
 							<input type="hidden" name="command" value="add"></input>
 							<div class="box-footer text-center">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>

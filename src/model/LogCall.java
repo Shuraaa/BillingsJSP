@@ -10,12 +10,15 @@ public class LogCall {
 	private String phongBanID;
 	private String tenPhongBan;
 	private int thoiGianGoi;
-	private Date ngayGoi;
+	private int thang;
 	private String loaiCuocGoi;
 	private double giaTien;
+	private String thoiGianBatDau;
+	private String thoiGianKetThuc;
 
 	public LogCall(String congTyID, String tenCongTy, String extensionID, String thueBaoNhan, String phongBanID,
-			String tenPhongBan, int thoiGianGoi, Date ngayGoi, String loaiCuocGoi, double giaTien) {
+			String tenPhongBan, int thoiGianGoi, int thang, String loaiCuocGoi, double giaTien, String thoiGianBatDau,
+			String thoiGianKetThuc) {
 		super();
 		this.congTyID = congTyID;
 		this.tenCongTy = tenCongTy;
@@ -24,9 +27,11 @@ public class LogCall {
 		this.phongBanID = phongBanID;
 		this.tenPhongBan = tenPhongBan;
 		this.thoiGianGoi = thoiGianGoi;
-		this.ngayGoi = ngayGoi;
+		this.thang = thang;
 		this.loaiCuocGoi = loaiCuocGoi;
 		this.giaTien = giaTien;
+		this.thoiGianBatDau = thoiGianBatDau;
+		this.thoiGianKetThuc = thoiGianKetThuc;
 	}
 
 	public String getCongTyID() {
@@ -85,12 +90,12 @@ public class LogCall {
 		this.thoiGianGoi = thoiGianGoi;
 	}
 
-	public Date getNgayGoi() {
-		return ngayGoi;
+	public int getThang() {
+		return thang;
 	}
 
-	public void setNgayGoi(Date ngayGoi) {
-		this.ngayGoi = ngayGoi;
+	public void setThang(int thang) {
+		this.thang = thang;
 	}
 
 	public String getLoaiCuocGoi() {
@@ -109,11 +114,28 @@ public class LogCall {
 		this.giaTien = giaTien;
 	}
 
+	public String getThoiGianBatDau() {
+		return thoiGianBatDau;
+	}
+
+	public void setThoiGianBatDau(String thoiGianBatDau) {
+		this.thoiGianBatDau = thoiGianBatDau;
+	}
+
+	public String getThoiGianKetThuc() {
+		return thoiGianKetThuc;
+	}
+
+	public void setThoiGianKetThuc(String thoiGianKetThuc) {
+		this.thoiGianKetThuc = thoiGianKetThuc;
+	}
+
 	@Override
 	public String toString() {
 		return "LogCall [congTyID=" + congTyID + ", tenCongTy=" + tenCongTy + ", extensionID=" + extensionID
 				+ ", thueBaoNhan=" + thueBaoNhan + ", phongBanID=" + phongBanID + ", tenPhongBan=" + tenPhongBan
-				+ ", thoiGianGoi=" + thoiGianGoi + ", ngayGoi=" + ngayGoi + ", loaiCuocGoi=" + loaiCuocGoi
-				+ ", giaTien=" + giaTien + "]";
+				+ ", thoiGianGoi=" + thoiGianGoi + ", thang=" + thang + ", loaiCuocGoi=" + loaiCuocGoi + ", giaTien="
+				+ giaTien + ", thoiGianBatDau=" + thoiGianBatDau + ", thoiGianKetThuc=" + thoiGianKetThuc + "]";
 	}
+
 }

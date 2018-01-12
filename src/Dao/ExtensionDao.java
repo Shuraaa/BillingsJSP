@@ -182,4 +182,10 @@ public class ExtensionDao {
 		}
 		return listexdauso;
 	}
+
+	public static void main(String[] args) {
+		ExtensionDao b = new ExtensionDao();
+		Extension et = new Extension("12345", "abc", "087300797", "pb2");
+		System.out.println(b.themExtension(et));
+	}
 }

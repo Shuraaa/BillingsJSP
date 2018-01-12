@@ -101,7 +101,7 @@
 				<!-- TABLES -->
 				<div class="col-md-12">
 					<div class="box box-primary">
-						<div class="box-body no-padding">
+
 							<ul class="nav nav-tabs">
 								<li class="active"><a data-toggle="tab" href="#home">Chi
 										tiết cước</a></li>
@@ -357,7 +357,6 @@
 							</div>
 							<!-- /.End tab-content -->
 
-						</div>
 					</div>
 					<!-- /.box -->
 				</div>

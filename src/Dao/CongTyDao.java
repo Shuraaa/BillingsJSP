@@ -148,30 +148,6 @@ public class CongTyDao {
 		}
 	}
 
-	// author: vinh
-	public static ArrayList<CongTy> getList20CongTy(int firstResult) throws SQLException {
-		Connection connection = DatabaseSQLConnection.getConnection();
-		String sql = "SELECT * FROM congty limit ?,20";
-		PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
-		ps.setInt(1, firstResult);
-		ResultSet rs = ps.executeQuery();
-		ArrayList<CongTy> list = new ArrayList<>();
-		while (rs.next()) {
-			String congTyID = rs.getString("congtyID");
-			String ten_congty = rs.getString("ten_congty");
-			Blob logo = rs.getBlob("logo");
-			String maso_thue = rs.getString("maso_thue");
-			String dia_chi = rs.getString("dia_chi");
-			String dienthoai = rs.getString("dienthoai");
-			String email = rs.getString("email");
-			double ti_le_make_up = rs.getDouble("ti_le_make_up");
-			list.add(new CongTy(congTyID, ten_congty, logo, maso_thue, dia_chi, dienthoai, email, ti_le_make_up));
-		}
-		ps.close();
-		connection.close();
-		return list;
-	}
-
 	public static int countAllOfCompany() {
 		Connection connection = DatabaseSQLConnection.getConnection();
 		String sql = "SELECT count(congtyID) FROM congty";

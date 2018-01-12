@@ -62,7 +62,7 @@
 							method="get" role="form" class="form-horizontal">
 							<div class="box-body">
 								<form action="<%=request.getContextPath()%>/ManagerExtension"
-									method="get" role="form" class="form-horizontal">
+									method="get" class="form-horizontal">
 
 									<%
 										String idcongty = (String) request.getAttribute("choncongty");
@@ -177,14 +177,7 @@
 								<div class="box-footer text-center">
 									<button type="submit" class="btn btn-primary">Xác nhận</button>
 								</div>
-								<div class="alert alert-success alert-dismissible">
-									<button type="button" class="close" data-dismiss="alert"
-										aria-hidden="true">×</button>
-									<h4>
-										<i class="icon fa fa-check"></i> Chúc mừng!!!
-									</h4>
-									Thông tin đã cập nhật thành công.
-								</div>
+							</div>
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->
