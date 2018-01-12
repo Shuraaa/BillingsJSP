@@ -36,72 +36,37 @@
 			<!-- Main content -->
 			<section class="content">
 			<div class="row">
-				<div class="col-sm-7">
-					<div class="box box-primary">
 
+
+				<!-- UPLOAD FILE -->
+				<div class="col-sm-8">
+					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
-								<i class="glyphicon glyphicon-filter"></i> Filter
+								<i class="glyphicon glyphicon-upload"></i> UploadFile
 							</h3>
 						</div>
-
-						<form action="#" class="form-horizontal">
+						<form action="ManagerUploadFile"  method="post" class="form-horizontal" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
-									<div class="col-sm-4">
-										<select class="form-control">
-											<option selected="">Công ti</option>
-
-											<!-- LẤY DANH SÁCH CÔNG TI TỪ DATABASE -->
-
-										</select>
+									<div class="col-sm-9 pull-left">
+										<input type="file" name="inputFileExcel"
+											class="custom-file-input" >
 									</div>
-									<div class="col-sm-3">
-										<select class="form-control">
-											<option selected="">Phòng/Ban</option>
-
-											<!-- LẤY DANH SÁCH GROUP TỪ DATABASE -->
-
-										</select>
-									</div>
-									<div class="col-sm-3">
-										<select class="form-control">
-											<option selected="">Extension</option>
-
-											<!-- LẤY DANH SÁCH EXTENSION TỪ DATABASE -->
-
-										</select>
-									</div>
-									<div class="col-sm-2">
-										<input type="button" class="btn btn-primary btn-block"
-											value="Kết quả">
+									<div class="col-sm-3 pull-right">
+										<button class="btn btn-primary btn-md">
+											<i class="glyphicon glyphicon-upload"><span>
+													UploadFile</span></i>
+										</button>
 									</div>
 								</div>
 							</div>
 						</form>
-
 					</div>
 				</div>
 				<!--  -->
-				<div class="col-sm-3">
-					<div class="box box-primary">
-
-						<div class="box-header with-border">
-							<h3 class="box-title">
-								<i class="glyphicon glyphicon-search"></i> Search
-							</h3>
-						</div>
-						<form action="#" class="form-horizontal">
-							<div class="box-body">
-								<input class="form-control" id="myInput" type="text"
-									placeholder="Search..">
-							</div>
-						</form>
-
-					</div>
-				</div>
-				<!--  -->
-				<div class="col-sm-2">
+				<!--PRINT  -->
+				<div class="col-sm-3  pull-right">
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
@@ -121,19 +86,16 @@
 					</div>
 				</div>
 				<!--  -->
-
+				<!-- TABLE -->
 				<div class="col-md-12">
 
 					<div class="box box-primary">
-						<div class="box-header">
-							<h3 class="box-title">Danh sách</h3>
-							<ul class="pagination pagination-sm no-margin pull-right">
-								<li><a href="#">«</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">»</a></li>
-							</ul>
+						<div class="box-header text-center">
+							<p class="text-center">
+							<h4><span>BẢNG CƯỚC NHÀ MẠNG</span></h4>
+							</p>
+
+
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body no-padding">
@@ -141,17 +103,16 @@
 								class="table table-striped table-bordered dt-responsive nowrap"
 								cellspacing="0" width="100%">
 								<thead>
-									<tr>
-										<th>#</th>
-										<th>Thuê bao chủ gọi</th>
-										<th>Thuê bao được gọi</th>
-										<th>Tổng số giây</th>
-										<th>Công ti</th>
-										<th>Phòng/ban</th>
-										<th>Tổng thời gian (hh:mm:ss)</th>
-										<th>Thời gian bắt đâu</th>
-										<th>Thời gian kết thúc</th>
-										<th>Cost(Chưa VAT) (VND)</th>
+									<tr class="info">
+										<th>STT</th>
+										<th>Thời gian</th>
+										<th>Chủ thể</th>
+										<th>Cước quốc tế</th>
+										<th>Cước liên tỉnh</th>
+										<th>Cước nội hạt</th>
+										<th>Cước di động</th>
+										<th>Cước dịch vụ</th>
+										<th>TỔNG</th>
 									</tr>
 								</thead>
 								<tbody>

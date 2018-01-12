@@ -115,9 +115,16 @@
 				<li><a href="user_changePass.jsp"><i
 						class="glyphicon glyphicon-lock"></i> Cập nhật mật khẩu</a></li>
 			</ul></li>
-		<li><a href="billings.jsp"> <i
-				class="glyphicon glyphicon-list-alt"></i> <span>Billings</span>
-		</a></li>
+		<li class="treeview"><a href="#"><i
+				class="glyphicon glyphicon-list-alt"></i> <span>Billings</span> <i
+				class="fa fa-angle-left pull-right"></i></a>
+			<ul class="treeview-menu">
+				<li><a href="billings_total.jsp"><i class="glyphicon glyphicon-euro"></i>
+						Tổng cước phí dịch vụ</a></li>
+				<li><a href="billings-detail.jsp"><i
+						class="glyphicon glyphicon-book"></i>Chi tiết cước phí</a></li>
+
+			</ul></li>
 		<li class="treeview"><a href="#"> <i
 				class="glyphicon glyphicon-lock"></i> <span>Quản trị hệ thống</span>
 				<i class="fa fa-angle-left pull-right"></i>

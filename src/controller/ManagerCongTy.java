@@ -29,7 +29,7 @@ import model.Validation;
  * Servlet implementation class ManagerCongTy
  */
 @WebServlet("/ManagerCongTy")
-@MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 2)
 public class ManagerCongTy extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -59,29 +59,6 @@ public class ManagerCongTy extends HttpServlet {
 			url = "/admin_company.jsp";
 
 		}
-		if (command.equals("edit")) {
-			String congTyId = (String) request.getParameter("congTyID_update");
-			String tenCongTy = request.getParameter("txt_tenCongTi_update");
-			String msst = request.getParameter("txt_msst");
-			String diaChi = request.getParameter("txt_DiaChi_update");
-			String email = request.getParameter("txt_email");
-			String sdt = request.getParameter("txt_dtdd");
-			String tl_makeup = request.getParameter("txt_makeup");
-			double tile = 0;
-
-			// check data whether valid or invalid
-			Validation val = new Validation();
-			if (val.checkNull(tl_makeup)) {
-				tile = 0;
-			} else
-				tile = Double.parseDouble(tl_makeup);
-
-			congTyDAO.updateCongTy(new CongTy(congTyId, tenCongTy, null, msst, diaChi, sdt, email, tile));
-			url = "/admin_company.jsp";
-
-		}
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
-		rd.forward(request, response);
 
 	}
 
@@ -94,15 +71,16 @@ public class ManagerCongTy extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		String command = request.getParameter("command");
-		String url = "", tenCongTy = "", msst = "", diaChi = "", stringDate = "", sdt = "", email = "";
-		double tile = 0;
-		Connection conn = null;
-		PreparedStatement pre = null;
-		String error_massage = "";
-		boolean error = false;
-		InputStream is = null;
+		String url = "";
 		// add
 		if (command.equals("add")) {
+			String tenCongTy = "", msst = "", diaChi = "", stringDate = "", sdt = "", email = "";
+			double tile = 0;
+			Connection conn = null;
+			PreparedStatement pre = null;
+			String error_massage = "";
+			boolean error = false;
+			InputStream is = null;
 			conn = DatabaseSQLConnection.getConnection();
 			String sql = "insert into congty values (?,?,?,?,?,?,?,?);";
 			try {
@@ -114,17 +92,15 @@ public class ManagerCongTy extends HttpServlet {
 														// theo trên
 
 				tenCongTy = request.getParameter("txt_tenCongTy");
-				msst = request.getParameter("txt_msst");
-				diaChi = request.getParameter("diaChi");
+				msst = request.getParameter("txt_mst");
+				diaChi = request.getParameter("txt_DiaChi");
 				email = request.getParameter("txt_email");
 				sdt = request.getParameter("txt_dtdd");
 				String tl_makeup = request.getParameter("txt_makeup");
 				Part filePart = request.getPart("input_img");
 				if (filePart != null) {
-
-//					System.out.println(filePart.getName());
-//					System.out.println(filePart.getSize());
-//					System.out.println(filePart.getContentType());
+					System.out.println(
+							this.getServletContext().getRealPath("resources/assets") + filePart.getSubmittedFileName());
 					is = filePart.getInputStream();
 				}
 
@@ -132,7 +108,7 @@ public class ManagerCongTy extends HttpServlet {
 					// fetches input stream of the upload file for the blob column
 					pre.setBlob(3, is);
 				}
-				
+
 				tile = 0;
 				// check data whether valid or invalid
 				Validation val = new Validation();
@@ -159,11 +135,96 @@ public class ManagerCongTy extends HttpServlet {
 				} else {
 					url = "/admin_company.jsp";
 				}
-				RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
-				rd.forward(request, response);
+
 			}
 
 		}
+		// edit thong tin cong ty
+		if (command.equals("edit")) {
+			String tenCongTy = "", msst = "", diaChi = "", stringDate = "", sdt = "", email = "";
+			InputStream is = null;
+			boolean error = false;
+			String congTyId = (String) request.getParameter("congTyID_update");
+			tenCongTy = request.getParameter("txt_tenCongTi_update");
+			msst = request.getParameter("txt_mst");
+			diaChi = request.getParameter("txt_DiaChi_update");
+			email = request.getParameter("txt_email");
+			sdt = request.getParameter("txt_dtdd");
+			String tl_makeup = request.getParameter("txt_makeup");
+			Part filePart = request.getPart("input_img");
+			Connection conn = null;
+			PreparedStatement pre1 = null, pre2 = null;
+			conn = DatabaseSQLConnection.getConnection();
+			String sql1 = "update congty set ten_congty = ? ,logo =?, maso_thue = ?,dia_chi =?,dienthoai = ?,email = ?,ti_le_make_up = ? where congtyID = ?";
+			String sql2 = "update congty set ten_congty = ? , maso_thue = ?,dia_chi =?,dienthoai = ?,email = ?,ti_le_make_up = ? where congtyID = ?";
+			double tile = 0;
+			Validation val = new Validation();
+//			if (filePart != null) {
+//
+//				is = filePart.getInputStream();
+//			}
+			// check data whether valid or invalid
+
+			if (val.checkNull(tl_makeup)) {
+				tile = 0;
+			} else {
+				tile = Double.parseDouble(tl_makeup);
+			}
+			if (filePart.getSize() != 0) {
+				is = filePart.getInputStream();
+				try {
+					pre1 = (PreparedStatement) conn.prepareStatement(sql1);
+					pre1.setString(1, tenCongTy);
+					pre1.setBlob(2, is);
+					pre1.setString(3, msst);
+					pre1.setString(4, diaChi);
+					pre1.setString(5, sdt);
+					pre1.setString(6, email);
+					pre1.setDouble(7, tile);
+					pre1.setString(8, congTyId);
+					pre1.execute();
+					pre1.close();
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (error) {
+						url = "/admin_company-add.jsp";
+					} else {
+						url = "/admin_company.jsp";
+					}
+				}
+			} else {
+				System.out.println("vao th null");
+				try {
+					pre2 = (PreparedStatement) conn.prepareStatement(sql2);
+					pre2.setString(1, tenCongTy);
+					pre2.setString(2, msst);
+					pre2.setString(3, diaChi);
+					pre2.setString(4, sdt);
+					pre2.setString(5, email);
+					pre2.setDouble(6, tile);
+					pre2.setString(7, congTyId);
+					pre2.execute();
+					pre2.close();
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+
+					if (error) {
+						url = "/admin_company-add.jsp";
+					} else {
+						url = "/admin_company.jsp";
+					}
+				}
+			}
+		}
+
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
 
 	}
 

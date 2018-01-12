@@ -92,13 +92,6 @@
 					<div class="box box-primary">
 						<div class="box-header">
 							<h3 class="box-title">Danh sách</h3>
-							<ul class="pagination pagination-sm no-margin pull-right">
-								<li><a href="#">«</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">»</a></li>
-							</ul>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body no-padding">
@@ -139,10 +132,10 @@
 										<td><%=listCongTy.get(i).getDienThoai()%></td>
 										<td><%=listCongTy.get(i).getTiLeMakeUp()%></td>
 										<td><img class="img-responsive img-thumbnail"
-											src="ManagerDisplayImg?congtyid=<%=listCongTy.get(i).getCongTyID()%>" width ="40px" height="40px"
-											></td>
+											src="ManagerDisplayImg?congtyid=<%=listCongTy.get(i).getCongTyID()%>"
+											width="40px" height="40px"></td>
 										<td><a
-											href="admin_company-update.jsp?congtyid=<%=listCongTy.get(i).getCongTyID()%>&tencongty=<%=listCongTy.get(i).getTenCongTy()%>&diachi=<%=listCongTy.get(i).getDiaChi()%>"><button
+											href="admin_company-update.jsp?congtyid=<%=listCongTy.get(i).getCongTyID()%>&tencongty=<%=listCongTy.get(i).getTenCongTy()%>&diachi=<%=listCongTy.get(i).getDiaChi()%>&email=<%=listCongTy.get(i).getEmail()%>&tlmk=<%=listCongTy.get(i).getTiLeMakeUp()%>&sdt=<%=listCongTy.get(i).getDienThoai()%>&mst=<%=listCongTy.get(i).getMaSoThue()%>"><button
 													type="button"
 													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
 											&nbsp;&nbsp; <a href="#" class="linkDelete"><button
