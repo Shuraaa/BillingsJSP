@@ -113,7 +113,7 @@
 				<li><a href="user_changePass.jsp"><i
 						class="glyphicon glyphicon-lock"></i> Cập nhật mật khẩu</a></li>
 			</ul></li>
-		<li><a href="billings.jsp"> <i
+		<li><a href="billings_total.jsp"> <i
 				class="glyphicon glyphicon-list-alt"></i> <span>Billings</span>
 		</a></li>
 		<li class="treeview"><a href="#"> <i

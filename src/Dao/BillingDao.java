@@ -24,7 +24,7 @@ public class BillingDao {
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
-			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi, lc.loai_cuocgoi, lc.gia_tien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where  ct.congtyID ='"
+			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi,lc.thang_nam, lc.loai_cuocgoi, lc.gia_tien,lc.bat_dau,lc.ketthuc from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where  ct.congtyID ='"
 					+ idcongty + "';";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
@@ -35,12 +35,13 @@ public class BillingDao {
 				String phongbanid = rs.getString("phongbanID");
 				String ten_phongban = rs.getString("ten_phongban");
 				int thoigian_goi = rs.getInt("thoigian_goi");
+				int thang =Integer.parseInt(rs.getString("thang_nam")) ;
 				String loai_cuocgoi = rs.getString("loai_cuocgoi");
-				double gia_tien = rs.getDouble("gia_tien");
+				double gia_tien =  rs.getDouble("gia_tien");
+				String thoigianbatdau = rs.getString("bat_dau");
+				String thoigianketthuc = rs.getString("ketthuc");
 
-				listLogCall_CT.add(new LogCall(congtyid, tencongty,
-						extensionID, thuebaonhan, phongbanid, ten_phongban,
-						thoigian_goi, null, loai_cuocgoi, gia_tien));
+				listLogCall_CT.add(new LogCall(congtyid, tencongty, extensionID, thuebaonhan, phongbanid, ten_phongban, thoigian_goi, thang, loai_cuocgoi, gia_tien, thoigianbatdau, thoigianketthuc));
 			}
 			statement.close();
 			connection.close();
@@ -61,7 +62,7 @@ public class BillingDao {
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
-			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi, lc.loai_cuocgoi, lc.gia_tien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where pb.phongbanID ='"
+			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi,lc.thang_nam, lc.loai_cuocgoi, lc.gia_tien,lc.bat_dau,lc.ketthuc from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where pb.phongbanID ='"
 					+ idphongban + "';";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
@@ -72,12 +73,13 @@ public class BillingDao {
 				String phongbanid = rs.getString("phongbanID");
 				String ten_phongban = rs.getString("ten_phongban");
 				int thoigian_goi = rs.getInt("thoigian_goi");
+				int thang =Integer.parseInt(rs.getString("thang_nam")) ;
 				String loai_cuocgoi = rs.getString("loai_cuocgoi");
-				double gia_tien = rs.getDouble("gia_tien");
+				double gia_tien =  rs.getDouble("gia_tien");
+				String thoigianbatdau = rs.getString("bat_dau");
+				String thoigianketthuc = rs.getString("ketthuc");
 
-				listLogCall_PB.add(new LogCall(congtyid, tencongty,
-						extensionID, thuebaonhan, phongbanid, ten_phongban,
-						thoigian_goi, null, loai_cuocgoi, gia_tien));
+				listLogCall_PB.add(new LogCall(congtyid, tencongty, extensionID, thuebaonhan, phongbanid, ten_phongban, thoigian_goi, thang, loai_cuocgoi, gia_tien, thoigianbatdau, thoigianketthuc));
 			}
 			statement.close();
 			connection.close();
@@ -98,7 +100,7 @@ public class BillingDao {
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
-			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi, lc.loai_cuocgoi, lc.gia_tien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where ex.extensionID ='"
+			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi,lc.thang_nam, lc.loai_cuocgoi, lc.gia_tien,lc.bat_dau,lc.ketthuc from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where ex.extensionID ='"
 					+ idextension + "';";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
@@ -109,12 +111,13 @@ public class BillingDao {
 				String phongbanid = rs.getString("phongbanID");
 				String ten_phongban = rs.getString("ten_phongban");
 				int thoigian_goi = rs.getInt("thoigian_goi");
+				int thang =Integer.parseInt(rs.getString("thang_nam")) ;
 				String loai_cuocgoi = rs.getString("loai_cuocgoi");
-				double gia_tien = rs.getDouble("gia_tien");
+				double gia_tien =  rs.getDouble("gia_tien");
+				String thoigianbatdau = rs.getString("bat_dau");
+				String thoigianketthuc = rs.getString("ketthuc");
 
-				listLogCall_EX.add(new LogCall(congtyid, tencongty,
-						extensionID, thuebaonhan, phongbanid, ten_phongban,
-						thoigian_goi, null, loai_cuocgoi, gia_tien));
+				listLogCall_EX.add(new LogCall(congtyid, tencongty, extensionID, thuebaonhan, phongbanid, ten_phongban, thoigian_goi, thang, loai_cuocgoi, gia_tien, thoigianbatdau, thoigianketthuc));
 			}
 			statement.close();
 			connection.close();
@@ -131,7 +134,7 @@ public class BillingDao {
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
-			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi, lc.loai_cuocgoi, lc.gia_tien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where lc.loai_cuocgoi ='"
+			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi,lc.thang_nam, lc.loai_cuocgoi, lc.gia_tien,lc.bat_dau,lc.ketthuc from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where lc.loai_cuocgoi ='"
 					+ dichvu + "'and ct.congtyID='"+idcongty+"';";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
@@ -142,12 +145,13 @@ public class BillingDao {
 				String phongbanid = rs.getString("phongbanID");
 				String ten_phongban = rs.getString("ten_phongban");
 				int thoigian_goi = rs.getInt("thoigian_goi");
+				int thang =Integer.parseInt(rs.getString("thang_nam")) ;
 				String loai_cuocgoi = rs.getString("loai_cuocgoi");
-				double gia_tien = rs.getDouble("gia_tien");
+				double gia_tien =  rs.getDouble("gia_tien");
+				String thoigianbatdau = rs.getString("bat_dau");
+				String thoigianketthuc = rs.getString("ketthuc");
 
-				listLogCall_DV.add(new LogCall(congtyid, tencongty,
-						extensionID, thuebaonhan, phongbanid, ten_phongban,
-						thoigian_goi, null, loai_cuocgoi, gia_tien));
+				listLogCall_DV.add(new LogCall(congtyid, tencongty, extensionID, thuebaonhan, phongbanid, ten_phongban, thoigian_goi, thang, loai_cuocgoi, gia_tien, thoigianbatdau, thoigianketthuc));;
 			}
 			statement.close();
 			connection.close();
@@ -163,7 +167,7 @@ public class BillingDao {
 			try {
 				Connection connection = DatabaseSQLConnection.getConnection();
 				Statement statement = connection.createStatement();
-				String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi, lc.loai_cuocgoi, lc.gia_tien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where lc.loai_cuocgoi ='"
+				String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi,lc.thang_nam, lc.loai_cuocgoi, lc.gia_tien,lc.bat_dau,lc.ketthuc from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where lc.loai_cuocgoi ='"
 						+ dichvu + "'and pb.phongbanID='"+idphongban+"';";
 				ResultSet rs = statement.executeQuery(sql);
 				while (rs.next()) {
@@ -174,12 +178,13 @@ public class BillingDao {
 					String phongbanid = rs.getString("phongbanID");
 					String ten_phongban = rs.getString("ten_phongban");
 					int thoigian_goi = rs.getInt("thoigian_goi");
+					int thang =Integer.parseInt(rs.getString("thang_nam")) ;
 					String loai_cuocgoi = rs.getString("loai_cuocgoi");
-					double gia_tien = rs.getDouble("gia_tien");
+					double gia_tien =  rs.getDouble("gia_tien");
+					String thoigianbatdau = rs.getString("bat_dau");
+					String thoigianketthuc = rs.getString("ketthuc");
 
-					listLogCall_DVPB.add(new LogCall(congtyid, tencongty,
-							extensionID, thuebaonhan, phongbanid, ten_phongban,
-							thoigian_goi, null, loai_cuocgoi, gia_tien));
+					listLogCall_DVPB.add(new LogCall(congtyid, tencongty, extensionID, thuebaonhan, phongbanid, ten_phongban, thoigian_goi, thang, loai_cuocgoi, gia_tien, thoigianbatdau, thoigianketthuc));
 				}
 				statement.close();
 				connection.close();
@@ -195,7 +200,7 @@ public class BillingDao {
 					try {
 						Connection connection = DatabaseSQLConnection.getConnection();
 						Statement statement = connection.createStatement();
-						String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi, lc.loai_cuocgoi, lc.gia_tien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where lc.loai_cuocgoi ='"
+						String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi,lc.thang_nam, lc.loai_cuocgoi, lc.gia_tien,lc.bat_dau,lc.ketthuc from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where lc.loai_cuocgoi ='"
 								+ dichvu + "'and ex.extensionID="+extension+";";
 						ResultSet rs = statement.executeQuery(sql);
 						while (rs.next()) {
@@ -206,12 +211,13 @@ public class BillingDao {
 							String phongbanid = rs.getString("phongbanID");
 							String ten_phongban = rs.getString("ten_phongban");
 							int thoigian_goi = rs.getInt("thoigian_goi");
+							int thang =Integer.parseInt(rs.getString("thang_nam")) ;
 							String loai_cuocgoi = rs.getString("loai_cuocgoi");
-							double gia_tien = rs.getDouble("gia_tien");
+							double gia_tien =  rs.getDouble("gia_tien");
+							String thoigianbatdau = rs.getString("bat_dau");
+							String thoigianketthuc = rs.getString("ketthuc");
 
-							listLogCall_DVEX.add(new LogCall(congtyid, tencongty,
-									extensionID, thuebaonhan, phongbanid, ten_phongban,
-									thoigian_goi, null, loai_cuocgoi, gia_tien));
+							listLogCall_DVEX.add(new LogCall(congtyid, tencongty, extensionID, thuebaonhan, phongbanid, ten_phongban, thoigian_goi, thang, loai_cuocgoi, gia_tien, thoigianbatdau, thoigianketthuc));
 						}
 						statement.close();
 						connection.close();

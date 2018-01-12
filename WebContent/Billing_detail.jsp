@@ -621,8 +621,8 @@
 													<th>Thuê bao được gọi</th>
 													<th>Phòng/ban</th>
 													<th>Tổng số giây</th>
-													<th>Thời gian</th>
-													<th>Loại cuộc gọi</th>
+													<th>Thời gian bắt đầu</th>
+													<th>Thời gian kết thúc</th>
 													<th>Cost(Chưa VAT) (VND)</th>
 													<th>Cost đã makeup</th>
 												</tr>
@@ -641,8 +641,8 @@
 													<td><%=listlogcall_dv.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_dv.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_dv.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_dv.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_dv.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_dv.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_dv.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_dv.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_dv.get(i).getGiaTien()+listlogcall_dv.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -665,8 +665,8 @@
 													<td><%=listexten_pb.get(i).getThueBaoNhan()%></td>
 													<td><%=listexten_pb.get(i).getTenPhongBan()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianGoi()%></td>
-													<td><%=listexten_pb.get(i).getNgayGoi()%></td>
-													<td><%=listexten_pb.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listexten_pb.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listexten_pb.get(i).getGiaTien()+listexten_pb.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -687,8 +687,8 @@
 													<td><%=listlogcall_ex.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_ex.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_ex.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_ex.get(i).getGiaTien()+listlogcall_ex.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -736,8 +736,8 @@
 													<td><%=listlogcall_dv1.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_dv1.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_dv1.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_dv1.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_dv1.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_dv1.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_dv1.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_dv1.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_dv1.get(i).getGiaTien()+listlogcall_dv1.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -759,8 +759,8 @@
 													<td><%=listexten_pb.get(i).getThueBaoNhan()%></td>
 													<td><%=listexten_pb.get(i).getTenPhongBan()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianGoi()%></td>
-													<td><%=listexten_pb.get(i).getNgayGoi()%></td>
-													<td><%=listexten_pb.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listexten_pb.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listexten_pb.get(i).getGiaTien()+listexten_pb.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -781,8 +781,8 @@
 													<td><%=listlogcall_ex.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_ex.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_ex.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_ex.get(i).getGiaTien()+listlogcall_ex.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -830,8 +830,8 @@
 													<td><%=listlogcall_dv2.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_dv2.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_dv2.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_dv2.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_dv2.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_dv2.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_dv2.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_dv2.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_dv2.get(i).getGiaTien()+listlogcall_dv2.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -853,8 +853,8 @@
 													<td><%=listexten_pb.get(i).getThueBaoNhan()%></td>
 													<td><%=listexten_pb.get(i).getTenPhongBan()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianGoi()%></td>
-													<td><%=listexten_pb.get(i).getNgayGoi()%></td>
-													<td><%=listexten_pb.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listexten_pb.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listexten_pb.get(i).getGiaTien()+listexten_pb.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -875,8 +875,8 @@
 													<td><%=listlogcall_ex.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_ex.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_ex.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_ex.get(i).getGiaTien()+listlogcall_ex.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -906,8 +906,8 @@
 													<th>Thuê bao được gọi</th>
 													<th>Phòng/ban</th>
 													<th>Tổng số giây</th>
-													<th>Thời gian</th>
-													<th>Loại cuộc gọi</th>
+													<th>Thời gian bắt đầu</th>
+													<th>Thời gian kết thúc</th>
 													<th>Cost(Chưa VAT) (VND)</th>
 													<th>Cost đã makeup</th>
 												</tr>
@@ -924,8 +924,8 @@
 													<td><%=listlogcall_dv3.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_dv3.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_dv3.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_dv3.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_dv3.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_dv3.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_dv3.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_dv3.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_dv3.get(i).getGiaTien()+listlogcall_dv3.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -947,8 +947,8 @@
 													<td><%=listexten_pb.get(i).getThueBaoNhan()%></td>
 													<td><%=listexten_pb.get(i).getTenPhongBan()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianGoi()%></td>
-													<td><%=listexten_pb.get(i).getNgayGoi()%></td>
-													<td><%=listexten_pb.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listexten_pb.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listexten_pb.get(i).getGiaTien()+listexten_pb.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -969,8 +969,8 @@
 													<td><%=listlogcall_ex.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_ex.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_ex.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_ex.get(i).getGiaTien()+listlogcall_ex.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -1018,8 +1018,8 @@
 													<td><%=listlogcall_dv4.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_dv4.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_dv4.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_dv4.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_dv4.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_dv4.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_dv4.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_dv4.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_dv4.get(i).getGiaTien()+listlogcall_dv4.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -1041,8 +1041,8 @@
 													<td><%=listexten_pb.get(i).getThueBaoNhan()%></td>
 													<td><%=listexten_pb.get(i).getTenPhongBan()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianGoi()%></td>
-													<td><%=listexten_pb.get(i).getNgayGoi()%></td>
-													<td><%=listexten_pb.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
+													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listexten_pb.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listexten_pb.get(i).getGiaTien()+listexten_pb.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
@@ -1063,8 +1063,8 @@
 													<td><%=listlogcall_ex.get(i).getThueBaoNhan()%></td>
 													<td><%=listlogcall_ex.get(i).getTenPhongBan()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getNgayGoi()%></td>
-													<td><%=listlogcall_ex.get(i).getLoaiCuocGoi()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
+													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
 													<td><%=(double)Math.round((listlogcall_ex.get(i).getGiaTien()*100)/100)%></td>
 													<td><%=(double)Math.round(((listlogcall_ex.get(i).getGiaTien()+listlogcall_ex.get(i).getGiaTien()*tilemakeup)*100)/100)%></td>
 												</tr>
