@@ -396,6 +396,34 @@ public class BillingDao {
 		total = (double) Math.round(total * 100) / 100;
 		return total;
 	}
+	// lay danh sach thang nam
+		public static String[] getListThang() {
+			String[] listThang = new String[12] ;
+			int i=0;
+
+			try {
+				Connection connection = DatabaseSQLConnection.getConnection();
+				Statement statement = connection.createStatement();
+				String sql = "select thang_nam from log_call group by thang_nam;";
+				ResultSet rs = statement.executeQuery(sql);
+				while (rs.next()) {
+					String thangnam = rs.getString("thang_nam");
+					listThang[i]= thangnam;
+					i++;
+					
+				}
+				statement.close();
+				connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			// listTaiKhoan.add(new TaiKhoan("admin", "123", 1, "cty1"));
+			// listTaiKhoan.add(new TaiKhoan("nguoidung", "123", 1, "cty2"));
+			//
+			return listThang;
+		}
+
 
 	public static void main(String[] args) {
 		BillingDao bl = new BillingDao();

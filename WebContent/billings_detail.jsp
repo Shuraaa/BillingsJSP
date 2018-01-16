@@ -167,11 +167,11 @@
 								<div class="row">
 									<div class="col-sm-8">
 										<select class="form-control" name="thangnam">
-											<option value="4">Tháng 4</option>
-											<option value="5">Tháng 5</option>
-											<option value="11">Tháng 11</option>
-											<option value="12">Tháng 12</option>
-											
+										<%for (int i=0; i<BillingDao.getListThang().length; i++){
+											if (BillingDao.getListThang()[i]!=null){%>
+											<option value=<%=BillingDao.getListThang()[i]%>>Tháng <%=BillingDao.getListThang()[i]%> </option>
+										<%}
+										} %>	
 
 											<!-- LẤY DANH SÁCH GROUP TỪ DATABASE -->
 
