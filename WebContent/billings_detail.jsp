@@ -48,11 +48,23 @@
 					ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPBCongTy(idcongty);
 					ArrayList<Extension> listExtensions = ExtensionDao.getListEXCongTy(idcongty);
 					ArrayList<LogCall> listBilling = BillingDao.getListLogCall_CT(idcongty);
+					String yeucauthang = (String) request.getAttribute("yeucauthang");
+
+					// filter theo thang
+					String thangnam = "";
+					if (yeucauthang == "thangnam") {
+						String thang = (String) request.getAttribute("thangnam");
+						thangnam = thang;
+					} else {
+						thangnam = "12";
+					}
 			%>
 			<section class="content-header">
 			<h1>
 				Billings
-				<%=tencongty%></h1>
+				<%=tencongty%>
+				tháng
+				<%=thangnam%></h1>
 			<ol class="breadcrumb">
 				<li><a href="<%=request.getContextPath()%>/index.jsp"><i
 						class="fa fa-dashboard"></i> BillingsSystem</a></li>
@@ -102,6 +114,7 @@
 					</div>
 				</div>
 				<!--  -->
+
 				<div class="col-sm-3">
 					<div class="box box-primary">
 						<div class="box-header with-border">
@@ -141,12 +154,13 @@
 						</form>
 					</div>
 				</div>
+
 				<!--  -->
 				<div class="col-sm-3">
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
-								<i class="glyphicon glyphicon-filter"></i> Filter dịch vụ
+								<i class="glyphicon glyphicon-filter"></i> Tháng
 							</h3>
 						</div>
 
@@ -155,12 +169,18 @@
 							<div class="box-body">
 								<div class="row">
 									<div class="col-sm-8">
-										<select class="form-control" name="dichvu">
-											<option value="A">Nội hạt</option>
-											<option value="B">Di động</option>
-											<option value="C">Liên tỉnh</option>
-											<option value="D">Quốc tế</option>
-											<option value="E">Dịch vụ</option>
+										<select class="form-control" name="thangnam">
+											<%
+												for (int i = 0; i < BillingDao.getListThang().length; i++) {
+														if (BillingDao.getListThang()[i] != null) {
+											%>
+											<option value=<%=BillingDao.getListThang()[i]%>>Tháng
+												<%=BillingDao.getListThang()[i]%>
+											</option>
+											<%
+												}
+													}
+											%>
 
 											<!-- LẤY DANH SÁCH GROUP TỪ DATABASE -->
 
@@ -169,7 +189,8 @@
 									<div class="col-sm-3">
 										<input type="hidden" name="congtyid" value="<%=idcongty%>"></input>
 										<input type="hidden" name="tencongty" value="<%=tencongty%>"></input>
-										<input type="hidden" name="command" value="filter_dichvu"></input>
+										<input type="hidden" name="yc" value="<%=yeucau%>"></input> <input
+											type="hidden" name="command" value="filter_thangnam"></input>
 										<button type="submit"
 											class="btn btn-primary glyphicon glyphicon-search">
 										</button>
@@ -256,23 +277,23 @@
 											<!-- Bang tinh gia cuoc dien thoai -->
 											<%
 												// tinh cho cong ty
-													double noihat = BillingDao.tinhtongtien("A", idcongty);
+													double noihat = BillingDao.tinhtongtien("A", idcongty, thangnam);
 													double tiennoihat = (double) Math.round(noihat * 100) / 100;
 													double tiennoihatma = (double) Math.round((tiennoihat * (1 + tilemakeup)) * 100) / 100;
 
-													double lientinh = BillingDao.tinhtongtien("C", idcongty);
+													double lientinh = BillingDao.tinhtongtien("C", idcongty, thangnam);
 													double tienlientinh = (double) Math.round(lientinh * 100) / 100;
 													double tienlientinhma = (double) Math.round((tienlientinh * (1 + tilemakeup)) * 100) / 100;
 
-													double didong = BillingDao.tinhtongtien("B", idcongty);
+													double didong = BillingDao.tinhtongtien("B", idcongty, thangnam);
 													double tiendidong = (double) Math.round(didong * 100) / 100;
 													double tiendidongma = (double) Math.round((tiendidong * (1 + tilemakeup)) * 100) / 100;
 
-													double quocte = BillingDao.tinhtongtien("D", idcongty);
+													double quocte = BillingDao.tinhtongtien("D", idcongty, thangnam);
 													double tienquocte = (double) Math.round(quocte * 100) / 100;
 													double tienquoctema = (double) Math.round((tienquocte * (1 + tilemakeup)) * 100) / 100;
 
-													double dichvu = BillingDao.tinhtongtien("E", idcongty);
+													double dichvu = BillingDao.tinhtongtien("E", idcongty, thangnam);
 													double tiendichvu = (double) Math.round(dichvu * 100) / 100;
 													double tiendichvuma = (double) Math.round((tiendichvu * (1 + tilemakeup)) * 100) / 100;
 
@@ -286,23 +307,23 @@
 
 													// tinh cho phong ban
 
-													double noihatpb = BillingDao.tinhtongtienpb("A", idphongban);
+													double noihatpb = BillingDao.tinhtongtienpb("A", idphongban, thangnam);
 													double tiennoihatpb = (double) Math.round(noihatpb * 100) / 100;
 													double tiennoihatmapb = (double) Math.round((tiennoihatpb * (1 + tilemakeup)) * 100) / 100;
 
-													double didongpb = BillingDao.tinhtongtienpb("B", idphongban);
+													double didongpb = BillingDao.tinhtongtienpb("B", idphongban, thangnam);
 													double tiendidongpb = (double) Math.round(didongpb * 100) / 100;
 													double tiendidongmapb = (double) Math.round((tiendidongpb * (1 + tilemakeup)) * 100) / 100;
 
-													double lientinhpb = BillingDao.tinhtongtienpb("C", idphongban);
+													double lientinhpb = BillingDao.tinhtongtienpb("C", idphongban, thangnam);
 													double tienlientinhpb = (double) Math.round(lientinhpb * 100) / 100;
 													double tienlientinhmapb = (double) Math.round((tienlientinhpb * (1 + tilemakeup)) * 100) / 100;
 
-													double quoctepb = BillingDao.tinhtongtienpb("D", idphongban);
+													double quoctepb = BillingDao.tinhtongtienpb("D", idphongban, thangnam);
 													double tienquoctepb = (double) Math.round(quoctepb * 100) / 100;
 													double tienquoctemapb = (double) Math.round((tienquoctepb * (1 + tilemakeup)) * 100) / 100;
 
-													double dichvupb = BillingDao.tinhtongtienpb("E", idphongban);
+													double dichvupb = BillingDao.tinhtongtienpb("E", idphongban, thangnam);
 													double tiendichvupb = (double) Math.round(dichvupb * 100) / 100;
 													double tiendichvumapb = (double) Math.round((tiendichvupb * (1 + tilemakeup)) * 100) / 100;
 
@@ -311,23 +332,23 @@
 													double tongcuoc7pb = (double) Math.round(tongcuocpb * 100) / 100;
 
 													// tinh cho phong ban
-													double noihatex = BillingDao.tinhtongtienex("A", idextension);
+													double noihatex = BillingDao.tinhtongtienex("A", idextension, thangnam);
 													double tiennoihatex = (double) Math.round(noihatex * 100) / 100;
 													double tiennoihatmaex = (double) Math.round((tiennoihatex * (1 + tilemakeup)) * 100) / 100;
 
-													double didongex = BillingDao.tinhtongtienex("B", idextension);
+													double didongex = BillingDao.tinhtongtienex("B", idextension, thangnam);
 													double tiendidongex = (double) Math.round(didongex * 100) / 100;
 													double tiendidongmaex = (double) Math.round((tiendidongex * (1 + tilemakeup)) * 100) / 100;
 
-													double lientinhex = BillingDao.tinhtongtienex("C", idextension);
+													double lientinhex = BillingDao.tinhtongtienex("C", idextension, thangnam);
 													double tienlientinhex = (double) Math.round(lientinhex * 100) / 100;
 													double tienlientinhmaex = (double) Math.round((tienlientinhex * (1 + tilemakeup)) * 100) / 100;
 
-													double quocteex = BillingDao.tinhtongtienex("D", idextension);
+													double quocteex = BillingDao.tinhtongtienex("D", idextension, thangnam);
 													double tienquocteex = (double) Math.round(quocteex * 100) / 100;
 													double tienquoctemaex = (double) Math.round((tienquocteex * (1 + tilemakeup)) * 100) / 100;
 
-													double dichvuex = BillingDao.tinhtongtienex("E", idextension);
+													double dichvuex = BillingDao.tinhtongtienex("E", idextension, thangnam);
 													double tiendichvuex = (double) Math.round(dichvuex * 100) / 100;
 													double tiendichvumaex = (double) Math.round((tiendichvuex * (1 + tilemakeup)) * 100) / 100;
 
@@ -611,7 +632,7 @@
 							<div id="menu3" class="tab-pane fade">
 								<!--Neu yeu cau gui ve là thong ke theo dich vu NOI HAT -->
 								<%
-									ArrayList<LogCall> listlogcall_dv = BillingDao.getListLogCall_DV("A", idcongty);
+									ArrayList<LogCall> listlogcall_dv = BillingDao.getListLogCall_DV("A", idcongty, thangnam);
 								%>
 								<div>
 									<div class="box-body no-padding">
@@ -627,7 +648,6 @@
 													<th>Tổng số giây</th>
 													<th>Thời gian bắt đầu</th>
 													<th>Thời gian kết thúc</th>
-													<th>Loại cuộc gọi</th>
 													<th>Cost(Chưa VAT) (VND)</th>
 													<th>Cost đã makeup</th>
 												</tr>
@@ -662,7 +682,7 @@
 												<!-- Bang LOGCALL Noi hat PHONG BAN -->
 												<%
 													if (yeucau == "phongban") {
-															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("A", idphongban);
+															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("A", idphongban, thangnam);
 															for (int i = 0; i < listexten_pb.size(); i++) {
 												%>
 												<tr class="gradeA">
@@ -687,7 +707,7 @@
 												<!-- Bang LOGCALL NOI HAT EXTENSION -->
 												<%
 													if (yeucau == "extension") {
-															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("A", idextension);
+															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("A", idextension, thangnam);
 															for (int i = 0; i < listlogcall_ex.size(); i++) {
 												%>
 												<tr class="gradeA">
@@ -719,7 +739,7 @@
 							<div id="menu4" class="tab-pane fade">
 								<!--Neu yeu cau gui ve là thong ke theo dich vu DI DONG -->
 								<%
-									ArrayList<LogCall> listlogcall_dv1 = BillingDao.getListLogCall_DV("B", idcongty);
+									ArrayList<LogCall> listlogcall_dv1 = BillingDao.getListLogCall_DV("B", idcongty, thangnam);
 								%>
 								<div>
 									<div class="box-body no-padding">
@@ -765,7 +785,7 @@
 												<!-- Bang tinh gia cuoc DI DONG PHONG BAN -->
 												<%
 													if (yeucau == "phongban") {
-															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("B", idphongban);
+															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("B", idphongban, thangnam);
 															for (int i = 0; i < listexten_pb.size(); i++) {
 												%>
 												<tr class="gradeA">
@@ -790,7 +810,7 @@
 												<%
 													if (yeucau == "extension") {
 
-															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("B", idextension);
+															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("B", idextension, thangnam);
 															for (int i = 0; i < listlogcall_ex.size(); i++) {
 												%>
 												<tr class="gradeA">
@@ -821,7 +841,7 @@
 							<div id="menu5" class="tab-pane fade">
 								<!--Neu yeu cau gui ve là thong ke theo dich vu NOI HAT -->
 								<%
-									ArrayList<LogCall> listlogcall_dv2 = BillingDao.getListLogCall_DV("C", idcongty);
+									ArrayList<LogCall> listlogcall_dv2 = BillingDao.getListLogCall_DV("C", idcongty, thangnam);
 								%>
 								<div>
 									<div class="box-body no-padding">
@@ -868,7 +888,7 @@
 												<%
 													if (yeucau == "phongban") {
 
-															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("C", idphongban);
+															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("C", idphongban, thangnam);
 															for (int i = 0; i < listexten_pb.size(); i++) {
 												%>
 												<tr class="gradeA">
@@ -893,7 +913,7 @@
 												<%
 													if (yeucau == "extension") {
 
-															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("C", idextension);
+															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("C", idextension, thangnam);
 															for (int i = 0; i < listlogcall_ex.size(); i++) {
 												%>
 												<tr class="gradeA">
@@ -924,7 +944,7 @@
 							<div id="menu6" class="tab-pane fade">
 								<!--Neu yeu cau gui ve là thong ke theo dich vu NOI HAT -->
 								<%
-									ArrayList<LogCall> listlogcall_dv3 = BillingDao.getListLogCall_DV("D", idcongty);
+									ArrayList<LogCall> listlogcall_dv3 = BillingDao.getListLogCall_DV("D", idcongty, thangnam);
 								%>
 								<div>
 									<div class="box-body no-padding">
@@ -971,7 +991,7 @@
 												<%
 													if (yeucau == "phongban") {
 
-															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("D", idphongban);
+															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("D", idphongban, thangnam);
 															for (int i = 0; i < listexten_pb.size(); i++) {
 												%>
 												<tr class="gradeA">
@@ -996,7 +1016,7 @@
 												<%
 													if (yeucau == "extension") {
 
-															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("D", idextension);
+															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("D", idextension, thangnam);
 															for (int i = 0; i < listlogcall_ex.size(); i++) {
 												%>
 												<tr class="gradeA">
@@ -1026,7 +1046,7 @@
 							<div id="menu7" class="tab-pane fade">
 								<!--Neu yeu cau gui ve là thong ke theo dich vu NOI HAT -->
 								<%
-									ArrayList<LogCall> listlogcall_dv4 = BillingDao.getListLogCall_DV("E", idcongty);
+									ArrayList<LogCall> listlogcall_dv4 = BillingDao.getListLogCall_DV("E", idcongty, thangnam);
 								%>
 								<div>
 									<div class="box-body no-padding">
@@ -1073,7 +1093,7 @@
 												<%
 													if (yeucau == "phongban") {
 
-															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("E", idphongban);
+															ArrayList<LogCall> listexten_pb = BillingDao.getListLogCall_DVPB("E", idphongban, thangnam);
 															for (int i = 0; i < listexten_pb.size(); i++) {
 												%>
 												<tr class="gradeA">
@@ -1098,7 +1118,7 @@
 												<%
 													if (yeucau == "extension") {
 
-															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("E", idextension);
+															ArrayList<LogCall> listlogcall_ex = BillingDao.getListLogCall_DVEX("E", idextension, thangnam);
 															for (int i = 0; i < listlogcall_ex.size(); i++) {
 												%>
 												<tr class="gradeA">

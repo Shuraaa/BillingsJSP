@@ -79,7 +79,7 @@ public class UserLogin {
 		String sql = "UPDATE taikhoan_nguoidung SET userpass = '" + newpass + "'" + "WHERE username='" + username + "'";
 		PreparedStatement ps;
 		try {
-			if (newpass.length() >= 6 && newpass.length() <= 15) {
+			if (newpass.length() >= 6) {
 				ps = connection.prepareStatement(sql);
 				ps.executeUpdate();
 			} else {
@@ -91,14 +91,24 @@ public class UserLogin {
 		}
 	}
 
+	public void updateProfile(String iD, String email, String diaChi, String sdt, String mst) {
+		Connection connection = DatabaseSQLConnection.getConnection();
+		String sql = "UPDATE congty SET email ='" + email + "'" + ",dia_chi ='" + diaChi + "'" + ", dienthoai ='" + sdt
+				+ "'" + ",maso_thue='" + mst + "'" + "WHERE congtyID='" + iD + "'";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) {
 		UserLogin us = new UserLogin();
+		us.updateProfile("ct02", "administrator@gmail.com", "Binh Thanh", "1114", "123456");
 
-		// test get Email by User
-		System.out.println(us.getCompanyInfo("admin").getEmail());
-
-		// test get User Info
-		// System.out.println(us.getUserInfo("admin").getUserPass());
 	}
 
 }

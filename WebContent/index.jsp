@@ -16,12 +16,14 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 	<%
-		int role = (int) session.getAttribute("role");
-		String iD = (String) session.getAttribute("companyID");
-		String name = (String) session.getAttribute("companyName");
 		if (session.getAttribute("username") == null) {
 			response.sendRedirect("login.jsp");
 		} else {
+	%>
+	<%
+		int role = (int) session.getAttribute("role");
+			String iD = (String) session.getAttribute("companyID");
+			String name = (String) session.getAttribute("companyName");
 	%>
 
 	<div class="wrapper">
@@ -79,7 +81,7 @@
 							</h1>
 						</div>
 						<div class="icon">
-							<i class="ion-person-stalker"></i>
+							<i class="ion-loop"></i>
 						</div>
 						<a href="<%=request.getContextPath()%>/user_changePass.jsp"
 							class="small-box-footer">Chi tiết <i
@@ -89,6 +91,30 @@
 						}
 					%>
 				</div>
+
+				<%
+					if (role == 1) {
+				%>
+				<div class="col-lg-3 col-xs-6">
+					<div class="small-box bg-red">
+						<div class="inner">
+
+							<h1>
+								<b>Đổi mật khẩu</b>
+							</h1>
+						</div>
+						<div class="icon">
+							<i class="ion-loop"></i>
+						</div>
+						<a href="<%=request.getContextPath()%>/user_changePass.jsp"
+							class="small-box-footer">Chi tiết <i
+							class="fa fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+				<%
+					}
+				%>
+
 				<!-- ./col -->
 				<div class="col-lg-3 col-xs-6">
 					<!-- small box -->
@@ -136,7 +162,7 @@
 						<div class="icon">
 							<i class="ion-locked"></i>
 						</div>
-						<a href="<%=request.getContextPath()%>/admin.jsp"
+						<a href="<%=request.getContextPath()%>/admin_user.jsp"
 							class="small-box-footer">Chi tiết <i
 							class="fa fa-arrow-circle-right"></i></a>
 					</div>

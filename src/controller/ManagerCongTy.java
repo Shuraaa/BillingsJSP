@@ -47,6 +47,7 @@ public class ManagerCongTy extends HttpServlet {
 			url = "/admin_company.jsp";
 
 		}
+		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
 

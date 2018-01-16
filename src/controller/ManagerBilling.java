@@ -25,13 +25,13 @@ public class ManagerBilling extends HttpServlet {
 		String command = request.getParameter("command");
 		BillingDao bld = new BillingDao();
 		String url = "";
-		Validation vl = new Validation();
 		String congtyID = "";
 		String tencongty = "";
 		String phongbanID = "";
 		String extensionID = "";
-		String dichvu = "";
 		String yeucau = "";
+		String thangnam = "";
+		String yeucauthang = "";
 		switch (command) {
 
 		// delete phòng ban
@@ -49,10 +49,14 @@ public class ManagerBilling extends HttpServlet {
 			phongbanID = request.getParameter("phongban");
 			yeucau = "phongban";
 			tencongty = request.getParameter("tencongty");
+			thangnam = request.getParameter("thangnam");
+			yeucauthang = "thangnam";
+			request.setAttribute("yeucauthang", yeucauthang);
 			request.setAttribute("tencongty", tencongty);
 			request.setAttribute("congtyid", congtyID);
 			request.setAttribute("phongbanid", phongbanID);
 			request.setAttribute("yeucau", yeucau);
+			request.setAttribute("thangnam", thangnam);
 			url = "/billings_detail.jsp";
 			break;
 		case "filter_extension":
@@ -60,30 +64,42 @@ public class ManagerBilling extends HttpServlet {
 			extensionID = request.getParameter("extension");
 			yeucau = "extension";
 			tencongty = request.getParameter("tencongty");
+			thangnam = request.getParameter("thangnam");
+			yeucauthang = "thangnam";
+			request.setAttribute("yeucauthang", yeucauthang);
 			request.setAttribute("tencongty", tencongty);
 			request.setAttribute("congtyid", congtyID);
 			request.setAttribute("extensionid", extensionID);
 			request.setAttribute("yeucau", yeucau);
+			request.setAttribute("thangnam", thangnam);
 			url = "/billings_detail.jsp";
 			break;
-		case "filter_dichvu":
+		case "filter_thangnam":
 			congtyID = request.getParameter("congtyid");
-			dichvu = request.getParameter("dichvu");
-			yeucau = "dichvu";
 			tencongty = request.getParameter("tencongty");
+			yeucau = "tongbill";
+			thangnam = request.getParameter("thangnam");
+			// yeucau = request.getParameter("yc");
+			yeucauthang = "thangnam";
 			request.setAttribute("tencongty", tencongty);
 			request.setAttribute("congtyid", congtyID);
-			request.setAttribute("dichvu", dichvu);
+			request.setAttribute("thangnam", thangnam);
 			request.setAttribute("yeucau", yeucau);
+			request.setAttribute("yeucauthang", yeucauthang);
 			url = "/billings_detail.jsp";
+			break;
+		case "filter_thangnamtotal":
+			thangnam = request.getParameter("thangnam");
+			yeucauthang = "thangnam";
+			request.setAttribute("thangnam", thangnam);
+			request.setAttribute("yeucauthang", yeucauthang);
+			url = "/billings_total.jsp";
 			break;
 		default:
 			break;
 		}
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
-
-		// add phòng ban
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

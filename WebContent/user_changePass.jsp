@@ -15,13 +15,13 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 	<%
-		int role = (int) session.getAttribute("role");
 		if (session.getAttribute("username") == null) {
 			response.sendRedirect("login.jsp");
 		} else {
 	%>
 	<%
-		String error = (String) request.getAttribute("error");
+		int role = (int) session.getAttribute("role");
+			String error = (String) request.getAttribute("error");
 			if (error == null) {
 				error = "";
 			}
@@ -32,6 +32,10 @@
 			String error3 = (String) request.getAttribute("error3");
 			if (error3 == null) {
 				error3 = "";
+			}
+			String error4 = (String) request.getAttribute("error4");
+			if (error4 == null) {
+				error4 = "";
 			}
 	%>
 
@@ -75,8 +79,10 @@
 								<div class="form-group">
 									<label for="current_pwd">Mật khẩu hiện tại:</label> <input
 										type="password" class="form-control"
-										placeholder="Mật khẩu hiện tại" name="current_pwd">
+										placeholder="Mật khẩu hiện tại" name="current_pwd"
+										maxlength="30">
 									<p style="color: red"><%=error3%></p>
+									<p style="color: red"><%=error4%></p>
 								</div>
 								<!-- /.Old Password -->
 
@@ -84,7 +90,8 @@
 								<div class="form-group">
 									<label for="new_pwd">Mật khẩu mới:</label> <input
 										type="password" class="form-control"
-										placeholder="Mật khẩu mới" name="new_pwd">
+										placeholder="Mật khẩu mới" name="new_pwd" maxlength="30">
+									<p style="color: red"><%=error4%></p>
 								</div>
 								<!-- /.New Password -->
 
@@ -92,8 +99,10 @@
 								<div class="form-group">
 									<label for="confirm_new_pwd">Xác nhận Mật khẩu mới:</label> <input
 										type="password" class="form-control"
-										placeholder="Nhập lại mật khẩu mới" name="confirm_new_pwd">
+										placeholder="Nhập lại mật khẩu mới" name="confirm_new_pwd"
+										maxlength="30">
 									<p style="color: red"><%=error2%></p>
+									<p style="color: red"><%=error4%></p>
 								</div>
 								<!-- /.Confirm New Password -->
 
@@ -101,36 +110,23 @@
 
 							<!-- /.box-body -->
 							<div class="box-footer">
-								<a href="<%=request.getContextPath()%>/index.jsp"
-									class="btn btn-danger"> <i class="fa fa-remove"></i> Hủy
-								</a>
 								<%
 									if (role == 0 || role == 1) {
 								%>
-								<button class="btn btn-primary pull-right" type="submit">
-									<i class="fa fa-refresh"></i> Đổi mật khẩu
-								</button>
-								<%
-									} else if (role == 2) {
-								%><button class="btn btn-primary pull-right" type="submit"
-									disabled>
-									<i class="fa fa-refresh"></i> Đổi mật khẩu
-								</button>
-								<dialog id="confirm" class="site-dialog"> <header
-									class="dialog-header">
-								<h1>Alert</h1>
-								</header>
-								<div class="dialog-content">
-									<p>Bạn không có quyền để chỉnh sửa nội dung này !!!</p>
+								<div class="row">
+									<div class="col-sm-4"></div>
+									<div class="col-sm-4">
+										<button class="btn btn-primary form-control" type="submit">
+											<i class="fa fa-refresh"></i> Đổi mật khẩu
+										</button>
+									</div>
+									<div class="col-sm-4">
+										<a href="<%=request.getContextPath()%>/index.jsp"
+											class="btn btn-danger form-control"> <i
+											class="fa fa-remove"></i> Hủy
+										</a>
+									</div>
 								</div>
-								<div class="btn-group cf">
-									<button class="btn btn-primary" id="home">
-										<a href="<%=request.getContextPath()%>/index.jsp">Trang
-											chủ</a>
-									</button>
-									<button class="btn btn-cancel" id="cancel">Cancel</button>
-								</div>
-								</dialog>
 								<%
 									}
 								%>
@@ -140,33 +136,21 @@
 					</div>
 					<!-- /.box -->
 				</div>
+
 				<div class="col-md-6">
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<i class="fa fa-book"></i>
-							<h3 class="box-title">Hướng dẫn đổi mật khẩu</h3>
+							<h3 class="box-title">Hướng dẫn</h3>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Tempora laboriosam illum quasi ipsa, maxime accusantium mollitia
-								deleniti illo reprehenderit neque dolorem officiis tenetur
-								doloribus, dolorum ut nisi, impedit qui aperiam?</p>
-							<h4>1. Lorem ipsum dolor sit amet.</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Ex cupiditate laborum aliquid eveniet, reprehenderit sunt
-								maiores molestias assumenda quos recusandae.</p>
-							<h4>2. Lorem ipsum dolor sit amet.</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Mollitia numquam dignissimos earum laudantium corporis, animi
-								fuga quae! Rerum optio, iusto minima quae soluta deleniti
-								praesentium, esse eaque inventore dolorem nam quod laudantium
-								rem saepe dicta alias minus, iure quis. Non reiciendis provident
-								cumque ut, distinctio culpa, quam maiores magnam aliquam.</p>
-							<h4>3. Lorem ipsum dolor sit.</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Et architecto commodi nemo ipsa similique dignissimos debitis
-								pariatur maxime illo ratione.</p>
+							<h4>1. Quy định:</h4>
+							<p>- Mật khẩu phải chứa tối thiểu 6 ký tự và tối đa 30 ký tự.</p>
+							<p>- Không chứa khoảng trắng.</p>
+							<p>- Không chứa các ký tự đặc biệt như: "@,#,$,%,&,*,<,>,".</p>
+							<h4>2. Mật khẩu mới:</h4>
+							<p>- Mật khẩu mới và Xác nhận mật khẩu mới phải trùng nhau.</p>
 						</div>
 					</div>
 					<!-- /.box -->
@@ -181,10 +165,10 @@
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
 
-		<%
-			}
-		%>
 	</div>
 	<!-- /.End of wrapper -->
+	<%
+		}
+	%>
 </body>
 </html>

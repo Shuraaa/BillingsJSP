@@ -60,6 +60,7 @@ div.dataTables_wrapper {
 		url = "Logout";
 	}
 %>
+
 <body class="hold-transition skin-blue sidebar-mini">
 
 	<!-- Main Header -->
@@ -93,7 +94,7 @@ div.dataTables_wrapper {
 				<ul class="dropdown-menu">
 					<!-- User image -->
 					<li class="user-header"><img
-						src="ManagerDisplayImg?congtyid=<%=iD%>" class="img-circle"
+						src="ManagerDisplayImg?congtyid=<%=iD%>" class="img-rounded"
 						alt="User Image"> <%
  	if (role == 0) {
  %>
@@ -124,8 +125,8 @@ div.dataTables_wrapper {
 							<%
 								} else {
 							%>
-							<a href="<%=request.getContextPath()%>/guide.jsp"
-								class="btn btn-default btn-flat">Hướng dẫn sử dụng</a>
+							<a href="<%=request.getContextPath()%>/user_changePass.jsp"
+								class="btn btn-default btn-flat">Đổi mật khẩu</a>
 							<%
 								}
 							%>
@@ -145,8 +146,8 @@ div.dataTables_wrapper {
 	<section class="sidebar"> <!-- Sidebar USER panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="ManagerDisplayImg?congtyid=<%=iD%>" width="60px"
-				height="60px" alt="User Image">
+			<img src="ManagerDisplayImg?congtyid=<%=iD%>" class="img-responsive"
+				alt="User Image">
 		</div>
 		<div class="pull-left info">
 			<p>Welcome</p>
@@ -171,7 +172,6 @@ div.dataTables_wrapper {
 			</p>
 		</div>
 	</div>
-
 	<!-- Sidebar menu -->
 	<ul class="sidebar-menu">
 		<li class="header">DANH MỤC</li>

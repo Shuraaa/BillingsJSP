@@ -14,7 +14,8 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -59,47 +60,43 @@
 						</div>
 
 						<form action="<%=request.getContextPath()%>/ManagerExtension"
-							method="get" role="form" class="form-horizontal">
+							method="get" role="form" class="form-horizontal" id="form">
 							<div class="box-body">
-								<form action="<%=request.getContextPath()%>/ManagerExtension"
-									method="get" class="form-horizontal">
 
-									<%
-										String idcongty = (String) request.getAttribute("choncongty");
-											if ((idcongty == null)) {
-									%>
-									<!-- Form group -->
-									<div class="form-group">
-										<label for="inputCompany" class="col-sm-2 control-label">Chọn
-											công ti: </label>
-										<div class="col-sm-4">
-											<select class="form-control" name="congty">
-												<option selected="">Company name</option>
+								<%
+									String idcongty = (String) request.getAttribute("choncongty");
+										if ((idcongty == null)) {
+								%>
+								<!-- Form group -->
+								<div class="form-group">
+									<label for="inputCompany" class="col-sm-2 control-label">Chọn
+										công ti: </label>
+									<div class="col-sm-4">
+										<select class="form-control" name="congty">
 
-												<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
-												<%
-													ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-															for (int i = 0; i < listCongTy.size(); i++) {
-												%>
-												<option selected=""
-													value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
-												<%
-													}
-												%>
-											</select>
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<%
+												ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+														for (int i = 0; i < listCongTy.size(); i++) {
+											%>
+											<option value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
+											<%
+												}
+											%>
+										</select>
 
-										</div>
-										<input type="hidden" name="command" value="choncongty"></input>
-										<div class="col-sm-2">
-											<button type="submit" class="btn btn-primary">Xác
-												nhận</button>
-										</div>
-										<div class="col-sm-2">
-											<a href="admin_company-add.jsp"
-												class="form-control btn btn-success">Thêm công ti</a>
-										</div>
 									</div>
-								</form>
+									<input type="hidden" name="command" value="choncongty"></input>
+									<div class="col-sm-2">
+										<button type="submit" class="btn btn-primary btn-block">Xác
+											nhận</button>
+									</div>
+									<div class="col-sm-2">
+										<a href="<%=request.getContextPath()%>/admin_company-add.jsp"
+											class="form-control btn btn-success">Thêm công ti</a>
+									</div>
+								</div>
+
 								<%
 									} else {
 								%>
@@ -110,16 +107,16 @@
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="txt_extension"
 											placeholder="Extension name">
+										<!-- xử lý ngoại lệ extension-->
+										<%
+											String errorextension = (String) request.getAttribute("errorextension");
+													if (errorextension != null) {
+										%>
+										<p style="color: #990000; font-style: italic;"><%=errorextension%></p>
+										<%
+											}
+										%>
 									</div>
-									<!-- xử lý ngoại lệ extension-->
-									<%
-										String errorextension = (String) request.getAttribute("errorextension");
-												if (errorextension != null) {
-									%>
-									<p style="color: red;"><%=errorextension%></p>
-									<%
-										}
-									%>
 								</div>
 
 								<!-- Form group -->
@@ -128,15 +125,13 @@
 										số: </label>
 									<div class="col-sm-4">
 										<select class="form-control" name="txt_DauSo">
-											<option selected="">Group name</option>
 
 											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
 											<%
 												ArrayList<DauSo> listDauSo = DauSoDao.getListDauSoCongTy(idcongty);
 														for (int i = 0; i < listDauSo.size(); i++) {
 											%>
-											<option selected="selected"
-												value=<%=listDauSo.get(i).getDauSoSuDung()%>><%=listDauSo.get(i).getDauSoSuDung()%></option>
+											<option value=<%=listDauSo.get(i).getDauSoSuDung()%>><%=listDauSo.get(i).getDauSoSuDung()%></option>
 											<%
 												}
 											%>
@@ -151,15 +146,13 @@
 									</label>
 									<div class="col-sm-4">
 										<select class="form-control" name="phongban">
-											<option selected="">Group name</option>
 
 											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
 											<%
 												ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPBCongTy(idcongty);
 														for (int i = 0; i < listPhongBan.size(); i++) {
 											%>
-											<option selected="selected"
-												value=<%=listPhongBan.get(i).getPhongBanID()%>><%=listPhongBan.get(i).getTenPhongBan()%></option>
+											<option value=<%=listPhongBan.get(i).getPhongBanID()%>><%=listPhongBan.get(i).getTenPhongBan()%></option>
 											<%
 												}
 											%>
@@ -203,5 +196,96 @@
 		%>
 	</div>
 	<!-- /.End of wrapper -->
+	<script>
+		$(document)
+				.ready(
+						function() {
+							var validator = $("#form")
+									.validate(
+											{
+												rules : {
+													txt_extension : "required"
+												},
+												messages : {
+													txt_extension : "Vui lòng nhập vào Extension"
+												},
+												errorElement : "em",
+												errorPlacement : function(
+														error, element) {
+													// Add the `help-block` class to the error element
+													error
+															.addClass("help-block");
+
+													// Add `has-feedback` class to the parent div.form-group
+													// in order to add icons to inputs
+													element
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-feedback");
+
+													if (element.prop("type") === "checkbox") {
+														error
+																.insertAfter(element
+																		.parent("label"));
+													} else {
+														error
+																.insertAfter(element);
+													}
+
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!element.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
+																.insertAfter(
+																		element);
+													}
+												},
+												success : function(label,
+														element) {
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!$(element)
+															.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
+																.insertAfter(
+																		$(element));
+													}
+												},
+												highlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-error")
+															.removeClass(
+																	"has-success");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-remove")
+															.removeClass(
+																	"glyphicon-ok");
+												},
+												unhighlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-success")
+															.removeClass(
+																	"has-error");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-ok")
+															.removeClass(
+																	"glyphicon-remove");
+												}
+											});
+						});
+	</script>
 </body>
 </html>

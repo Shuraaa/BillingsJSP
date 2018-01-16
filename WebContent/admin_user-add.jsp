@@ -75,9 +75,9 @@
 									</div>
 									<%
 										String erroruser = (String) request.getAttribute("erroruser");
-										if (erroruser != null) {
+											if (erroruser != null) {
 									%>
-									<p style="color: red;"><%=erroruser %></p>
+									<p style="color: red;"><%=erroruser%></p>
 									<%
 										}
 									%>
@@ -93,9 +93,9 @@
 									<!-- xử lý ngoại lệ bỏ password-->
 									<%
 										String errorpass = (String) request.getAttribute("errorpass");
-										if (errorpass != null) {
+											if (errorpass != null) {
 									%>
-									<p style="color: red;"><%=errorpass %></p>
+									<p style="color: red;"><%=errorpass%></p>
 									<%
 										}
 									%>
@@ -107,7 +107,8 @@
 										nhận mật khẩu: </label>
 									<div class="col-sm-5">
 										<input type="password" class="form-control" name="pwd_confirm"
-											placeholder="Confirm Password" id="pwd_confirm" maxlength="30">
+											placeholder="Confirm Password" id="pwd_confirm"
+											maxlength="30">
 									</div>
 								</div>
 								<!-- Form group -->
@@ -171,11 +172,6 @@
 		%>
 	</div>
 	<!-- /.End of wrapper -->
-	<script
-		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui.js"></script>
 	<script>
 		$(document)
 				.ready(
@@ -190,17 +186,24 @@
 														minlength : 6
 													},
 													pwd_confirm : {
+														required : true,
 														equalTo : "#password"
-													}
+													},
+													congty : "required",
+													select : "required"
 												},
 												messages : {
-													username : "Nhập vào tài khoản người dùng",
+													username : "Nhập vào tên tài khoản",
 													password : {
 														required : "Nhập vào mật khẩu",
 														minlength : "Mật khẩu ít nhất 6 kí tự"
-													},pwd_confirm : {
+													},
+													pwd_confirm : {
+														required : "Nhập lại mật khẩu",
 														equalTo : "Vui lòng nhập lại đúng mật khẩu"
-													}
+													},
+													congty : "Chọn Công ti",
+													select : "Chọn quyền truy cập cho tài khoản"
 
 												},
 												errorElement : "em",

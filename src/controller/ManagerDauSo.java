@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Dao.DauSoDao;
 import model.DauSo;
 import model.Validation;
-import Dao.DauSoDao;
 
 @WebServlet("/ManagerDauSo")
 public class ManagerDauSo extends HttpServlet {
@@ -47,6 +47,11 @@ public class ManagerDauSo extends HttpServlet {
 			// xử lý ngoại lệ
 			if (dsd.kiemTraDauSo(dauso)) {
 				errordauso = "Đầu số đã tồn tại!";
+				request.setAttribute("errordauso", errordauso);
+				count++;
+			}
+			if (vl.checkSpace(dauso)) {
+				errordauso = "Đầu số không được được chứa khoảng cách";
 				request.setAttribute("errordauso", errordauso);
 				count++;
 			}

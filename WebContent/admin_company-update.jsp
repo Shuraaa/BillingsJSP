@@ -70,14 +70,14 @@
 											placeholder="Tên công ti"
 											value="<%=request.getParameter("tencongty")%>">
 									</div>
-									<label for="inputImg" class="col-sm-2 control-label">Logo:
+									<label for="inputImg" class="col-sm-1 control-label">Logo:
 									</label>
 									<div class="col-sm-1">
 										<a href="#" class="normal-img"><img
 											src="ManagerDisplayImg?congtyid=<%=request.getParameter("congtyid")%>"
 											width="60px" height="60px" alt=""></a>
 									</div>
-									<div class="col-sm-3">
+									<div class="col-sm-4">
 										<input type="file" class="form-control" name="input_img">
 									</div>
 								</div>
@@ -159,11 +159,11 @@
 		%>
 	</div>
 	<!-- /.End of wrapper -->
-	<script
-		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script>
+		jQuery.validator.addMethod('filesize', function(value, element, param) {
+			return this.optional(element) || (element.files[0].size <= param)
+		}, 'File size must be less than {0}');
+	</script>
 	<script>
 		$(document)
 				.ready(
@@ -186,7 +186,8 @@
 														number : true
 													},
 													input_img : {
-														accept : "image/*"
+														accept : "image/*",
+														filesize : 61440
 													}
 												},
 												messages : {
@@ -201,7 +202,8 @@
 														max : "Không vượt quá 100"
 													},
 													input_img : {
-														accept : "Vui lòng chọn file hình ảnh"
+														accept : "Vui lòng chọn File hình ảnh",
+														filesize : "Kích thước ảnh tối đa 60KB"
 													}
 												},
 												errorElement : "em",

@@ -35,14 +35,22 @@
 			<!-- Main content -->
 			<div class="login-box-body">
 				<p class="login-box-msg"
-					style="font-size: 35px; font-family: sans-serif;">
+					style="font-size: 35px; font-family: sans-serif; color: red;">
 					<b>Cập nhật thông tin thành công</b>
 				</p>
+				<p class="login-box-msg">Thông tin của bạn đã được thay đổi. Vui
+					lòng Đăng nhập lại.</p>
 				<div class="row">
-					<div class="col-sm-5"></div>
-					<div class="col-sm-4">
-						<a href="index.jsp"><button class="btn btn-primary">
-								Quay lại trang chủ</button></a>
+					<div class="col-sm-3"></div>
+					<div class="col-sm-3">
+						<a href="<%=request.getContextPath()%>/index.jsp"><button
+								class="btn btn-primary form-control btn-block">Quay lại
+								trang chủ</button></a>
+					</div>
+					<div class="col-sm-3">
+						<a href="<%=request.getContextPath()%>/Logout"><button
+								class="btn btn-primary form-control btn-block">Đăng
+								nhập lại</button></a>
 					</div>
 				</div>
 			</div>

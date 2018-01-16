@@ -13,6 +13,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <link rel="stylesheet" href="js/jquery-ui.theme.css">
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -69,7 +71,6 @@
 									</div>
 									<label for="inputImg" class="col-sm-2 control-label">Logo:
 									</label>
-
 									<div class="col-sm-4">
 										<input type="file" class="form-control" name="input_img"
 											id="input_img">
@@ -140,150 +141,6 @@
 
 							</div>
 						</form>
-						<!-- java script -->
-						<script
-							src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-						<script
-							src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-						<script type="text/javascript" src="js/jquery-ui.js"></script>
-						<script>
-							$(document)
-									.ready(
-											function() {
-												var validator = $("#form")
-														.validate(
-																{
-																	rules : {
-																		txt_tenCongTy : "required",
-																		txt_email : {
-																			required : true,
-																			email : true
-																		},
-																		txt_makeup : {
-																			number : true,
-																			min : 0,
-																			max : 100
-																		},
-																		txt_dtdd : {
-																			number : true
-																		},
-																		input_img : {
-																			accept : "image/*"
-																		}
-
-																	},
-																	messages : {
-																		txt_tenCongTy : "Nhập vào tên công ty",
-																		txt_email : {
-																			required : "Nhập vào địa chỉ email",
-																			email : "Địa chỉ email không hợp lệ"
-																		},
-																		txt_makeup : {
-																			number : "Nhập vào một số hợp lệ",
-																			min : "Không thể nhỏ hơn 0",
-																			max : "Không vượt quá 100"
-																		},
-																		txt_dtdd : {
-																			number : "Số điện thoại không hợp lệ"
-																		},
-																		input_img : {
-																			accept : "Vui lòng chọn file hình ảnh"
-																		}
-																	},
-																	errorElement : "em",
-																	errorPlacement : function(
-																			error,
-																			element) {
-																		// Add the `help-block` class to the error element
-																		error
-																				.addClass("help-block");
-
-																		// Add `has-feedback` class to the parent div.form-group
-																		// in order to add icons to inputs
-																		element
-																				.parents(
-																						".col-sm-4")
-																				.addClass(
-																						"has-feedback");
-
-																		if (element
-																				.prop("type") === "checkbox") {
-																			error
-																					.insertAfter(element
-																							.parent("label"));
-																		} else {
-																			error
-																					.insertAfter(element);
-																		}
-
-																		// Add the span element, if doesn't exists, and apply the icon classes to it.
-																		if (!element
-																				.next("span")[0]) {
-																			$(
-																					"<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
-																					.insertAfter(
-																							element);
-																		}
-																	},
-																	success : function(
-																			label,
-																			element) {
-																		// Add the span element, if doesn't exists, and apply the icon classes to it.
-																		if (!$(
-																				element)
-																				.next(
-																						"span")[0]) {
-																			$(
-																					"<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
-																					.insertAfter(
-																							$(element));
-																		}
-																	},
-																	highlight : function(
-																			element,
-																			errorClass,
-																			validClass) {
-																		$(
-																				element)
-																				.parents(
-																						".col-sm-4")
-																				.addClass(
-																						"has-error")
-																				.removeClass(
-																						"has-success");
-																		$(
-																				element)
-																				.next(
-																						"span")
-																				.addClass(
-																						"glyphicon-remove")
-																				.removeClass(
-																						"glyphicon-ok");
-																	},
-																	unhighlight : function(
-																			element,
-																			errorClass,
-																			validClass) {
-																		$(
-																				element)
-																				.parents(
-																						".col-sm-4")
-																				.addClass(
-																						"has-success")
-																				.removeClass(
-																						"has-error");
-																		$(
-																				element)
-																				.next(
-																						"span")
-																				.addClass(
-																						"glyphicon-ok")
-																				.removeClass(
-																						"glyphicon-remove");
-																	}
-																});
-											});
-						</script>
 					</div>
 					<!-- Cập nhật thông tin -->
 
@@ -305,5 +162,152 @@
 		%>
 	</div>
 	<!-- /.End of wrapper -->
+	<!-- java script -->
+	<script>
+		jQuery.validator.addMethod('filesize', function(value, element, param) {
+			return this.optional(element) || (element.files[0].size <= param)
+		}, 'File size must be less than {0}');
+	</script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							var validator = $("#form")
+									.validate(
+											{
+												rules : {
+													txt_tenCongTy : "required",
+													txt_email : {
+														required : true,
+														email : true
+													},
+													txt_makeup : {
+														required : true,
+														number : true,
+														min : 0,
+														max : 100
+													},
+													txt_dtdd : {
+														required : true,
+														number : true
+													},
+													input_img : {
+														required : true,
+														accept : "image/*",
+														filesize : 61440
+													},
+													txt_mst : {
+														required : true
+													},
+													txt_DiaChi : {
+														required : true
+													}
+												},
+												messages : {
+													txt_tenCongTy : "Nhập vào tên công ty",
+													txt_email : {
+														required : "Nhập vào địa chỉ Email",
+														email : "Địa chỉ email không hợp lệ"
+													},
+													txt_makeup : {
+														required : "Nhập vào tỉ lệ Make-up",
+														number : "Nhập vào một số hợp lệ",
+														min : "Không thể nhỏ hơn 0",
+														max : "Không vượt quá 100"
+													},
+													txt_dtdd : {
+														required : "Nhập vào Số điện thoại",
+														number : "Số điện thoại không hợp lệ"
+													},
+													input_img : {
+														required : "Vui lòng chọn Logo",
+														accept : "Vui lòng chọn File hình ảnh",
+														filesize : "Kích thước ảnh tối đa 60KB"
+													},
+													txt_mst : {
+														required : "Nhập vào Mã số thuế"
+													},
+													txt_DiaChi : {
+														required : "Nhập vào địa chỉ Công ti"
+													}
+												},
+												errorElement : "em",
+												errorPlacement : function(
+														error, element) {
+													// Add the `help-block` class to the error element
+													error
+															.addClass("help-block");
+
+													// Add `has-feedback` class to the parent div.form-group
+													// in order to add icons to inputs
+													element
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-feedback");
+
+													if (element.prop("type") === "checkbox") {
+														error
+																.insertAfter(element
+																		.parent("label"));
+													} else {
+														error
+																.insertAfter(element);
+													}
+
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!element.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
+																.insertAfter(
+																		element);
+													}
+												},
+												success : function(label,
+														element) {
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!$(element)
+															.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
+																.insertAfter(
+																		$(element));
+													}
+												},
+												highlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-error")
+															.removeClass(
+																	"has-success");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-remove")
+															.removeClass(
+																	"glyphicon-ok");
+												},
+												unhighlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-success")
+															.removeClass(
+																	"has-error");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-ok")
+															.removeClass(
+																	"glyphicon-remove");
+												}
+											});
+						});
+	</script>
 </body>
 </html>

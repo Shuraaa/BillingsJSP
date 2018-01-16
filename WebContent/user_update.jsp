@@ -14,10 +14,22 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 	<%
-		int role = (int) session.getAttribute("role");
 		if (session.getAttribute("username") == null) {
 			response.sendRedirect("login.jsp");
 		} else {
+	%>
+	<%
+		String error = (String) request.getAttribute("error");
+			if (error == null) {
+				error = "";
+			}
+			int role = (int) session.getAttribute("role");
+			String name = (String) session.getAttribute("companyName");
+			String diaChi = (String) session.getAttribute("companyAddress");
+			String email = (String) session.getAttribute("companyEmail");
+			String sdt = (String) session.getAttribute("companyPhone");
+			String mst = (String) session.getAttribute("companyMST");
+			String iD = (String) session.getAttribute("companyID");
 	%>
 
 	<div class="wrapper">
@@ -47,18 +59,21 @@
 					<!-- Cập nhật thông tin -->
 					<div class="box box-widget widget-user-2">
 
-						<!-- Add the bg color to the header using any of the bg-* classes -->
+						<!-- /.widget-logo-image -->
 						<div class="widget-user-header bg-blue">
 							<div class="widget-user-image">
-								<img class="img-square" src="dist/img/user2-160x160.jpg"
+								<img class="img-square" src="ManagerDisplayImg?congtyid=<%=iD%>"
 									alt="User Avatar">
 							</div>
-							<!-- /.widget-logo-image -->
 							<h3 class="widget-user-username">Logo</h3>
-							<input class="widget-user-desc" type="file" class="form-control">
+							<input class="widget-user-desc" type="file" class="form-control"
+								<%if (role == 2) {%> disabled <%}%>>
 						</div>
 
-						<form action="" role="form" class="form-horizontal">
+						<p style="color: red"><%=error%></p>
+						<form action="<%=request.getContextPath()%>/UpdateProfile"
+							role="form" method="get" class="form-horizontal"
+							enctype="multipart/form-data" id="form">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -67,12 +82,13 @@
 										công ti:</label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" id="input_tencongti"
-											placeholder="Tên công ti" name="tencongti">
+											name="tencongti" value="<%=name%>" disabled>
 									</div>
+
 									<label for="lbl_email" class="col-sm-2 control-label">Email:</label>
 									<div class="col-sm-4">
-										<input type="email" name="input_email" class="form-control"
-											placeholder="Email" name="email">
+										<input type="email" class="form-control confirm-box"
+											value="<%=email%>" name="emailCT">
 									</div>
 								</div>
 
@@ -81,14 +97,13 @@
 									<label for="lbl_diachi" class="col-sm-2 control-label">Địa
 										chỉ:</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="input_diachi"
-											placeholder="Địa chỉ công ti" name="diachi">
+										<input type="text" class="form-control confirm-box"
+											name="diaChi" value="<%=diaChi%>">
 									</div>
 									<label for="lbl_sdt" class="col-sm-2 control-label">ĐTDĐ:</label>
-									<div class="col-sm-4 has-error">
-										<input type="text" class="form-control" id="input_sdt"
-											placeholder="Số điện thoại"> <span class="help-block"
-											name="sdt">Số điện thoại không hợp lệ</span>
+									<div class="col-sm-4">
+										<input type="text" class="form-control confirm-box"
+											id="input_sdt" value="<%=sdt%>" name="sdt">
 									</div>
 								</div>
 
@@ -97,71 +112,72 @@
 									<label for="lbl_mst" class="col-sm-2 control-label">Mã
 										số thuế:</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="input_mst"
-											placeholder="Mã khách hàng" name="mst">
+										<input type="text" class="form-control confirm-box"
+											value="<%=mst%>" name="mst">
 									</div>
 									<label for="lbl_others" class="col-sm-2 control-label">Thông
 										tin khác:</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="input_other"
-											placeholder="Thông tin liên hệ" name="others">
+										<input type="text" class="form-control confirm-box"
+											name="others">
 									</div>
 								</div>
 							</div>
 
-							<div class="box-footer text-center">
+							<div class="box-footer">
 								<%
-									if (role == 0 || role == 1) {
+									if (role == 1) {
 								%>
-								<button type="submit" class="btn btn-primary">Cập nhật
-									thông tin</button>
+								<div class="row">
+									<div class="col-sm-3"></div>
+									<div class="col-sm-3"></div>
+									<div class="col-sm-3">
+										<button type="submit" class="btn btn-primary form-control">
+											<i class="fa fa-refresh"></i> Cập nhật thông tin
+										</button>
+									</div>
+									<div class="col-sm-3">
+										<a href="<%=request.getContextPath()%>/index.jsp"
+											class="btn btn-danger form-control"> <i
+											class="fa fa-remove"></i> Hủy
+										</a>
+									</div>
+								</div>
 								<%
 									} else if (role == 2) {
 								%>
-								<button id="confirm-box" type="submit" class="btn btn-primary"
-									disabled>Cập nhật thông tin</button>
+								<div class="form-group">
+									<div class="col-sm-3 pull-right">
+										<button id="confirm-box" type="submit"
+											class="btn btn-primary form-control" disabled
+											style="background-color: blue;">Cập nhật thông tin</button>
+									</div>
+									<div class="col-sm-2 pull-right">
+										<a href="<%=request.getContextPath()%>/index.jsp"
+											class="btn btn-danger form-control"> <i
+											class="fa fa-remove"></i> Hủy
+										</a>
+									</div>
+								</div>
 
 								<dialog id="confirm" class="site-dialog"> <header
 									class="dialog-header">
-								<h1>Alert</h1>
+								<h1 style="color: #990000" class="text-center">
+									<i class="ion-social-freebsd-devil"> ALERT</i>
+								</h1>
 								</header>
 								<div class="dialog-content">
 									<p>Bạn không có quyền để chỉnh sửa nội dung này !!!</p>
 								</div>
-								<div class="btn-group cf">
-									<button class="btn btn-primary" id="home">
-										<a href="<%=request.getContextPath()%>/index.jsp">Trang
-											chủ</a>
-									</button>
-									<button class="btn btn-cancel" id="cancel">Cancel</button>
+								<div class="text-center">
+									<a href="<%=request.getContextPath()%>/index.jsp" type="button"
+										class="btn btn-danger" id="home" style="color: white; "><i
+										class="ion-home"> Trang chủ</i></a>
 								</div>
 								</dialog>
 								<%
 									}
 								%>
-
-							</div>
-
-							<div class="alert alert-success alert-dismissible">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">×</button>
-								<h4>
-									<i class="icon fa fa-check"></i> Chúc mừng!!!
-								</h4>
-								Thông tin của bạn đã cập nhật thành công.
-							</div>
-							<div class="alert alert-danger alert-dismissible">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">×</button>
-								<h4>
-									<i class="icon fa fa-check"></i> Lỗi hệ thống!!!
-								</h4>
-								Xin hãy kiểm tra lại các thông tin sau:
-								<ol>
-									<li>Email</li>
-									<li>Số điện thoại</li>
-									<li>Mã số thuế</li>
-								</ol>
 							</div>
 						</form>
 					</div>
@@ -215,17 +231,12 @@
 	<script>
 		(function($) {
 			'use strict';
-			var $accountDelete = $('#confirm-box'), $accountDeleteDialog = $('#confirm'), transition;
+			var $accountDelete = $('.confirm-box'), $accountDeleteDialog = $('#confirm'), transition;
 			$accountDelete.on('click', function() {
 				$accountDeleteDialog[0].showModal();
 				transition = window.setTimeout(function() {
 					$accountDeleteDialog.addClass('dialog-scale');
 				}, 0.5);
-			});
-			$('#cancel').on('click', function() {
-				$accountDeleteDialog[0].close();
-				$accountDeleteDialog.removeClass('dialog-scale');
-				clearTimeout(transition);
 			});
 		})(jQuery);
 	</script>

@@ -14,7 +14,8 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -58,7 +59,7 @@
 						</div>
 
 						<form action="<%=request.getContextPath()%>/ManagerPhongBan"
-							method="get" role="form" class="form-horizontal">
+							method="get" role="form" class="form-horizontal" id="form">
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -92,8 +93,7 @@
 												ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
 													for (int i = 0; i < listCongTy.size(); i++) {
 											%>
-											<option selected=""
-												value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
+											<option value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
 											<%
 												}
 											%>
@@ -134,5 +134,96 @@
 		%>
 	</div>
 	<!-- /.End of wrapper -->
+	<script>
+		$(document)
+				.ready(
+						function() {
+							var validator = $("#form")
+									.validate(
+											{
+												rules : {
+													txt_tenGroup : "required"
+												},
+												messages : {
+													txt_tenGroup : "Nhập vào tên phòng/ban"
+												},
+												errorElement : "em",
+												errorPlacement : function(
+														error, element) {
+													// Add the `help-block` class to the error element
+													error
+															.addClass("help-block");
+
+													// Add `has-feedback` class to the parent div.form-group
+													// in order to add icons to inputs
+													element
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-feedback");
+
+													if (element.prop("type") === "checkbox") {
+														error
+																.insertAfter(element
+																		.parent("label"));
+													} else {
+														error
+																.insertAfter(element);
+													}
+
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!element.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
+																.insertAfter(
+																		element);
+													}
+												},
+												success : function(label,
+														element) {
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!$(element)
+															.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
+																.insertAfter(
+																		$(element));
+													}
+												},
+												highlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-error")
+															.removeClass(
+																	"has-success");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-remove")
+															.removeClass(
+																	"glyphicon-ok");
+												},
+												unhighlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-4")
+															.addClass(
+																	"has-success")
+															.removeClass(
+																	"has-error");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-ok")
+															.removeClass(
+																	"glyphicon-remove");
+												}
+											});
+						});
+	</script>
 </body>
 </html>

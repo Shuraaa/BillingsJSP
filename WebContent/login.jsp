@@ -27,7 +27,8 @@
 <link rel="stylesheet" href="dist/css/style.css">
 <!-- iCheck -->
 <link rel="stylesheet" href="plugins/iCheck/all.css">
-
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 </head>
 <body class="hold-transition login-page">
 
@@ -47,28 +48,31 @@
 			<p class="login-box-msg" style="font-size: 20px">
 				Đăng nhập hệ thống <b>Billings</b>
 			</p>
-			<p style="color: red"><%=error%></p>
 			<form action="<%=request.getContextPath()%>/Login" id="loginForm"
 				method="POST">
 				<div class="form-group has-feedback">
 					<input type="text" name="username" class="form-control"
-						placeholder="Tên đăng nhập" maxlength="30"> <span
-						class="glyphicon glyphicon-envelope form-control-feedback text-blue"></span>
+						placeholder="Tên đăng nhập" maxlength="30" id="username">
+					<i
+						class="glyphicon glyphicon-envelope form-control-feedback text-blue"></i>
 				</div>
+
+				<p style="color: grey; font-style: italic;"><%=error%></p>
+
 				<div class="form-group has-feedback">
 					<input type="password" name="password" class="form-control"
-						placeholder="Mật khẩu" maxlength="30"> <span
+						placeholder="Mật khẩu" maxlength="30" id="password"> <span
 						class="glyphicon glyphicon-lock form-control-feedback text-blue"></span>
 				</div>
 				<div class="row">
-					<div class="col-xs-7">
+					<div class="col-xs-6">
 						<div class="checkbox icheck">
 							<label><input type="checkbox" class="rememberUS">
 								Ghi nhớ đăng nhập</label>
 						</div>
 					</div>
 					<!-- /.col -->
-					<div class="col-xs-5">
+					<div class="col-xs-6">
 						<button type="submit" class="btn btn-primary btn-block"
 							value="<%=request.getContextPath()%>/Login">
 							<i class="fa fa-sign-in"></i> Đăng nhập
@@ -119,6 +123,116 @@
 				return false;
 			}
 		});
+	</script>
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							var validator = $("#loginForm")
+									.validate(
+											{
+												rules : {
+													username : {
+														required : true,
+														rangelength : [ 6, 30 ]
+													},
+													password : {
+														required : true,
+														minlength : [ 6 ]
+													}
+												},
+												messages : {
+													username : {
+														required : "Nhập vào Tên đăng nhập",
+														rangelength : "Tên đăng nhập phải dài ít nhất 6 ký tự và tối đa 30 ký tự"
+													},
+													password : {
+														required : "Nhập vào Mật khẩu",
+														minlength : "Mật khẩu phải dài ít nhất 6 ký tự"
+													}
+												},
+												errorElement : "em",
+												errorPlacement : function(
+														error, element) {
+													// Add the help-block class to the error element
+													error
+															.addClass("help-block");
+
+													// Add has-feedback class to the parent div.form-group
+													// in order to add icons to inputs
+													element
+															.parents(
+																	".col-sm-6")
+															.addClass(
+																	"has-feedback");
+
+													if (element.prop("type") === "checkbox") {
+														error
+																.insertAfter(element
+																		.parent("label"));
+													} else {
+														error
+																.insertAfter(element);
+													}
+
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!element.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-remove form-control-feedback'></span>")
+																.insertAfter(
+																		element);
+													}
+												},
+												success : function(label,
+														element) {
+													// Add the span element, if doesn't exists, and apply the icon classes to it.
+													if (!$(element)
+															.next("span")[0]) {
+														$(
+																"<span class='glyphicon glyphicon-ok form-control-feedback'></span>")
+																.insertAfter(
+																		$(element));
+													}
+												},
+												highlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-6")
+															.addClass(
+																	"has-error")
+															.removeClass(
+																	"has-success");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-remove")
+															.removeClass(
+																	"glyphicon-ok");
+												},
+												unhighlight : function(element,
+														errorClass, validClass) {
+													$(element)
+															.parents(
+																	".col-sm-6")
+															.addClass(
+																	"has-success")
+															.removeClass(
+																	"has-error");
+													$(element)
+															.next("span")
+															.addClass(
+																	"glyphicon-ok")
+															.removeClass(
+																	"glyphicon-remove");
+												}
+											});
+						});
 	</script>
 </body>
 </html>

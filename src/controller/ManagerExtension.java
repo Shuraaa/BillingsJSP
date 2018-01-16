@@ -64,8 +64,8 @@ public class ManagerExtension extends HttpServlet {
 				request.setAttribute("errorextension", errorextension);
 				count++;
 			}
-			if (vl.checkNull(extensionid)) {
-				errorextension = "Extension không được để trống!";
+			if (vl.checkSpace(extensionid)) {
+				errorextension = "Extension không được được chứa khoảng cách";
 				request.setAttribute("errorextension", errorextension);
 				count++;
 			}
