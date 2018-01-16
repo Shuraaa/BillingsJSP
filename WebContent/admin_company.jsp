@@ -103,7 +103,7 @@
 										<td><%=listCongTy.get(i).getMaSoThue()%></td>
 										<td><%=listCongTy.get(i).getEmail()%></td>
 										<td><%=listCongTy.get(i).getDienThoai()%></td>
-										<td><%=listCongTy.get(i).getTiLeMakeUp()%></td>
+										<td><%=listCongTy.get(i).getTiLeMakeUp()*100%></td>
 										<td><img class="img-responsive img-thumbnail"
 											src="ManagerDisplayImg?congtyid=<%=listCongTy.get(i).getCongTyID()%>"
 											width="40px" height="40px"></td>

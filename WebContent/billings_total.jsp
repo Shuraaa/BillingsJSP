@@ -22,6 +22,18 @@
 			response.sendRedirect("login.jsp");
 		} else {
 	%>
+	
+	<% 
+	// filter theo thang
+	String yeucauthang = (String) request.getAttribute("yeucauthang");
+	String thangnam = "";
+	if (yeucauthang=="thangnam"){
+		String thang = (String) request.getAttribute("thangnam");
+		thangnam = thang;
+	}else{
+		thangnam="12";
+	}
+	%>
 
 	<div class="wrapper">
 
@@ -35,7 +47,7 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>Billings</h1>
+			<h1>Billings <%=thangnam %></h1>
 			<ol class="breadcrumb">
 				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
 						BillingsSystem</a></li>
@@ -48,7 +60,7 @@
 			<div class="row">
 
 				<!-- UPLOAD FILE -->
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
@@ -59,11 +71,11 @@
 							class="form-horizontal" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
-									<div class="col-sm-9 pull-left">
+									<div class="col-sm-5 pull-left">
 										<input type="file" name="inputFileExcel"
 											class="custom-file-input">
 									</div>
-									<div class="col-sm-3 pull-right">
+									<div class="col-sm-4 pull-right">
 										<button class="btn btn-primary btn-md">
 											<i class="glyphicon glyphicon-upload"><span>
 													UploadFile</span></i>
@@ -75,7 +87,43 @@
 					</div>
 				</div>
 				<!--  -->
+				<div class="col-sm-3">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">
+								<i class="glyphicon glyphicon-filter"></i> Filter dịch vụ
+							</h3>
+						</div>
 
+						<form action="<%=request.getContextPath()%>/ManagerBilling"
+							class="form-horizontal">
+							<div class="box-body">
+								<div class="row">
+									<div class="col-sm-8">
+										<select class="form-control" name="thangnam">
+											<option value="4">Tháng 4</option>
+											<option value="5">Tháng 5</option>
+											<option value="11">Tháng 11</option>
+											<option value="12">Tháng 12</option>
+											
+
+											<!-- LẤY DANH SÁCH GROUP TỪ DATABASE -->
+
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<input type="hidden" name="command" value="filter_thangnamtotal"></input>
+										<button type="submit"
+											class="btn btn-primary glyphicon glyphicon-search">
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!--  -->
 				<!--PRINT  -->
 				<div class="col-sm-3  pull-right">
 					<div class="box box-primary">
@@ -134,19 +182,19 @@
 												<!-- Bang tinh gia cuoc dien thoai -->
 												<%
 													// tinh cho cong ty
-														double noihat = BillingDao.tinhtongtienall("A");
+														double noihat = BillingDao.tinhtongtienall("A",thangnam);
 														double tiennoihat = (double) Math.round(noihat * 100) / 100;
 
-														double lientinh = BillingDao.tinhtongtienall("C");
+														double lientinh = BillingDao.tinhtongtienall("C",thangnam);
 														double tienlientinh = (double) Math.round(lientinh * 100) / 100;
 
-														double didong = BillingDao.tinhtongtienall("B");
+														double didong = BillingDao.tinhtongtienall("B",thangnam);
 														double tiendidong = (double) Math.round(didong * 100) / 100;
 
-														double quocte = BillingDao.tinhtongtienall("D");
+														double quocte = BillingDao.tinhtongtienall("D",thangnam);
 														double tienquocte = (double) Math.round(quocte * 100) / 100;
 
-														double dichvu = BillingDao.tinhtongtienall("E");
+														double dichvu = BillingDao.tinhtongtienall("E",thangnam);
 														double tiendichvu = (double) Math.round(dichvu * 100) / 100;
 
 														double tongcuocp = tiennoihat + tienlientinh + tiendidong + tienquocte + tiendichvu;
@@ -213,9 +261,9 @@
 												<tr class="gradeA">
 													<td><%=i + 1%></td>
 													<td><%=listCongTy.get(i).getTenCongTy()%></td>
-													<td><%=BillingDao.totalct(listCongTy.get(i).getCongTyID(), 0)%></td>
+													<td><%=BillingDao.totalct(listCongTy.get(i).getCongTyID(),thangnam)%></td>
 													<td><a
-														href="<%=request.getContextPath()%>/ManagerBilling?command=detail&congtyid=<%=listCongTy.get(i).getCongTyID()%>&tencongty=<%=listCongTy.get(i).getTenCongTy()%>"><button
+														href="<%=request.getContextPath()%>/ManagerBilling?command=filter_thangnam&congtyid=<%=listCongTy.get(i).getCongTyID()%>&tencongty=<%=listCongTy.get(i).getTenCongTy()%>&thangnam=<%=thangnam%>"><button
 																class="btn btn-primary" type="button">Chi tiết
 																billing</button></a>
 												</tr>
@@ -225,7 +273,7 @@
 												<tr class="gradeA">
 													<td><%=listCongTy.size()%></td>
 													<td>Tổng tiền</td>
-													<td><%=BillingDao.total(0)%></td>
+													<td><%=BillingDao.total(thangnam)%></td>
 												</tr>
 											</tbody>
 										</table>
@@ -271,8 +319,8 @@
 													</td>
 													<td>-</td>
 													<td>20000.00</td>
-													<td><%=BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", 0)%></td>
-													<td><%=20000 + BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", 0)%></td>
+													<td><%=BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT",thangnam)%></td>
+													<td><%=20000 + BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT",thangnam)%></td>
 												</tr>
 
 												<%
@@ -285,7 +333,7 @@
 													<td>-</td>
 													<td>-</td>
 													<td>Tổng tiền</td>
-													<td><%=BillingDao.tongcuocnhamang("FPT", 0)%></td>
+													<td><%=BillingDao.tongcuocnhamang("FPT",thangnam)%></td>
 												</tr>
 											</tbody>
 										</table>
@@ -332,8 +380,8 @@
 													</td>
 													<td>-</td>
 													<td>20000.00</td>
-													<td><%=BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", 0)%></td>
-													<td><%=20000 + BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", 0)%></td>
+													<td><%=BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC",thangnam)%></td>
+													<td><%=20000 + BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC",thangnam)%></td>
 												</tr>
 
 												<%
@@ -346,7 +394,7 @@
 													<td>-</td>
 													<td>-</td>
 													<td>Tổng tiền</td>
-													<td><%=BillingDao.tongcuocnhamang("CMC", 0)%></td>
+													<td><%=BillingDao.tongcuocnhamang("CMC",thangnam)%></td>
 												</tr>
 											</tbody>
 										</table>

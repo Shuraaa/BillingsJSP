@@ -131,14 +131,14 @@ public class BillingDao {
 	}
 
 	// lay danh sach logcall cua cong ty theo dich vu
-	public static ArrayList<LogCall> getListLogCall_DV(String dichvu, String idcongty) {
+	public static ArrayList<LogCall> getListLogCall_DV(String dichvu, String idcongty, String thangnam) {
 		listLogCall_DV = new ArrayList<>();
 
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
 			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi,lc.thang_nam, lc.loai_cuocgoi, lc.gia_tien,lc.bat_dau,lc.ketthuc from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where lc.loai_cuocgoi ='"
-					+ dichvu + "'and ct.congtyID='" + idcongty + "';";
+					+ dichvu + "'and ct.congtyID='" + idcongty + "'and lc.thang_nam='"+thangnam+"';";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				String congtyid = rs.getString("congtyID");
@@ -167,14 +167,14 @@ public class BillingDao {
 	}
 
 	// lay danh sach logcall cua phong ban theo dich vu
-	public static ArrayList<LogCall> getListLogCall_DVPB(String dichvu, String idphongban) {
+	public static ArrayList<LogCall> getListLogCall_DVPB(String dichvu, String idphongban, String thangnam) {
 		listLogCall_DVPB = new ArrayList<>();
 
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
 			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi,lc.thang_nam, lc.loai_cuocgoi, lc.gia_tien,lc.bat_dau,lc.ketthuc from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where lc.loai_cuocgoi ='"
-					+ dichvu + "'and pb.phongbanID='" + idphongban + "';";
+					+ dichvu + "'and pb.phongbanID='" + idphongban + "'and lc.thang_nam='"+thangnam+"';";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				String congtyid = rs.getString("congtyID");
@@ -202,14 +202,14 @@ public class BillingDao {
 	}
 
 	// lay danh sach logcall cua extension theo dich vu
-	public static ArrayList<LogCall> getListLogCall_DVEX(String dichvu, String extension) {
+	public static ArrayList<LogCall> getListLogCall_DVEX(String dichvu, String extension, String thangnam) {
 		listLogCall_DVEX = new ArrayList<>();
 
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
 			String sql = "select ct.congtyID, ct.ten_congty, ex.extensionID, lc.thuebaonhan, pb.phongbanID, pb.ten_phongban,lc.thoigian_goi,lc.thang_nam, lc.loai_cuocgoi, lc.gia_tien,lc.bat_dau,lc.ketthuc from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID join congty ct on pb.congtyID = ct.congtyID where lc.loai_cuocgoi ='"
-					+ dichvu + "'and ex.extensionID=" + extension + ";";
+					+ dichvu + "'and ex.extensionID='" + extension +"'and lc.thang_nam='"+thangnam+"';";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				String congtyid = rs.getString("congtyID");
@@ -237,14 +237,14 @@ public class BillingDao {
 	}
 
 	// TINH TONG TIEN CUA CONG TY theo dich vu
-	public static double tinhtongtien(String loaicuocgoi, String congtyid) {
+	public static double tinhtongtien(String loaicuocgoi, String congtyid, String thangnam) {
 		double tongtien = 0;
 
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
 			String sql = "select  sum(gia_tien) tongtien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID where loai_cuocgoi = '"
-					+ loaicuocgoi + "'and pb.congtyID = '" + congtyid + "' group by loai_cuocgoi;";
+					+ loaicuocgoi + "'and pb.congtyID = '" + congtyid +"'and lc.thang_nam='"+thangnam+ "' group by loai_cuocgoi;";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				tongtien = rs.getDouble("tongtien");
@@ -258,14 +258,14 @@ public class BillingDao {
 	}
 
 	// TINH TONG TIEN CUA tung phong ban theo dich vu
-	public static double tinhtongtienpb(String loaicuocgoi, String phongbanid) {
+	public static double tinhtongtienpb(String loaicuocgoi, String phongbanid, String thangnam) {
 		double tongtien = 0;
 
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
 			String sql = "select  sum(gia_tien) tongtien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID where loai_cuocgoi = '"
-					+ loaicuocgoi + "'and pb.phongbanID = '" + phongbanid + "' group by loai_cuocgoi;";
+					+ loaicuocgoi + "'and pb.phongbanID = '" + phongbanid +"'and lc.thang_nam='"+thangnam+ "' group by loai_cuocgoi;";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				tongtien = rs.getDouble("tongtien");
@@ -279,14 +279,14 @@ public class BillingDao {
 	}
 
 	// TINH TONG TIEN CUA tung extension theo dich vu
-	public static double tinhtongtienex(String loaicuocgoi, String extension) {
+	public static double tinhtongtienex(String loaicuocgoi, String extension, String thangnam) {
 		double tongtien = 0;
 
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
 			String sql = "select  sum(gia_tien) tongtien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID where loai_cuocgoi = '"
-					+ loaicuocgoi + "'and ex.extensionID = '" + extension + "' group by loai_cuocgoi;";
+					+ loaicuocgoi + "'and ex.extensionID = '" + extension + "'and lc.thang_nam='"+thangnam+"' group by loai_cuocgoi;";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				tongtien = rs.getDouble("tongtien");
@@ -300,14 +300,14 @@ public class BillingDao {
 	}
 
 	// TINH TONG TIEN cua tat ca cong ty theo dich vu
-	public static double tinhtongtienall(String loaicuocgoi) {
+	public static double tinhtongtienall(String loaicuocgoi, String thangnam) {
 		double tongtien = 0;
 
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
 			String sql = "select  sum(gia_tien) tongtien from log_call lc join extension ex on lc.extensionID = ex.extensionID join phongban pb on ex.phongbanID = pb.phongbanID where loai_cuocgoi = '"
-					+ loaicuocgoi + "'group by loai_cuocgoi;";
+					+ loaicuocgoi +"'and lc.thang_nam='"+thangnam+ "'group by loai_cuocgoi;";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				tongtien = rs.getDouble("tongtien");
@@ -321,25 +321,25 @@ public class BillingDao {
 	}
 
 	// TINH TONG TIEN MA CONG TY PHAI TRA (DA BAO GOM MAKEUP + VAT)
-	public static double totalct(String idcongty, int thang) {
+	public static double totalct(String idcongty, String thangnam) {
 		double tilemakeup = CongTyDao.getTiLeMakeUp(idcongty);
-		double noihat = BillingDao.tinhtongtien("A", idcongty);
+		double noihat = BillingDao.tinhtongtien("A", idcongty,thangnam);
 		double tiennoihat = (double) Math.round(noihat * 100) / 100;
 		double tiennoihatma = (double) Math.round((tiennoihat * (1 + tilemakeup)) * 100) / 100;
 
-		double lientinh = BillingDao.tinhtongtien("C", idcongty);
+		double lientinh = BillingDao.tinhtongtien("C", idcongty,thangnam);
 		double tienlientinh = (double) Math.round(lientinh * 100) / 100;
 		double tienlientinhma = (double) Math.round((tienlientinh * (1 + tilemakeup)) * 100) / 100;
 
-		double didong = BillingDao.tinhtongtien("B", idcongty);
+		double didong = BillingDao.tinhtongtien("B", idcongty,thangnam);
 		double tiendidong = (double) Math.round(didong * 100) / 100;
 		double tiendidongma = (double) Math.round((tiendidong * (1 + tilemakeup)) * 100) / 100;
 
-		double quocte = BillingDao.tinhtongtien("D", idcongty);
+		double quocte = BillingDao.tinhtongtien("D", idcongty,thangnam);
 		double tienquocte = (double) Math.round(quocte * 100) / 100;
 		double tienquoctema = (double) Math.round((tienquocte * (1 + tilemakeup)) * 100) / 100;
 
-		double dichvu = BillingDao.tinhtongtien("E", idcongty);
+		double dichvu = BillingDao.tinhtongtien("E", idcongty,thangnam);
 		double tiendichvu = (double) Math.round(dichvu * 100) / 100;
 		double tiendichvuma = (double) Math.round((tiendichvu * (1 + tilemakeup)) * 100) / 100;
 
@@ -354,24 +354,24 @@ public class BillingDao {
 	}
 
 	// TINH TONG TIEN MA TONG CONG TY THU LAI
-	public static double total(int thang) {
+	public static double total(String thangnam) {
 		ArrayList<CongTy> listCongTy = new ArrayList<CongTy>();
 		listCongTy = CongTyDao.getListCongTy();
 		double total = 0;
 		for (int i = 0; i < listCongTy.size(); i++) {
-			total += BillingDao.totalct(listCongTy.get(i).getCongTyID(), thang);
+			total += BillingDao.totalct(listCongTy.get(i).getCongTyID(), thangnam);
 		}
 		return total;
 	}
 
 	// TINH TONG TIEN cuoc goc cua dau so theo nha mang
-	public static double tongcuocdausonm(String dauso, String nhamang, int thang) {
+	public static double tongcuocdausonm(String dauso, String nhamang, String thangnam) {
 		double tongtien = 0;
 		try {
 			Connection connection = DatabaseSQLConnection.getConnection();
 			Statement statement = connection.createStatement();
 			String sql = "select  sum(gia_tien) tongtien from log_call lc join extension ex on lc.extensionID = ex.extensionID where nhamang_id = '"
-					+ nhamang + "' and dauso_sudung = '" + dauso + "'  group by dauso_sudung;";
+					+ nhamang + "' and dauso_sudung = '" + dauso + "'and lc.thang_nam='"+thangnam+"'  group by dauso_sudung;";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				tongtien = rs.getDouble("tongtien");
@@ -386,12 +386,12 @@ public class BillingDao {
 	}
 
 	// TINH TONG TIEN cua nha mang
-	public static double tongcuocnhamang(String nhamang, int thang) {
+	public static double tongcuocnhamang(String nhamang, String thangnam) {
 		ArrayList<DauSo> listDauso = new ArrayList<DauSo>();
 		listDauso = DauSoDao.getListDauSoNhaMang(nhamang);
 		double total = 0;
 		for (int i = 0; i < listDauso.size(); i++) {
-			total += (20000 + BillingDao.tongcuocdausonm(listDauso.get(i).getDauSoSuDung(), nhamang, thang));
+			total += (20000 + BillingDao.tongcuocdausonm(listDauso.get(i).getDauSoSuDung(), nhamang, thangnam));
 		}
 		total = (double) Math.round(total * 100) / 100;
 		return total;
@@ -403,6 +403,6 @@ public class BillingDao {
 		// System.out.println(bl.getListLogCall_EX("84285105"));
 		// System.out.println(bl.tinhtongtien("A", "ct01"));
 		// System.out.println(bl.getListLogCall_PB("pb02"));
-		System.out.println(bl.tinhtongtienall("A"));
+		System.out.println(bl.getListLogCall_DV("B", "ct01", "5"));
 	}
 }

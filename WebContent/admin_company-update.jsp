@@ -120,8 +120,10 @@
 									<label for="inputMakeup" class="col-sm-2 control-label">Tỉ
 										lệ Make-up: </label>
 									<div class="col-sm-4">
+										<%double tlmk = (double) Double.parseDouble(request.getParameter("tlmk"));
+											double tlmk1 = tlmk *100;%>
 										<input type="text" class="form-control" name="txt_makeup"
-											value="<%=request.getParameter("tlmk")%>">
+											value="<%=tlmk1+""%>">
 									</div>
 									<label for="inputOther" class="col-sm-2 control-label">Thông
 										tin khác: </label>

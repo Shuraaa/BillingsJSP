@@ -203,4 +203,8 @@ public class CongTyDao {
 			return false;
 		}
 	}
+	public static void main(String[] args) {
+		CongTyDao ctd = new CongTyDao();
+		System.out.println(ctd.getTiLeMakeUp("ct01"));
+	}
 }
