@@ -5,16 +5,19 @@ import java.util.Date;
 public class LogCall {
 	private String congTyID;
 	private String tenCongTy;
-	private String extensionID;
-	private String thueBaoNhan;
 	private String phongBanID;
 	private String tenPhongBan;
+	private String logID;
+	private String extensionID;
+	private String thueBaoNhan;
 	private int thoiGianGoi;
 	private int thang;
+	private String nhaMang;
 	private String loaiCuocGoi;
 	private double giaTien;
 	private String thoiGianBatDau;
 	private String thoiGianKetThuc;
+	private String maCuocGoi;
 
 	public LogCall(String congTyID, String tenCongTy, String extensionID, String thueBaoNhan, String phongBanID,
 			String tenPhongBan, int thoiGianGoi, int thang, String loaiCuocGoi, double giaTien, String thoiGianBatDau,
@@ -32,6 +35,17 @@ public class LogCall {
 		this.giaTien = giaTien;
 		this.thoiGianBatDau = thoiGianBatDau;
 		this.thoiGianKetThuc = thoiGianKetThuc;
+	}
+	public LogCall( String extensionID, String thueBaoNhan, int thoiGianGoi,  
+			 String thoiGianBatDau, String thoiGianKetThuc) {
+		super();
+	
+		this.extensionID = extensionID;
+		this.thueBaoNhan = thueBaoNhan;
+		this.thoiGianGoi = thoiGianGoi;
+		this.thoiGianBatDau = thoiGianBatDau;
+		this.thoiGianKetThuc = thoiGianKetThuc;
+		
 	}
 
 	public String getCongTyID() {
@@ -102,6 +116,24 @@ public class LogCall {
 		return loaiCuocGoi;
 	}
 
+	public String getLogID() {
+		return logID;
+	}
+	public void setLogID(String logID) {
+		this.logID = logID;
+	}
+	public String getNhaMang() {
+		return nhaMang;
+	}
+	public void setNhaMang(String nhaMang) {
+		this.nhaMang = nhaMang;
+	}
+	public String getMaCuocGoi() {
+		return maCuocGoi;
+	}
+	public void setMaCuocGoi(String maCuocGoi) {
+		this.maCuocGoi = maCuocGoi;
+	}
 	public void setLoaiCuocGoi(String loaiCuocGoi) {
 		this.loaiCuocGoi = loaiCuocGoi;
 	}
