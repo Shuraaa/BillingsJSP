@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,4 +67,6 @@ public class Validation {
 		else
 			return m.matches();
 	}
+	
+ 
 }

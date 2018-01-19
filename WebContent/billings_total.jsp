@@ -4,6 +4,7 @@
 <%@page import="java.util.*"%>
 <%@page import="model.*"%>
 <%@page import="Dao.*"%>
+<%@page import="java.text.DecimalFormat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,7 +24,11 @@
 		} else {
 	%>
 	
-	<% 
+	<%
+	
+
+	
+	
 	// filter theo thang
 	String yeucauthang = (String) request.getAttribute("yeucauthang");
 	String thangnam = "";
@@ -35,7 +40,6 @@
 	}
 	%>
 
-	<div class="wrapper">
 
 
 		<!-- Include this in all index page -->
@@ -301,6 +305,7 @@
 											</thead>
 
 											<tbody>
+											
 												<!-- Bang tinh gia cuoc dien thoai -->
 												<%
 													// tinh cho cong ty

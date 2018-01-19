@@ -3,9 +3,12 @@ package Dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import model.*;
+import model.CongTy;
+import model.DauSo;
+import model.LogCall;
 import connection.DatabaseSQLConnection;
 
 public class BillingDao {
@@ -15,7 +18,6 @@ public class BillingDao {
 	private static ArrayList<LogCall> listLogCall_DV;
 	private static ArrayList<LogCall> listLogCall_DVPB;
 	private static ArrayList<LogCall> listLogCall_DVEX;
-
 	// lay danh sach billing theo cong ty
 	public static ArrayList<LogCall> getListLogCall_CT(String idcongty) {
 		listLogCall_CT = new ArrayList<>();
