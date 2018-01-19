@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -62,10 +59,10 @@ public class ManagerUploadFile extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		int sheetIndex = Integer.parseInt(request.getParameter("input_sheetIndex")) -1;
+		int sheetIndex = Integer.parseInt(request.getParameter("input_sheetIndex")) - 1;
 		// to format date type
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = null;
+		// Date date = null;
 		InputStream is = null;
 		Part filePart = request.getPart("inputFileExcel");
 		if (filePart != null) {
@@ -74,23 +71,25 @@ public class ManagerUploadFile extends HttpServlet {
 		Workbook book = getWorkbook(is, filePart.getSubmittedFileName());
 		System.out.println("Số sheet: " + book.getNumberOfSheets());
 		Sheet sheet = (Sheet) book.getSheetAt(sheetIndex);
-		LogCallDAO logcallDAO = new LogCallDAO();
+		// LogCallDAO logcallDAO = new LogCallDAO();
 		ArrayList<LogCall> list = new ArrayList<>();
-		for (int i = 1; i < sheet.getLastRowNum(); i++) {
+		for (int i = 1; i < sheet.getLastRowNum() - 1; i++) {
 			Row row = sheet.getRow(i);
-			int thoigian_goi = (int) row.getCell(3).getNumericCellValue();
-			String d1 = "", d2 = "";
-			d1 = dateFormat.format(row.getCell(4).getDateCellValue());
-			d2 = dateFormat.format(row.getCell(5).getDateCellValue());
-			LogCall l = new LogCall(row.getCell(1).getStringCellValue(), row.getCell(2).getStringCellValue(),
-					0, d1, d2);
-			list.add(l);
-		}
-		try {
-			logcallDAO.insert(list);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 System.out.println(row.getCell(0).getNumericCellValue());
+//			String ex = row.getCell(1).getStringCellValue();
+//			String sdt_nhan = row.getCell(2).getStringCellValue();
+//			int thoigian_goi = (int) row.getCell(3).getNumericCellValue();
+//			String d1 = "", d2 = "";
+//			d1 = dateFormat.format(row.getCell(4).getDateCellValue());
+//			d2 = dateFormat.format(row.getCell(5).getDateCellValue());
+//			LogCall l = new LogCall(ex, sdt_nhan, thoigian_goi, d1, d2);
+//			list.add(l);
+//		}
+//		try {
+//			LogCallDAO.insert(list);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 		}
 
 	}
