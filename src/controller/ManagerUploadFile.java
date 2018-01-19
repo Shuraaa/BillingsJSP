@@ -2,9 +2,11 @@ package controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -23,6 +25,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import Dao.LogCallDAO;
+import model.LogCall;
 
 /**
  * Servlet implementation class ManagerUploadFile
@@ -59,7 +62,7 @@ public class ManagerUploadFile extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		int sheetIndex = Integer.parseInt(request.getParameter("input_sheetIndex"));
+		int sheetIndex = Integer.parseInt(request.getParameter("input_sheetIndex")) -1;
 		// to format date type
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = null;
@@ -69,21 +72,30 @@ public class ManagerUploadFile extends HttpServlet {
 			is = filePart.getInputStream();
 		}
 		Workbook book = getWorkbook(is, filePart.getSubmittedFileName());
-	   System.out.println("Số sheet: "+book.getNumberOfSheets());
+		System.out.println("Số sheet: " + book.getNumberOfSheets());
 		Sheet sheet = (Sheet) book.getSheetAt(sheetIndex);
 		LogCallDAO logcallDAO = new LogCallDAO();
+		ArrayList<LogCall> list = new ArrayList<>();
 		for (int i = 1; i < sheet.getLastRowNum(); i++) {
 			Row row = sheet.getRow(i);
 			int thoigian_goi = (int) row.getCell(3).getNumericCellValue();
 			String d1 = "", d2 = "";
 			d1 = dateFormat.format(row.getCell(4).getDateCellValue());
 			d2 = dateFormat.format(row.getCell(5).getDateCellValue());
-			logcallDAO.insert(row.getCell(1).getStringCellValue(), row.getCell(2).getStringCellValue(), thoigian_goi,
-					d1, d2);
+			LogCall l = new LogCall(row.getCell(1).getStringCellValue(), row.getCell(2).getStringCellValue(),
+					0, d1, d2);
+			list.add(l);
+		}
+		try {
+			logcallDAO.insert(list);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
-    // lấy work book đúng với định dạng file excel
+
+	// lấy work book đúng với định dạng file excel
 	private Workbook getWorkbook(InputStream inputStream, String excelFilePath) throws IOException {
 		Workbook workbook = null;
 		if (excelFilePath.endsWith("xlsx")) {
