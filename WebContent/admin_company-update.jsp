@@ -70,14 +70,16 @@
 											placeholder="Tên công ti"
 											value="<%=request.getParameter("tencongty")%>">
 									</div>
-									<label for="inputImg" class="col-sm-1 control-label">Logo:
-									</label>
+									<label for="inputImg"
+										class="col-sm-1 control-label data-toggle="
+										tooltip" title="Ảnh không vượt quá 60KB!">Logo: </label>
 									<div class="col-sm-1">
 										<a href="#" class="normal-img"><img
 											src="ManagerDisplayImg?congtyid=<%=request.getParameter("congtyid")%>"
 											width="60px" height="60px" alt=""></a>
 									</div>
-									<div class="col-sm-4">
+									<div class="col-sm-4 data-toggle="
+										tooltip" title="Ảnh không vượt quá 60KB!">
 										<input type="file" class="form-control" name="input_img">
 									</div>
 								</div>

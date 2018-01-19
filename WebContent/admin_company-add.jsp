@@ -69,9 +69,11 @@
 										<input type="text" class="form-control" name="txt_tenCongTy"
 											placeholder="Tên công ti" id="txt_tenCongTy"> <br>
 									</div>
-									<label for="inputImg" class="col-sm-2 control-label">Logo:
-									</label>
-									<div class="col-sm-4">
+									<label for="inputImg"
+										class="col-sm-2 control-label data-toggle="
+										tooltip" title="Ảnh không vượt quá 60KB!">Logo: </label>
+									<div class="col-sm-4 data-toggle="
+										tooltip" title="Ảnh không vượt quá 60KB!">
 										<input type="file" class="form-control" name="input_img"
 											id="input_img">
 									</div>

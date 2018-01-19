@@ -41,8 +41,8 @@
 			<%
 				String idextension = (String) request.getAttribute("extensionid");
 					String idphongban = (String) request.getAttribute("phongbanid");
-					double tilemakeup = CongTyDao.getTiLeMakeUp("idcongty");
 					String idcongty = (String) request.getAttribute("congtyid");
+					double tilemakeup = CongTyDao.getTiLeMakeUp(idcongty);
 					String tencongty = (String) request.getAttribute("tencongty");
 					String yeucau = (String) request.getAttribute("yeucau");
 					ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPBCongTy(idcongty);
@@ -65,6 +65,23 @@
 				<%=tencongty%>
 				tháng
 				<%=thangnam%></h1>
+			<%
+				if (yeucau == "phongban") {
+			%>
+			<h1>
+				(<%=PhongBanDao.getTenPhongBan(idphongban)%>)
+			</h1>
+			<%
+				}
+			%> <%
+ 	if (yeucau == "extension") {
+ %>
+			<h1>
+				Extension (<%=idextension%>)
+			</h1>
+			<%
+				}
+			%>
 			<ol class="breadcrumb">
 				<li><a href="<%=request.getContextPath()%>/index.jsp"><i
 						class="fa fa-dashboard"></i> BillingsSystem</a></li>
@@ -104,6 +121,7 @@
 										<input type="hidden" name="congtyid" value="<%=idcongty%>"></input>
 										<input type="hidden" name="tencongty" value="<%=tencongty%>"></input>
 										<input type="hidden" name="command" value="filter_phongban"></input>
+										<input type="hidden" name="thangnam" value=<%=thangnam%>></input>
 										<button type="submit"
 											class="btn btn-primary glyphicon glyphicon-search">
 										</button>
@@ -145,6 +163,7 @@
 										<input type="hidden" name="congtyid" value="<%=idcongty%>"></input>
 										<input type="hidden" name="tencongty" value="<%=tencongty%>"></input>
 										<input type="hidden" name="command" value="filter_extension"></input>
+										<input type="hidden" name="thangnam" value=<%=thangnam%>></input>
 										<button type="submit"
 											class="btn btn-primary glyphicon glyphicon-search">
 										</button>
@@ -211,10 +230,11 @@
 						</div>
 						<div class="box-body">
 							<div class="btn-group">
-								<a href="#" class="btn btn-default"><i
-									class="fa fa-file-pdf-o"></i> .PDF</a> <a href="#"
-									class="btn btn-default"><i class="fa fa-file-word-o"></i>
-									.CSV</a>
+								<a
+									href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDF&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>"
+									class="btn btn-default"><i class="fa fa-file-pdf-o"></i>
+									.xlsx</a> <a href="#" class="btn btn-default"><i
+									class="fa fa-file-word-o"></i> .CSV</a>
 							</div>
 						</div>
 					</div>

@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Success</title>
+<title>Error</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -35,17 +35,29 @@
 			<!-- Main content -->
 			<div class="login-box-body">
 				<div class="text-center">
-					<img alt="success" src="images/Success.jpg"
-						width="300px;height=280px;">
+					<img alt="success" src="images/error.jpg"
+						width="400px;height=150px;">
 				</div>
 				<p class="login-box-msg"
 					style="font-size: 35px; font-family: sans-serif; color: red;">
-					<i class="ion-checkmark-round"></i><b> Cập nhật thông tin thành
-						công</b>
+					<i class="ion-outlet"></i><b> Lỗi</b>
 				</p>
-				<p class="login-box-msg">
-					Thông tin của bạn đã được thay đổi<br>Vui lòng Đăng nhập lại.
-				</p>
+				<h4 class="login-box-msg">
+					Dữ liệu cập nhật không thành công<br>Vui lòng kiểm tra lại
+					File Excel của bạn.
+				</h4>
+				<div class="text-center">
+					<ul style="list-style-type: none">
+						<li>Kiểm tra lại số trang trong File Excel của bạn và số
+							trang nhập vào.</li>
+
+						<li>Kiểm trong lại trường "Thuê bao chủ gọi" trong File Log
+							của bạn.</li>
+						<li>Xem <a href="<%=request.getContextPath()%>/guide.jsp"><i
+								class="fa fa-book"></i><strong><u> Hướng dẫn sử
+										dụng</u></strong></a></li>
+					</ul>
+				</div>
 				<div class="row">
 					<div class="col-sm-3"></div>
 					<div class="col-sm-3">
@@ -71,6 +83,7 @@
 		<%
 			}
 		%>
+
 	</div>
 	<!-- ./wrapper -->
 

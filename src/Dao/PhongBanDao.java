@@ -155,6 +155,28 @@ public class PhongBanDao {
 		return congtyID;
 	}
 
+	// lấy ten phong ban khi biết id phòng ban
+	public static String getTenPhongBan(String phongbanid) {
+		String tenPhongBan = "";
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "SELECT * FROM phongban where phongbanID='" + phongbanid + "';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String phongBanID = rs.getString("phongbanID");
+				tenPhongBan = rs.getString("ten_phongban");
+				String congtyID = rs.getString("congtyID");
+				// listPB.add(new PhongBan(phongBanID, tenPhongBan, congtyID) );
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tenPhongBan;
+	}
+
 	public static int countPhongBanByCompany() {
 		Connection connection = DatabaseSQLConnection.getConnection();
 		String sql = "select count(phongbanID) from phongban";

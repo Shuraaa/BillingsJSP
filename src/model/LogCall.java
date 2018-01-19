@@ -34,6 +34,18 @@ public class LogCall {
 		this.thoiGianKetThuc = thoiGianKetThuc;
 	}
 
+	public LogCall(String extensionID, String thueBaoNhan, int thoiGianGoi, String thoiGianBatDau,
+			String thoiGianKetThuc) {
+		super();
+
+		this.extensionID = extensionID;
+		this.thueBaoNhan = thueBaoNhan;
+		this.thoiGianGoi = thoiGianGoi;
+		this.thoiGianBatDau = thoiGianBatDau;
+		this.thoiGianKetThuc = thoiGianKetThuc;
+
+	}
+
 	public String getCongTyID() {
 		return congTyID;
 	}
