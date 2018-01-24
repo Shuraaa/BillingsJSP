@@ -4,6 +4,7 @@
 <%@page import="java.util.*"%>
 <%@page import="model.*"%>
 <%@page import="Dao.*"%>
+<%@page import= "java.text.DecimalFormat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,7 +25,8 @@
 			response.sendRedirect("login.jsp");
 		} else {
 	%>
-	<%
+	<%	// dinh dang tien tệ
+		DecimalFormat formatter = new DecimalFormat("###,###,###.##"); 
 		// filter theo thang
 			String yeucauthang = (String) request.getAttribute("yeucauthang");
 			String thangnam = "";
@@ -234,33 +236,33 @@
 											<tr class="gradeA">
 												<td><%=1%></td>
 												<td>Cước nội hạt / Local Cost</td>
-												<td><%=tiennoihat%></td>
+												<td><%=formatter.format(tiennoihat)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=2%></td>
 												<td>Cước liên tỉnh /Province Cost</td>
-												<td><%=tienlientinh%></td>
+												<td><%=formatter.format(tienlientinh)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=3%></td>
 												<td>Cước di động / Mobile Cost</td>
-												<td><%=tiendidong%></td>
+												<td><%=formatter.format(tiendidong)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=4%></td>
 												<td>Cước quốc tế / International Cost</td>
-												<td><%=tienquocte%></td>
+												<td><%=formatter.format(tienquocte)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=5%></td>
 												<td>Cước dịch vụ đặc biệt / Special Service Cost</td>
-												<td><%=tiendichvu%></td>
+												<td><%=formatter.format(tiendichvu)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=6%></td>
 												<td>Tổng cộng cước sử dụng / Total Dialling Cost
 													(1+2+3+4+5)</td>
-												<td><%=tongcuoc7%></td>
+												<td><%=formatter.format(tongcuoc7)%></td>
 											</tr>
 										</tbody>
 									</table>
@@ -279,7 +281,7 @@
 												<tr>
 													<th>#</th>
 													<th>Công ty</th>
-													<th>Cước/Cost (TỔNG: <%=BillingDao.total(thangnam)%>)
+													<th>Cước/Cost (VNĐ) (TỔNG: <%=formatter.format(BillingDao.total(thangnam))%>)
 													</th>
 													<th></th>
 												</tr>
@@ -294,7 +296,7 @@
 												<tr class="gradeA">
 													<td><%=i + 1%></td>
 													<td><%=listCongTy.get(i).getTenCongTy()%></td>
-													<td><%=BillingDao.totalct(listCongTy.get(i).getCongTyID(), thangnam)%></td>
+													<td><%=formatter.format(BillingDao.totalct(listCongTy.get(i).getCongTyID(), thangnam))%></td>
 													<td><a
 														href="<%=request.getContextPath()%>/ManagerBilling?command=filter_thangnam&congtyid=<%=listCongTy.get(i).getCongTyID()%>&tencongty=<%=listCongTy.get(i).getTenCongTy()%>&thangnam=<%=thangnam%>"><button
 																class="btn btn-primary" type="button">Chi tiết</button></a>
@@ -322,8 +324,8 @@
 												<th>Extension</th>
 												<th>Ghi chú</th>
 												<th>CP thuê bao/tháng</th>
-												<th>Cước gốc</th>
-												<th>Cước tham khảo (chưa VAT)</th>
+												<th>Cước gốc (VNĐ)</th>
+												<th>Cước tham khảo (chưa VAT) (VNĐ)</th>
 											</tr>
 										</thead>
 
@@ -346,9 +348,9 @@
  %>
 												</td>
 												<td>-</td>
-												<td>20000.00</td>
-												<td><%=BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", thangnam)%></td>
-												<td><%=20000 + BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", thangnam)%></td>
+												<td><%=formatter.format(20000.00)%></td>
+												<td><%=formatter.format(BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", thangnam))%></td>
+												<td><%=formatter.format(20000 + BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", thangnam))%></td>
 											</tr>
 
 											<%
@@ -361,7 +363,7 @@
 												<td>-</td>
 												<td>-</td>
 												<td>Tổng tiền</td>
-												<td><%=BillingDao.tongcuocnhamang("FPT", thangnam)%></td>
+												<td><%=formatter.format(BillingDao.tongcuocnhamang("FPT", thangnam))%></td>
 											</tr>
 										</tbody>
 									</table>
@@ -382,8 +384,8 @@
 												<th>Extension</th>
 												<th>Ghi chú</th>
 												<th>CP thuê bao/tháng</th>
-												<th>Cước gốc</th>
-												<th>Cước tham khảo (chưa VAT)</th>
+												<th>Cước gốc (VNĐ)</th>
+												<th>Cước tham khảo (chưa VAT) (VNĐ)</th>
 											</tr>
 										</thead>
 
@@ -407,9 +409,9 @@
  %>
 												</td>
 												<td>-</td>
-												<td>20000.00</td>
-												<td><%=BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", thangnam)%></td>
-												<td><%=20000 + BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", thangnam)%></td>
+												<td><%=formatter.format(20000.00) %></td>
+												<td><%=formatter.format(BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", thangnam))%></td>
+												<td><%=formatter.format(20000 + BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", thangnam))%></td>
 											</tr>
 
 											<%
@@ -422,7 +424,7 @@
 												<td>-</td>
 												<td>-</td>
 												<td>Tổng tiền</td>
-												<td><%=BillingDao.tongcuocnhamang("CMC", thangnam)%></td>
+												<td><%=formatter.format(BillingDao.tongcuocnhamang("CMC", thangnam))%></td>
 											</tr>
 										</tbody>
 									</table>

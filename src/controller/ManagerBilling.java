@@ -95,6 +95,7 @@ public class ManagerBilling extends HttpServlet {
 			request.setAttribute("thangnam", thangnam);
 			request.setAttribute("yeucauthang", yeucauthang);
 			url = "/billings_total.jsp";
+			break;
 		case "exportPDF":
 			congtyID = request.getParameter("congtyid");
 			tencongty = request.getParameter("tencongty");

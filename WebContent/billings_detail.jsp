@@ -4,6 +4,7 @@
 <%@page import="java.util.*"%>
 <%@page import="model.*"%>
 <%@page import="Dao.*"%>
+<%@page import= "java.text.DecimalFormat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,7 +39,9 @@
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<%
+			<%	// dinh dang tien tệ
+			   DecimalFormat formatter = new DecimalFormat("###,###,###.##");
+			
 				String idextension = (String) request.getAttribute("extensionid");
 					String idphongban = (String) request.getAttribute("phongbanid");
 					String idcongty = (String) request.getAttribute("congtyid");
@@ -403,59 +406,59 @@
 											<tr class="gradeA">
 												<td><%=1%></td>
 												<td>Cước thuê bao tháng / Monthly Cost</td>
-												<td><%=20000%></td>
+												<td><%=formatter.format(20000.00)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=2%></td>
 												<td>Cước nội hạt / Local Cost</td>
-												<td><%=tiennoihatma%></td>
+												<td><%=formatter.format(tiennoihatma)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=3%></td>
 												<td>Cước liên tỉnh /Province Cost</td>
-												<td><%=tienlientinhma%></td>
+												<td><%=formatter.format(tienlientinhma)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=4%></td>
 												<td>Cước di động / Mobile Cost</td>
-												<td><%=tiendidongma%></td>
+												<td><%=formatter.format(tiendidongma)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=5%></td>
 												<td>Cước quốc tế / International Cost</td>
-												<td><%=tienquoctema%></td>
+												<td><%=formatter.format(tienquoctema)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=6%></td>
 												<td>Cước dịch vụ đặc biệt / Special Service Cost</td>
-												<td><%=tiendichvuma%></td>
+												<td><%=formatter.format(tiendichvuma)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=7%></td>
 												<td>Tổng cộng cước sử dụng / Total Dialling Cost
 													(1+2+3+4+5+6)</td>
-												<td><%=tongcuoc7%></td>
+												<td><%=formatter.format(tongcuoc7)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=8%></td>
 												<td>Phí phục vụ / Service Fee(5%)</td>
-												<td><%=phiphucvu8%></td>
+												<td><%=formatter.format(phiphucvu8)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=9%></td>
 												<td>Tổng cộng cước phí chưa bao gồm thuế / Total Cost
 													exclude Tax (7+8)</td>
-												<td><%=tongcongcuoc9%></td>
+												<td><%=formatter.format(tongcongcuoc9)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=10%></td>
 												<td>Thuế VAT / Tax (10%)</td>
-												<td><%=thueVAT%></td>
+												<td><%=formatter.format(thueVAT)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=11%></td>
 												<td>Tổng cộng tiền thanh toán / Total Payment (9+10)</td>
-												<td><%=tongthanhtoan%></td>
+												<td><%=formatter.format(tongthanhtoan)%></td>
 											</tr>
 											<%
 												}
@@ -469,33 +472,33 @@
 											<tr class="gradeA">
 												<td><%=1%></td>
 												<td>Cước nội hạt / Local Cost</td>
-												<td><%=tiennoihatmapb%></td>
+												<td><%=formatter.format(tiennoihatmapb)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=2%></td>
 												<td>Cước liên tỉnh /Province Cost</td>
-												<td><%=tienlientinhmapb%></td>
+												<td><%=formatter.format(tienlientinhmapb)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=3%></td>
 												<td>Cước di động / Mobile Cost</td>
-												<td><%=tiendidongmapb%></td>
+												<td><%=formatter.format(tiendidongmapb)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=4%></td>
 												<td>Cước quốc tế / International Cost</td>
-												<td><%=tienquoctemapb%></td>
+												<td><%=formatter.format(tienquoctemapb)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=5%></td>
 												<td>Cước dịch vụ đặc biệt / Special Service Cost</td>
-												<td><%=tiendichvumapb%></td>
+												<td><%=formatter.format(tiendichvumapb)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=6%></td>
 												<td>Tổng cộng cước sử dụng / Total Dialling Cost
 													(1+2+3+4+5)</td>
-												<td><%=tongcuoc7pb%></td>
+												<td><%=formatter.format(tongcuoc7pb)%></td>
 											</tr>
 											<%
 												}
@@ -509,33 +512,33 @@
 											<tr class="gradeA">
 												<td><%=1%></td>
 												<td>Cước nội hạt / Local Cost</td>
-												<td><%=tiennoihatmaex%></td>
+												<td><%=formatter.format(tiennoihatmaex)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=2%></td>
 												<td>Cước liên tỉnh /Province Cost</td>
-												<td><%=tienlientinhmaex%></td>
+												<td><%=formatter.format(tienlientinhmaex)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=3%></td>
 												<td>Cước di động / Mobile Cost</td>
-												<td><%=tiendidongmaex%></td>
+												<td><%=formatter.format(tiendidongmaex)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=4%></td>
 												<td>Cước quốc tế / International Cost</td>
-												<td><%=tienquoctemaex%></td>
+												<td><%=formatter.format(tienquoctemaex)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=5%></td>
 												<td>Cước dịch vụ đặc biệt / Special Service Cost</td>
-												<td><%=tiendichvumaex%></td>
+												<td><%=formatter.format(tiendichvumaex)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=6%></td>
 												<td>Tổng cộng cước sử dụng / Total Dialling Cost
 													(1+2+3+4+5)</td>
-												<td><%=tongcuoc7ex%></td>
+												<td><%=formatter.format(tongcuoc7ex)%></td>
 											</tr>
 											<%
 												}
@@ -564,7 +567,7 @@
 													<th>Cước di động (Chưa VAT)</th>
 													<th>Cước Dịch vụ (Chưa VAT)</th>
 													<th>Cước Nội hạt (Chưa VAT)</th>
-													<th>TỔNG CƯỚC GỐC (Chưa VAT)</th>
+													<th>TỔNG CƯỚC GỐC (Chưa VAT) (VNĐ)</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -586,23 +589,23 @@
 													<td><%=1%></td>
 													<td>Cước ban đầu</td>
 													<td></td>
-													<td><%=tienquocte%></td>
-													<td><%=tienlientinh%></td>
-													<td><%=tiendidong%></td>
-													<td><%=tiendichvu%></td>
-													<td><%=tiennoihat%></td>
-													<td><%=tongcuocchuavat%></td>
+													<td><%=formatter.format(tienquocte)%></td>
+													<td><%=formatter.format(tienlientinh)%></td>
+													<td><%=formatter.format(tiendidong)%></td>
+													<td><%=formatter.format(tiendichvu)%></td>
+													<td><%=formatter.format(tiennoihat)%></td>
+													<td><%=formatter.format(tongcuocchuavat)%></td>
 												</tr>
 												<tr class="gradeA">
 													<td><%=2%></td>
 													<td>Cước ban theo tỉ lệ makeup</td>
 													<td><%=tilemakeup * 100%></td>
-													<td><%=tienquoctema%></td>
-													<td><%=tienlientinhma%></td>
-													<td><%=tiendidongma%></td>
-													<td><%=tiendichvuma%></td>
-													<td><%=tiennoihatma%></td>
-													<td><%=tongcuocmakeup%></td>
+													<td><%=formatter.format(tienquoctema)%></td>
+													<td><%=formatter.format(tienlientinhma)%></td>
+													<td><%=formatter.format(tiendidongma)%></td>
+													<td><%=formatter.format(tiendichvuma)%></td>
+													<td><%=formatter.format(tiennoihatma)%></td>
+													<td><%=formatter.format(tongcuocmakeup)%></td>
 												</tr>
 												<tr class="gradeA">
 													<td><%=3%></td>
@@ -624,7 +627,7 @@
 													<td>-</td>
 													<td>-</td>
 													<td>-</td>
-													<td><%=thanhtien%></td>
+													<td><%=formatter.format(thanhtien)%></td>
 												</tr>
 												<tr class="gradeA">
 													<td><%=5%></td>
@@ -635,7 +638,7 @@
 													<td>-</td>
 													<td>-</td>
 													<td>-</td>
-													<td><%=VAT%></td>
+													<td><%=formatter.format(VAT)%></td>
 												</tr>
 												<tr class="gradeA">
 													<td><%=6%></td>
@@ -646,7 +649,7 @@
 													<td>-</td>
 													<td>-</td>
 													<td>-</td>
-													<td><%=tongcuoc%></td>
+													<td><%=formatter.format(tongcuoc)%></td>
 												</tr>
 												<%
 													}
@@ -688,8 +691,8 @@
 													<th>Tổng số giây</th>
 													<th>Thời gian bắt đầu</th>
 													<th>Thời gian kết thúc</th>
-													<th>Cost(Chưa VAT) (VND)</th>
-													<th>Cost đã makeup</th>
+													<th>Cost(Chưa makeup) (VND)</th>
+													<th>Cost (VNĐ)</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -709,10 +712,10 @@
 													<td><%=listlogcall_dv.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_dv.get(i).getThoiGianKetThuc()%></td>
 
-													<td><%=(double) Math.round((listlogcall_dv.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listlogcall_dv.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listlogcall_dv.get(i).getGiaTien() + listlogcall_dv.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -735,10 +738,10 @@
 													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
 
-													<td><%=(double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listexten_pb.get(i).getGiaTien() + listexten_pb.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -760,10 +763,10 @@
 													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
 
-													<td><%=(double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listlogcall_ex.get(i).getGiaTien() + listlogcall_ex.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -795,8 +798,8 @@
 													<th>Tổng số giây</th>
 													<th>Thời gian bắt đầu</th>
 													<th>Thời gian kết thúc</th>
-													<th>Cost(Chưa VAT) (VND)</th>
-													<th>Cost đã makeup</th>
+													<th>Cost(Chưa makeup) (VND)</th>
+													<th>Cost (VNĐ)</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -814,9 +817,9 @@
 													<td><%=listlogcall_dv1.get(i).getThoiGianGoi()%></td>
 													<td><%=listlogcall_dv1.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_dv1.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listlogcall_dv1.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(((listlogcall_dv1.get(i).getGiaTien()
-								+ listlogcall_dv1.get(i).getGiaTien() * tilemakeup) * 100) / 100)%></td>
+													<td><%=formatter.format((double) Math.round((listlogcall_dv1.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(((listlogcall_dv1.get(i).getGiaTien()
+								+ listlogcall_dv1.get(i).getGiaTien() * tilemakeup) * 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -837,10 +840,10 @@
 													<td><%=listexten_pb.get(i).getThoiGianGoi()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listexten_pb.get(i).getGiaTien() + listexten_pb.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -862,10 +865,10 @@
 													<td><%=listlogcall_ex.get(i).getThoiGianGoi()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listlogcall_ex.get(i).getGiaTien() + listlogcall_ex.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -897,8 +900,8 @@
 													<th>Tổng số giây</th>
 													<th>Thời gian bắt đầu</th>
 													<th>Thời gian kết thúc</th>
-													<th>Cost(Chưa VAT) (VND)</th>
-													<th>Cost đã makeup</th>
+													<th>Cost(Chưa makeup) (VND)</th>
+													<th>Cost (VNĐ)</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -916,9 +919,9 @@
 													<td><%=listlogcall_dv2.get(i).getThoiGianGoi()%></td>
 													<td><%=listlogcall_dv2.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_dv2.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listlogcall_dv2.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(((listlogcall_dv2.get(i).getGiaTien()
-								+ listlogcall_dv2.get(i).getGiaTien() * tilemakeup) * 100) / 100)%></td>
+													<td><%=formatter.format((double) Math.round((listlogcall_dv2.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(((listlogcall_dv2.get(i).getGiaTien()
+								+ listlogcall_dv2.get(i).getGiaTien() * tilemakeup) * 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -940,10 +943,10 @@
 													<td><%=listexten_pb.get(i).getThoiGianGoi()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listexten_pb.get(i).getGiaTien() + listexten_pb.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -965,10 +968,10 @@
 													<td><%=listlogcall_ex.get(i).getThoiGianGoi()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listlogcall_ex.get(i).getGiaTien() + listlogcall_ex.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -1000,8 +1003,8 @@
 													<th>Tổng số giây</th>
 													<th>Thời gian bắt đầu</th>
 													<th>Thời gian kết thúc</th>
-													<th>Cost(Chưa VAT) (VND)</th>
-													<th>Cost đã makeup</th>
+													<th>Cost(Chưa makeup) (VND)</th>
+													<th>Cost (VNĐ)</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -1019,9 +1022,9 @@
 													<td><%=listlogcall_dv3.get(i).getThoiGianGoi()%></td>
 													<td><%=listlogcall_dv3.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_dv3.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listlogcall_dv3.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(((listlogcall_dv3.get(i).getGiaTien()
-								+ listlogcall_dv3.get(i).getGiaTien() * tilemakeup) * 100) / 100)%></td>
+													<td><%=formatter.format((double) Math.round((listlogcall_dv3.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(((listlogcall_dv3.get(i).getGiaTien()
+								+ listlogcall_dv3.get(i).getGiaTien() * tilemakeup) * 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -1043,10 +1046,10 @@
 													<td><%=listexten_pb.get(i).getThoiGianGoi()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listexten_pb.get(i).getGiaTien() + listexten_pb.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -1068,10 +1071,10 @@
 													<td><%=listlogcall_ex.get(i).getThoiGianGoi()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listlogcall_ex.get(i).getGiaTien() + listlogcall_ex.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -1102,8 +1105,8 @@
 													<th>Tổng số giây</th>
 													<th>Thời gian bắt đầu</th>
 													<th>Thời gian kết thúc</th>
-													<th>Cost(Chưa VAT) (VND)</th>
-													<th>Cost đã makeup</th>
+													<th>Cost(Chưa makeup) (VND)</th>
+													<th>Cost (VNĐ)</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -1121,9 +1124,9 @@
 													<td><%=listlogcall_dv4.get(i).getThoiGianGoi()%></td>
 													<td><%=listlogcall_dv4.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_dv4.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listlogcall_dv4.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(((listlogcall_dv4.get(i).getGiaTien()
-								+ listlogcall_dv4.get(i).getGiaTien() * tilemakeup) * 100) / 100)%></td>
+													<td><%=formatter.format((double) Math.round((listlogcall_dv4.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(((listlogcall_dv4.get(i).getGiaTien()
+								+ listlogcall_dv4.get(i).getGiaTien() * tilemakeup) * 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -1145,10 +1148,10 @@
 													<td><%=listexten_pb.get(i).getThoiGianGoi()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianBatDau()%></td>
 													<td><%=listexten_pb.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listexten_pb.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listexten_pb.get(i).getGiaTien() + listexten_pb.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
@@ -1170,10 +1173,10 @@
 													<td><%=listlogcall_ex.get(i).getThoiGianGoi()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianBatDau()%></td>
 													<td><%=listlogcall_ex.get(i).getThoiGianKetThuc()%></td>
-													<td><%=(double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100)%></td>
-													<td><%=(double) Math.round(
+													<td><%=formatter.format((double) Math.round((listlogcall_ex.get(i).getGiaTien() * 100) / 100))%></td>
+													<td><%=formatter.format((double) Math.round(
 								((listlogcall_ex.get(i).getGiaTien() + listlogcall_ex.get(i).getGiaTien() * tilemakeup)
-										* 100) / 100)%></td>
+										* 100) / 100))%></td>
 												</tr>
 												<%
 													}
