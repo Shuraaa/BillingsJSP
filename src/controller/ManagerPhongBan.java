@@ -30,6 +30,7 @@ public class ManagerPhongBan extends HttpServlet {
 		String phongbanid = "";
 		String tenphongban = "";
 		String congtyID = "";
+		String congtyid = "";
 		String errorphongban = "";
 		switch (command) {
 
@@ -37,6 +38,8 @@ public class ManagerPhongBan extends HttpServlet {
 		case "delete":
 			phongbanid = request.getParameter("phongbanid");
 			pbd.xoaPhongBan(phongbanid);
+			congtyid = request.getParameter("congtyid");
+			request.setAttribute("congtyid", congtyid);
 			url = "/admin_group.jsp";
 			break;
 
@@ -68,6 +71,8 @@ public class ManagerPhongBan extends HttpServlet {
 		case "edit":
 			phongbanid = request.getParameter("phongbanid");
 			tenphongban = request.getParameter("tenphongban");
+			congtyid = request.getParameter("congtyid");
+			request.setAttribute("congtyid", congtyid);
 			request.setAttribute("editphongban", phongbanid);
 			request.setAttribute("edittenphongban", tenphongban);
 			url = "/admin_group.jsp";
@@ -77,6 +82,8 @@ public class ManagerPhongBan extends HttpServlet {
 			phongbanid = request.getParameter("txt_idphongban");
 			tenphongban = request.getParameter("txt_tenphongban");
 			pbd.updatePhongBan(phongbanid, tenphongban);
+			congtyid = request.getParameter("congtyid");
+			request.setAttribute("congtyid", congtyid);
 			url = "/admin_group.jsp";
 			break;
 

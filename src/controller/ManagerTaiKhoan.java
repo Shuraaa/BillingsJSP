@@ -34,12 +34,15 @@ public class ManagerTaiKhoan extends HttpServlet {
 		String errorpasscf="";
 		int role=0;
 		int count =0;
+		String congtyid ="";
 		Validation vl = new Validation();
 		switch (command) {
 		//delete Tài khoản
 		case "delete":
 			userName = request.getParameter("userName");
 			tkd.xoaTaiKhoan(userName);
+			congtyid = request.getParameter("congtyid");
+			request.setAttribute("congtyid", congtyid);
 			url="/admin_user.jsp";
 			break;
 		//add tài khoản

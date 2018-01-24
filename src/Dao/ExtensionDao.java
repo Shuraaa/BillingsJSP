@@ -73,17 +73,28 @@ public class ExtensionDao {
 
 	// delete
 	public boolean xoaExtension(String extensionid) {
-		Connection con = DatabaseSQLConnection.getConnection();
-		String sql = "DELETE FROM extension WHERE extensionID = ?";
+		Connection conn = DatabaseSQLConnection.getConnection();
 		try {
-			PreparedStatement ps = (PreparedStatement) con.prepareCall(sql);
-			ps.setString(1, extensionid);
-			return ps.executeUpdate() == 1;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			String sql2 = "delete from  log_call where extensionID = ?";
+			PreparedStatement pre2 = (PreparedStatement) conn.prepareStatement(sql2);
+			pre2.setString(1, extensionid);
+			pre2.execute();
+
+			String sql3 = "DELETE FROM extension WHERE extensionID = ?";
+			PreparedStatement pre3 = (PreparedStatement) conn.prepareStatement(sql3);
+			pre3.setString(1, extensionid);
+			pre3.execute();
+
+			pre2.close();
+			pre3.close();
+
+			conn.close();
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
+
 	}
 
 	// kiểm tra extension có tồn tại hay không

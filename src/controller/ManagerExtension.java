@@ -39,6 +39,8 @@ public class ManagerExtension extends HttpServlet {
 		case "delete":
 			extensionid = request.getParameter("extensionid");
 			exd.xoaExtension(extensionid);
+			congtyid = request.getParameter("congtyid");
+			request.setAttribute("congtyid", congtyid);
 			url = "/admin_extension.jsp";
 			break;
 		// xử lý tên công ty đưa về form thêm extension chứa các đầu số và phòng

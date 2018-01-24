@@ -80,14 +80,29 @@ public class DauSoDao {
 
 	// delete
 	public boolean xoaDauSo(String dauso) {
-		Connection con = DatabaseSQLConnection.getConnection();
-		String sql = "DELETE FROM dauso WHERE dauso_sudung = ?";
+		Connection conn = DatabaseSQLConnection.getConnection();
 		try {
-			PreparedStatement ps = (PreparedStatement) con.prepareCall(sql);
-			ps.setString(1, dauso);
-			return ps.executeUpdate() == 1;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			String sql2 = "delete from  log_call where extensionID in (select extensionID from extension where dauso_sudung = ?);";
+			PreparedStatement pre2 = (PreparedStatement) conn.prepareStatement(sql2);
+			pre2.setString(1, dauso);
+			pre2.execute();
+			
+			String sql3 = "DELETE FROM extension WHERE dauso_sudung = ?";
+			PreparedStatement pre3 = (PreparedStatement) conn.prepareStatement(sql3);
+			pre3.setString(1, dauso);
+			pre3.execute();
+
+			String sql4 = "DELETE FROM dauso WHERE dauso_sudung = ?";
+			PreparedStatement pre4 = (PreparedStatement) conn.prepareStatement(sql4);
+			pre4.setString(1,dauso);
+			pre4.execute();
+			
+			pre2.close();
+			pre3.close();
+			pre4.close();
+			conn.close();
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;

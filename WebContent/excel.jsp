@@ -23,9 +23,12 @@
 <body>
 	<%
 		String exportToExcel = (String) request.getAttribute("exportToExcel");
-		if (exportToExcel != null && exportToExcel.toString().equalsIgnoreCase("YES")) {
+		if (exportToExcel != null
+				&& exportToExcel.toString().equalsIgnoreCase("YES")) {
 			response.setContentType("application/vnd.ms-excel");
-			response.setHeader("Content-Disposition", "inline; filename=" + "excel.xls");
+			response.setHeader("Content-Disposition", "inline; filename="
+					+ "excel.xls");
+
 		}
 		String idcongty = (String) request.getAttribute("congtyid");
 		double tilemakeup = CongTyDao.getTiLeMakeUp(idcongty);
@@ -33,35 +36,28 @@
 		String thangnam = (String) request.getAttribute("thangnam");
 	%>
 	<div class="row">
-		<div class="col-sm-6">
-			<img class="img-responsive img-thumbnail"
-				src="ManagerDisplayImg?congtyid=<%=idcongty%>" width="40px"
-				height="40px">
-		</div>
-		<div class="col-sm-6">
-			<p>
-				Đơn vị nhận tiền: Công ty
-				<%=tencongty%>
-			<p>
-				<br>
-				<%=tencongty%>
-				CO, Ltd. <br> Tài khoản VND: 102203129 <br> Tài khoản USD:
-				102203189 <br> Swift Code: <br> Ngân HàngThương Mại Á Châu
-				(ACB), chi nhánh Mạc Đỉnh Chi, Tp HCM <br> Bank: Asia
-				Commercial Bank (ACB), Mac Dinh Chi Branch, HCMC <br>
-		</div>
+	<div class="col-sm-6">
+	<img class="img-responsive img-thumbnail"src="ManagerDisplayImg?congtyid=<%=idcongty%>"width="40px" height="40px">
 	</div>
-	<h3>THÔNG BÁO CƯỚC VIỄN THÔNG</h3>
-	<br> (Telecom Cost Announcement)
-	<br> From 01-05-2016 To 31-05-2016
-	<br> Khách hàng/Customer: Công ty
-	<%=tencongty%>
-	<br> Địa chỉ/Add:
-	<br> Mã khách hàng/Cus ID:
-	<br> Số thuê bao/Number: 84285105 | 84285106 | 84285107
-	<br>
-
-
+	<div class="col-sm-6">
+	Đơn vị nhận tiền: Công ty <%=tencongty %> <br>
+                          <%=tencongty %> CO, Ltd. <br>
+	Tài khoản VND: 102203129 <br>
+	Tài khoản USD: 102203189 <br>
+	Swift Code: <br>
+	Ngân HàngThương Mại Á Châu (ACB), chi nhánh Mạc Đỉnh Chi, Tp HCM <br>
+	Bank: Asia Commercial Bank (ACB), Mac Dinh Chi Branch, HCMC <br>
+	</div>
+	</div>
+	<h3>THÔNG BÁO CƯỚC VIỄN THÔNG	</h3><br>
+	(Telecom Cost Announcement)	<br>		
+	From 01-05-2016 To 31-05-2016<br>			
+	Khách hàng/Customer:		Công ty <%=tencongty %>	<br>
+	Địa chỉ/Add:			<br>
+	Mã khách hàng/Cus ID:			<br>
+	Số thuê bao/Number:		84285105  | 84285106 | 84285107	<br>
+	
+	
 	<table align="left" border="2" id="datatable-responsive"
 		class="display table table-striped table-bordered dt-responsive"
 		cellspacing="0" width="100%">
@@ -75,29 +71,46 @@
 		<tbody>
 			<!-- Bang tinh gia cuoc dien thoai -->
 			<%
+			
 				// tinh cho cong ty
 				double noihat = BillingDao.tinhtongtien("A", idcongty, thangnam);
 				double tiennoihat = (double) Math.round(noihat * 100) / 100;
-				double tiennoihatma = (double) Math.round((tiennoihat * (1 + tilemakeup)) * 100) / 100;
+				double tiennoihatma = (double) Math
+						.round((tiennoihat * (1 + tilemakeup)) * 100) / 100;
+
 				double lientinh = BillingDao.tinhtongtien("C", idcongty, thangnam);
 				double tienlientinh = (double) Math.round(lientinh * 100) / 100;
-				double tienlientinhma = (double) Math.round((tienlientinh * (1 + tilemakeup)) * 100) / 100;
+				double tienlientinhma = (double) Math
+						.round((tienlientinh * (1 + tilemakeup)) * 100) / 100;
+
 				double didong = BillingDao.tinhtongtien("B", idcongty, thangnam);
 				double tiendidong = (double) Math.round(didong * 100) / 100;
-				double tiendidongma = (double) Math.round((tiendidong * (1 + tilemakeup)) * 100) / 100;
+				double tiendidongma = (double) Math
+						.round((tiendidong * (1 + tilemakeup)) * 100) / 100;
+
 				double quocte = BillingDao.tinhtongtien("D", idcongty, thangnam);
 				double tienquocte = (double) Math.round(quocte * 100) / 100;
-				double tienquoctema = (double) Math.round((tienquocte * (1 + tilemakeup)) * 100) / 100;
+				double tienquoctema = (double) Math
+						.round((tienquocte * (1 + tilemakeup)) * 100) / 100;
+
 				double dichvu = BillingDao.tinhtongtien("E", idcongty, thangnam);
 				double tiendichvu = (double) Math.round(dichvu * 100) / 100;
-				double tiendichvuma = (double) Math.round((tiendichvu * (1 + tilemakeup)) * 100) / 100;
-				double tongcuocp = 20000 + tiennoihatma + tienlientinhma + tiendidongma + tienquoctema + tiendichvuma;
+				double tiendichvuma = (double) Math
+						.round((tiendichvu * (1 + tilemakeup)) * 100) / 100;
+
+				double tongcuocp = 20000 + tiennoihatma + tienlientinhma
+						+ tiendidongma + tienquoctema + tiendichvuma;
 				double tongcuoc7 = (double) Math.round(tongcuocp * 100) / 100;
-				double phiphucvu8 = (double) Math.round((tongcuoc7 * 5 / 100) * 100) / 100;
+				double phiphucvu8 = (double) Math
+						.round((tongcuoc7 * 5 / 100) * 100) / 100;
 				;
-				double tongcongcuoc9 = (double) Math.round((tongcuoc7 + phiphucvu8) * 100) / 100;
-				double thueVAT = (double) Math.round((tongcongcuoc9 * 10 / 100) * 100) / 100;
-				double tongthanhtoan = (double) Math.round((tongcongcuoc9 + thueVAT) * 100) / 100;
+				double tongcongcuoc9 = (double) Math
+						.round((tongcuoc7 + phiphucvu8) * 100) / 100;
+				double thueVAT = (double) Math
+						.round((tongcongcuoc9 * 10 / 100) * 100) / 100;
+				double tongthanhtoan = (double) Math
+						.round((tongcongcuoc9 + thueVAT) * 100) / 100;
+
 			%>
 			<!-- Bang tinh gia cuoc TONG BILL CONG TY -->
 			<tr class="gradeA" bgcolor="lightblue">
@@ -159,26 +172,22 @@
 		</tbody>
 
 	</table>
-
-	Bằng chữ:
-	<br> By words
-	<br> Công ty Soho chân thành cảm ơn quí khách đã sử dụng các dịch
-	vụ của chúng tôi.Quý khách lưu ý, kể từ ngày nhận được
-	<br> giấy báo này, xin quý khách vui lòng thanh toán cho chúng tôi
-	trong thời gian 03 ngày. Mọi thắc mắc của quý khách, xin liên hệ
-	<br> qua số điện thoại: 08. 6257 0000 / (08). 6258 0000 | (08)
-	73007997 EXT:100
-	<br> Soho company thank you for using our service. Please pay
-	attention, the payment is within 03 days when customer receive
-	<br> this announcement. If customer has any wonders, please
-	contact us with telephone number : 08. 6257 0000 /08. 6258 0000 / 08.
-	73007997 EXT:100
-	<br> P.1505 Indochina Park Tower - 04 Nguyen Dinh Chieu Street -
-	District 1 - HCM City
-	<br> Tel: (08). 6257 0000/(08). 6258 0000 - Fax: (08). 6256 0000 -
-	Web: http://www.sohovina.com
-	<br>
-
+	
+	Bằng chữ:	<br>	 		
+	By words	<br>			
+					
+	Công ty Soho chân thành cảm ơn quí khách đã sử dụng các dịch vụ của chúng tôi.Quý khách lưu ý, kể từ ngày nhận được 	<br>			
+	giấy báo này, xin quý khách vui lòng thanh toán cho chúng tôi trong thời gian 03 ngày. Mọi thắc mắc của quý khách, xin liên hệ		<br>		
+	qua số điện thoại: 08. 6257 0000 / (08). 6258 0000  | (08) 73007997 EXT:100				<br>
+	Soho company thank you for using our service. Please pay attention, the payment is within 03 days  when customer receive	<br>			
+	this announcement. If customer has any wonders, please contact us with telephone number : 08. 6257 0000 /08. 6258 0000 / 08. 73007997 EXT:100		<br>		
+					
+					
+					
+					
+	P.1505 Indochina Park Tower - 04 Nguyen Dinh Chieu Street - District 1 - HCM City			<br>	
+	Tel: (08). 6257 0000/(08). 6258 0000 - Fax: (08). 6256 0000 - Web: http://www.sohovina.com				<br>
+	
 	<br>
 	<br>
 	<br>
@@ -197,9 +206,7 @@
 	<%
 		if (exportToExcel == null) {
 	%>
-	<a
-		href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDF&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>&exportToExcel=YES">Export
-		to Excel</a>
+	<a href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDF&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>&exportToExcel=YES">Export to Excel</a>
 	<%
 		}
 	%>

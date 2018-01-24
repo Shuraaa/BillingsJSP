@@ -220,7 +220,7 @@
 					</div>
 				</div>
 
-				<!--  -->
+				<!--Export file   -->
 				<div class="col-sm-3">
 					<div class="box box-primary">
 						<div class="box-header with-border">
@@ -230,10 +230,15 @@
 						</div>
 						<div class="box-body">
 							<div class="btn-group">
-								<a
-									href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDF&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>"
-									class="btn btn-default"><i class="fa fa-file-pdf-o"></i>
-									.xlsx</a> <a href="#" class="btn btn-default"><i
+								<div class="dropdown">
+									 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">.xlsx
+									  <span class="caret"></span></button>
+									  <ul class="dropdown-menu">
+									    <li><a href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDF&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>">Sumary</a></li>
+									    <li><a href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDFdetail&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>">Detail</a></li>
+									  </ul>
+								</div>	
+								<a href="#" class="btn btn-default"><i
 									class="fa fa-file-word-o"></i> .CSV</a>
 							</div>
 						</div>
@@ -576,7 +581,7 @@
 												<tr class="gradeA">
 													<td><%=2%></td>
 													<td>Cước ban theo tỉ lệ makeup</td>
-													<td><%=tilemakeup * 100%></td>
+													<td><%=tilemakeup*100%></td>
 													<td><%=tienquoctema%></td>
 													<td><%=tienlientinhma%></td>
 													<td><%=tiendidongma%></td>

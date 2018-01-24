@@ -8,48 +8,48 @@ import connection.DatabaseSQLConnection;
 import model.LogCall;
 
 public class LogCallDao {
-	public static void insert(ArrayList<LogCall> list) throws SQLException {
+	public static void insert(String extensionID, String thuebaonhan,int thoigian_goi,String d1,String d12) throws SQLException {
 		Connection conn = DatabaseSQLConnection.getConnection();
 		String sql = "insert into log_call(extensionID,thuebaonhan,thoigian_goi,bat_dau,ketthuc) values(?,?,?,?,?)";
-		try {
-			conn.setAutoCommit(false);
-			for (LogCall logCall : list) {
-				PreparedStatement pre = (PreparedStatement) conn.prepareCall(sql);
-				pre.setString(1, logCall.getExtensionID());
-				pre.setString(2, logCall.getThueBaoNhan());
-				pre.setInt(3, logCall.getThoiGianGoi());
-				pre.setString(4, logCall.getThoiGianBatDau());
-				pre.setString(5, logCall.getThoiGianKetThuc());
-				pre.execute();
-				pre.close();
-			}
-			conn.commit();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("extension ko tồn tại");
-			e.printStackTrace();
-			conn.rollback();
-		} finally {
-			if (conn != null) {
-				conn.close();
-			}
-		}
-		// try {
-		// PreparedStatement pre = (PreparedStatement)
-		// conn.prepareStatement(sql);
-		//// pre.setString(1, extensionID);
-		//// pre.setString(2, thuebaonhan);
-		//// pre.setInt(3, thoigian_goi);
-		//// pre.setString(4, d1);
-		//// pre.setString(5, d12);
-		// pre.execute();
-		// pre.close();
-		// conn.close();
-		// } catch (SQLException e) {
-		// // TODO Auto-generated catch block
-		// System.out.println("error");
-		// e.printStackTrace();
-		// }
+//		try {
+//			conn.setAutoCommit(false);
+//			for (LogCall logCall : list) {
+//				PreparedStatement pre = (PreparedStatement) conn.prepareCall(sql);
+//				pre.setString(1, logCall.getExtensionID());
+//				pre.setString(2, logCall.getThueBaoNhan());
+//				pre.setInt(3, logCall.getThoiGianGoi());
+//				pre.setString(4, logCall.getThoiGianBatDau());
+//				pre.setString(5, logCall.getThoiGianKetThuc());
+//				pre.execute();
+//				pre.close();
+//			}
+//			conn.commit();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("extension ko tồn tại");
+//			e.printStackTrace();
+//			conn.rollback();
+//		} finally {
+//			if (conn != null) {
+//				conn.close();
+//			}
+//		}
+		 try {
+		 PreparedStatement pre = (PreparedStatement)
+		 conn.prepareStatement(sql);
+		 pre.setString(1, extensionID);
+		 pre.setString(2, thuebaonhan);
+		 pre.setInt(3, thoigian_goi);
+		 pre.setString(4, d1);
+		 pre.setString(5, d12);
+		 pre.execute();
+		 pre.close();
+		 conn.close();
+		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
+		 System.out.println("error");
+		 e.printStackTrace();
+		 }
 
 	}
 
@@ -63,7 +63,7 @@ public class LogCallDao {
 		list.add(l2);
 		list.add(l3);
 		list.add(l4);
-		insert(list);
+	//	insert(list);
 		System.out.println();
 
 	}

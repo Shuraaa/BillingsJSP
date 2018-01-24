@@ -37,6 +37,8 @@ public class ManagerDauSo extends HttpServlet {
 		case "delete":
 			dauso = request.getParameter("dauso");
 			dsd.xoaDauSo(dauso);
+			congtyid = request.getParameter("congtyid");
+			request.setAttribute("congtyid", congtyid);
 			url = "/admin_dauso.jsp";
 			break;
 		case "add":
@@ -62,8 +64,6 @@ public class ManagerDauSo extends HttpServlet {
 				dsd.themDauSo(ds);
 				url = "/admin_dauso.jsp";
 			}
-			break;
-		default:
 			break;
 		}
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
