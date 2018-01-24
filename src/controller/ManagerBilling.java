@@ -32,6 +32,7 @@ public class ManagerBilling extends HttpServlet {
 		String yeucau = "";
 		String thangnam = "";
 		String yeucauthang = "";
+		String exportToExcel = "";
 		switch (command) {
 
 		// delete phòng ban
@@ -98,12 +99,23 @@ public class ManagerBilling extends HttpServlet {
 			congtyID = request.getParameter("congtyid");
 			tencongty = request.getParameter("tencongty");
 			thangnam = request.getParameter("thangnam");
-			String exportToExcel = request.getParameter("exportToExcel");
+			exportToExcel = request.getParameter("exportToExcel");
 			request.setAttribute("tencongty", tencongty);
 			request.setAttribute("congtyid", congtyID);
 			request.setAttribute("thangnam", thangnam);
 			request.setAttribute("exportToExcel", exportToExcel);
 			url = "/excel.jsp";
+			break;
+		case "exportPDFdetail":
+			congtyID = request.getParameter("congtyid");
+			tencongty = request.getParameter("tencongty");
+			thangnam = request.getParameter("thangnam");
+			exportToExcel = request.getParameter("exportToExcel");
+			request.setAttribute("tencongty", tencongty);
+			request.setAttribute("congtyid", congtyID);
+			request.setAttribute("thangnam", thangnam);
+			request.setAttribute("exportToExcel", exportToExcel);
+			url = "/excel_detail.jsp";
 			break;
 		default:
 			break;

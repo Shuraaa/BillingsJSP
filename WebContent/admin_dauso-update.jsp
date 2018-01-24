@@ -135,5 +135,3 @@
 	<!-- /.End of wrapper -->
 </body>
 </html>
-
-</html>

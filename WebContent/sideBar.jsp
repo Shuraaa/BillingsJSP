@@ -218,7 +218,7 @@ div.dataTables_wrapper {
 		</a>
 			<ul class="treeview-menu">
 				<li><a href="<%=request.getContextPath()%>/admin_user.jsp"><i
-						class="fa fa-users"></i> Quản lí người dùng</a></li>
+						class="fa fa-users"></i> Quản lí tài khoản</a></li>
 				<li><a href="<%=request.getContextPath()%>/admin_company.jsp"><i
 						class="glyphicon glyphicon-briefcase"></i> Quản lí công ti</a></li>
 				<li><a href="<%=request.getContextPath()%>/admin_group.jsp"><i

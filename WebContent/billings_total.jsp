@@ -146,19 +146,36 @@
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
-								<i class="glyphicon glyphicon-print"></i> Print
+								<i class="glyphicon glyphicon-export"></i> Export
 							</h3>
 						</div>
-						<form action="#" class="form-horizontal">
-							<div class="box-body text-center">
-								<div class="btn-group">
-									<a href="#" class="btn btn-default"><i
-										class="fa fa-file-pdf-o"></i> .PDF</a> <a href="#"
-										class="btn btn-default"><i class="fa fa-file-word-o"></i>
-										.CSV</a>
+						<div class="box-body">
+							<!-- /btn-group -->
+							<div class="btn-group">
+								<div class="btn-group dropdown">
+									<button type="button" class="btn btn-primary dropdown-toggle"
+										data-toggle="dropdown">
+										<i class="fa fa-file-excel-o"></i> Excel <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="#">Sumary</a></li>
+										<li><a href="#">Detail</a></li>
+									</ul>
+								</div>
+
+								<div class="btn-group dropdown">
+									<button type="button" class="btn btn-primary dropdown-toggle"
+										data-toggle="dropdown">
+										<i class="fa fa-file-word-o"></i> Word <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="#">Sumary</a></li>
+										<li><a href="#">Detail</a></li>
+									</ul>
 								</div>
 							</div>
-						</form>
+							<!-- /.btn-group -->
+						</div>
 					</div>
 				</div>
 				<!--  -->
@@ -188,7 +205,7 @@
 											<tr>
 												<th>#</th>
 												<th>Dịch vụ/Service</th>
-												<th>Cước/Cost</th>
+												<th>Cước/Cost (VNĐ)</th>
 											</tr>
 										</thead>
 

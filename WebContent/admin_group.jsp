@@ -23,6 +23,12 @@
 			response.sendRedirect("login.jsp");
 		} else {
 	%>
+	<%
+		ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+			ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
+			String congtyid = (String) request.getAttribute("congtyid");
+			ArrayList<PhongBan> listPhongBanCT = PhongBanDao.getListPBCongTy(congtyid);
+	%>
 
 	<div class="wrapper">
 
@@ -50,15 +56,67 @@
 			<section class="content">
 			<div class="row">
 
+				<!--  -->
+				<div class="col-sm-5">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">
+								<i class="glyphicon glyphicon-filter"></i> Filter
+							</h3>
+						</div>
+
+						<form action="<%=request.getContextPath()%>/Search" method="get"
+							class="form-horizontal">
+							<div class="box-body">
+								<div class="row">
+									<div class="col-sm-8">
+										<select class="form-control" name="congtyid">
+											<option disabled selected>Tên công ty</option>
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<%
+												for (int i = 0; i < listCongTy.size(); i++) {
+											%>
+											<option value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
+											<%
+												}
+											%>
+										</select>
+									</div>
+									<div class="col-sm-4">
+										<input type="hidden" name="command" value="searchphongban"></input>
+										<button type="submit" class="btn btn-primary btn-block">
+											<i class="glyphicon glyphicon-search"></i> Xác nhận
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+				<!-- /.End -->
+
+				<div class="col-sm-3">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">
+								<i class="ion-person-stalker"></i> Thêm phòng/ban
+							</h3>
+						</div>
+
+						<div class="box-body">
+							<a href="<%=request.getContextPath()%>/admin_group-add.jsp"
+								class="btn btn-primary btn-block"> <i
+								class="ion-person-stalker"></i> Thêm mới
+							</a>
+						</div>
+					</div>
+				</div>
+
 				<div class="col-md-12">
 					<div class="box box-primary">
 						<div class="box-header">
 							<h3 class="box-title">Danh sách</h3>
-							<div class="col-sm-2 pull-right">
-								<a href="admin_group-add.jsp" class="btn btn-primary btn-block">
-									<i class="ion-person-stalker"></i> Thêm phòng ban
-								</a>
-							</div>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body no-padding">
@@ -74,26 +132,92 @@
 									</tr>
 								</thead>
 								<tbody>
-
-
+									<%
+										//search group theo cong ty
+											// search dau so theo cong ty 
+											if (congtyid != null) {
+									%>
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
 									<%
-										ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
-											ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-											for (int i = 0; i < listPhongBan.size(); i++) {
+										for (int i = 0; i < listPhongBanCT.size(); i++) {
 									%>
 									<tr class="gradeA">
 										<td><%=i + 1%></td>
 										<!--Lenh edit ten phong ban -->
 										<%
 											String idphongban = (String) request.getAttribute("editphongban");
-													String id = listPhongBan.get(i).getPhongBanID();
-													if ((idphongban != null) && (idphongban.equals(id))) {
+														String id = listPhongBanCT.get(i).getPhongBanID();
+														if ((idphongban != null) && (idphongban.equals(id))) {
 										%>
 										<form action="ManagerPhongBan" method="get">
 											<td><input type="text" class="form-control"
 												name="txt_tenphongban" placeholder="Group name"
-												value="<%=listPhongBan.get(i).getTenPhongBan()%>"></td> <input
+												value="<%=listPhongBanCT.get(i).getTenPhongBan()%>"></input></td>
+											<input type="hidden" name="txt_idphongban"
+												value="<%=listPhongBanCT.get(i).getPhongBanID()%>"></input>
+											<input type="hidden" name="command" value="update"></input> <input
+												type="hidden" name="congtyid" value=<%=congtyid%>></input>
+											<%
+												} else {
+											%>
+											<td><%=listPhongBanCT.get(i).getTenPhongBan()%></td>
+											<%
+												}
+															for (int j = 0; j < listCongTy.size(); j++) {
+																if (listPhongBanCT.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
+											%>
+											<td><%=listCongTy.get(j).getTenCongTy()%></td>
+											<%
+												}
+															}
+											%>
+											<td>
+												<%
+													String id1 = listPhongBanCT.get(i).getPhongBanID();
+																if ((idphongban != null) && (idphongban.equals(id1))) {
+												%>
+												<button type="submit"
+													class="btn btn-success glyphicon glyphicon-ok-sign"></button>
+										</form>
+										<%
+											} else {
+										%>
+										<a
+											href="<%=request.getContextPath()%>/ManagerPhongBan?command=edit&phongbanid=<%=listPhongBanCT.get(i).getPhongBanID()%>&tenphongban=<%=listPhongBanCT.get(i).getTenPhongBan()%>&congtyid=<%=congtyid%>"><button
+												type="button"
+												class="btn btn-primary glyphicon glyphicon-edit"></button></a>
+										<%
+											}
+										%>
+										&nbsp;&nbsp;
+										<a href="#" class="linkDelete"><button type="button"
+												id="<%=i + 1%>" onclick="clickBt($(this).val())"
+												class="btn btn-danger glyphicon glyphicon-trash "
+												value="<%=listPhongBanCT.get(i).getPhongBanID()%>&congtyid=<%=congtyid%>"></button></a>
+										</td>
+									</tr>
+									<%
+										}
+											} // hien thi tất cả group
+											else {
+									%>
+
+									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
+									<%
+										for (int i = 0; i < listPhongBan.size(); i++) {
+									%>
+									<tr class="gradeA">
+										<td><%=i + 1%></td>
+										<!--Lenh edit ten phong ban -->
+										<%
+											String idphongban = (String) request.getAttribute("editphongban");
+														String id = listPhongBan.get(i).getPhongBanID();
+														if ((idphongban != null) && (idphongban.equals(id))) {
+										%>
+										<form action="ManagerPhongBan" method="get">
+											<td><input type="text" class="form-control"
+												name="txt_tenphongban" placeholder="Group name"
+												value="<%=listPhongBan.get(i).getTenPhongBan()%>"></input></td> <input
 												type="hidden" name="txt_idphongban"
 												value="<%=listPhongBan.get(i).getPhongBanID()%>"></input> <input
 												type="hidden" name="command" value="update"></input>
@@ -103,26 +227,22 @@
 											<td><%=listPhongBan.get(i).getTenPhongBan()%></td>
 											<%
 												}
-											%>
-											<%
-												for (int j = 0; j < listCongTy.size(); j++) {
-															if (listPhongBan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
+															for (int j = 0; j < listCongTy.size(); j++) {
+																if (listPhongBan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
 											%>
 											<td><%=listCongTy.get(j).getTenCongTy()%></td>
 											<%
 												}
-														}
+															}
 											%>
 											<td>
 												<%
-													String idphongban1 = (String) request.getAttribute("editphongban");
-															String id1 = listPhongBan.get(i).getPhongBanID();
-															if ((idphongban1 != null) && (idphongban1.equals(id1))) {
+													String id1 = listPhongBan.get(i).getPhongBanID();
+																if ((idphongban != null) && (idphongban.equals(id1))) {
 												%>
 												<button type="submit"
 													class="btn btn-success glyphicon glyphicon-ok-sign"></button>
 										</form>
-
 										<%
 											} else {
 										%>
@@ -134,16 +254,16 @@
 											}
 										%>
 										&nbsp;&nbsp;
-										<a
-											href="<%=request.getContextPath()%>/ManagerPhongBan?command=delete&phongbanid=<%=listPhongBan.get(i).getPhongBanID()%>"><button
-												type="button"
-												class="btn btn-danger glyphicon glyphicon-trash"></button></a>
+										<a href="#" class="linkDelete"><button type="button"
+												id="<%=i + 1%>" onclick="clickBt($(this).val())"
+												class="btn btn-danger glyphicon glyphicon-trash "
+												value="<%=listPhongBan.get(i).getPhongBanID()%>"></button></a>
 										</td>
 									</tr>
 									<%
 										}
+											}
 									%>
-
 								</tbody>
 							</table>
 						</div>
@@ -164,6 +284,15 @@
 		%>
 	</div>
 	<!-- ./wrapper -->
-
+	<!-- REQUIRED JS SCRIPTS -->
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script>
+		function clickBt(text) {
+			if (confirm("Extension và Chi tiết cuộc gọi liên quan đến Phòng/ban này sẽ bị xóa. Bạn có chắc chắn muốn xóa?") == true) {
+				$(".linkDelete").attr("href",
+						"ManagerPhongBan?command=delete&phongbanid=" + text);
+			}
+		}
+	</script>
 </body>
 </html>

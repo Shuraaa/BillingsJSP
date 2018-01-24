@@ -93,7 +93,8 @@
 									</div>
 									<div class="col-sm-2">
 										<a href="<%=request.getContextPath()%>/admin_company-add.jsp"
-											class="form-control btn btn-success">Thêm công ti</a>
+											class="form-control btn btn-success btn-block">Thêm công
+											ti</a>
 									</div>
 								</div>
 
@@ -138,6 +139,11 @@
 
 										</select>
 									</div>
+									<div class="col-sm-2">
+										<a href="admin_dauso-add.jsp"
+											class="form-control btn btn-success btn-block">Thêm đầu
+											số</a>
+									</div>
 								</div>
 
 								<!--  -->
@@ -161,7 +167,8 @@
 									</div>
 									<div class="col-sm-2">
 										<a href="admin_group-add.jsp"
-											class="form-control btn btn-success">Thêm phòng/ban</a>
+											class="form-control btn btn-success btn-block">Thêm
+											phòng/ban</a>
 									</div>
 								</div>
 

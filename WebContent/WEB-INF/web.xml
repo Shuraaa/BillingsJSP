@@ -39,6 +39,6 @@
     <location>/AppExceptionHandler</location>
   </error-page>
   <session-config>
-    <session-timeout>15</session-timeout>
+    <session-timeout>50</session-timeout>
   </session-config>
 </web-app>

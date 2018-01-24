@@ -13,6 +13,7 @@ import connection.DatabaseSQLConnection;
 
 public class TaiKhoanDao {
 	private static ArrayList<TaiKhoan> listTaiKhoan;
+	private static ArrayList<TaiKhoan> listTaiKhoanCT;
 
 	public static ArrayList<TaiKhoan> getListTaiKhoan() {
 		listTaiKhoan = new ArrayList<>();
@@ -86,6 +87,32 @@ public class TaiKhoanDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	// lấy ra danh sach user của công ty
+	public static ArrayList<TaiKhoan> getListTaiKhoanCT(String congtyid) {
+		listTaiKhoanCT = new ArrayList<>();
+		// Them cac don hang vao danh sach bang cach thu cong
+
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "SELECT * FROM taikhoan_nguoidung where congtyID ='" + congtyid + "';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String username = rs.getString("username");
+				String userpass = rs.getString("userpass");
+				int role = rs.getInt("role");
+				String congtyID = rs.getString("congtyID");
+
+				listTaiKhoanCT.add(new TaiKhoan(username, userpass, role, congtyID));
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return TaiKhoanDao.listTaiKhoanCT;
 	}
 
 	// Kiểm tra tài khoản đã tồn tại hay không

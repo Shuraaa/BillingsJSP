@@ -43,21 +43,10 @@
 					<i class="ion-checkmark-round"></i><b> Cập nhật thông tin thành
 						công</b>
 				</p>
-				<p class="login-box-msg">
-					Thông tin của bạn đã được thay đổi<br>Vui lòng Đăng nhập lại.
-				</p>
-				<div class="row">
-					<div class="col-sm-3"></div>
-					<div class="col-sm-3">
-						<a href="<%=request.getContextPath()%>/index.jsp" type="button"
-							class="btn btn-primary form-control btn-block"><i
-							class="fa fa-home"></i> Quay lại trang chủ</a>
-					</div>
-					<div class="col-sm-3">
-						<a href="<%=request.getContextPath()%>/Logout" type="button"
-							class="btn btn-primary form-control btn-block"><i
-							class="fa fa-sign-in"></i> Đăng nhập lại </a>
-					</div>
+				<div class="text-center">
+					<a href="<%=request.getContextPath()%>/index.jsp" type="button"
+						class="btn btn-primary"><i class="fa fa-home"></i> Quay lại
+						trang chủ</a>
 				</div>
 			</div>
 		</div>

@@ -23,6 +23,11 @@
 			response.sendRedirect("login.jsp");
 		} else {
 	%>
+	<%
+		ArrayList<Extension> listExtension = ExtensionDao.getListExtension();
+			ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
+			ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+	%>
 
 	<div class="wrapper">
 
@@ -50,16 +55,67 @@
 			<section class="content">
 			<div class="row">
 
+				<!--  -->
+				<div class="col-sm-5">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">
+								<i class="glyphicon glyphicon-filter"></i> Filter
+							</h3>
+						</div>
+
+						<form action="<%=request.getContextPath()%>/Search" method="get"
+							class="form-horizontal">
+							<div class="box-body">
+								<div class="row">
+									<div class="col-sm-8">
+										<select class="form-control" name="congtyid">
+											<option disabled selected>Tên công ty</option>
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<%
+												for (int i = 0; i < listCongTy.size(); i++) {
+											%>
+											<option value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
+											<%
+												}
+											%>
+										</select>
+									</div>
+									<div class="col-sm-4">
+										<input type="hidden" name="command" value="searchextension"></input>
+										<button type="submit" class="btn btn-primary btn-block">
+											<i class="glyphicon glyphicon-search"></i> Xác nhận
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+				<!-- /.End -->
+
+				<div class="col-sm-3">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">
+								<i class="ion-fork-repo"></i> Thêm Extension
+							</h3>
+						</div>
+
+						<div class="box-body">
+							<a href="<%=request.getContextPath()%>/admin_extension-add.jsp"
+								class="btn btn-primary btn-block"> <i class="ion-steam"></i>
+								Thêm mới
+							</a>
+						</div>
+					</div>
+				</div>
+
 				<div class="col-md-12">
 					<div class="box box-primary">
 						<div class="box-header">
 							<h3 class="box-title">Danh sách</h3>
-							<div class="col-sm-2 pull-right">
-								<a href="admin_extension-add.jsp"
-									class="btn btn-primary btn-block"> <i class="ion-steam"></i>
-									Thêm Extension
-								</a>
-							</div>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body no-padding">
@@ -77,14 +133,60 @@
 									</tr>
 								</thead>
 								<tbody>
+									<%
+										String congtyid = (String) request.getAttribute("congtyid");
+											ArrayList<Extension> listExtensionCT = ExtensionDao.getListEXCongTy(congtyid);
+											// search dau so theo cong ty 
+											if (congtyid != null) {
+									%>
+									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
+									<%
+										for (int i = 0; i < listExtensionCT.size(); i++) {
+									%>
+									<tr class="gradeA">
+										<td><%=i + 1%></td>
+										<!-- cot extension -->
+										<td><%=listExtensionCT.get(i).getExtensionID()%></td>
+										<!-- cot dau so -->
+										<td><%=listExtensionCT.get(i).getDauSoSuDung()%></td>
+										<!-- cot ten phong ban -->
+										<%
+											for (int j = 0; j < listPhongBan.size(); j++) {
+															if (listExtensionCT.get(i).getPhongBanID().equals(listPhongBan.get(j).getPhongBanID())) {
+										%>
+										<td><%=listPhongBan.get(j).getTenPhongBan()%></td>
+										<!-- cot ten cong ty-->
+										<%
+											for (int k = 0; k < listCongTy.size(); k++) {
+																	if (listPhongBan.get(j).getCongTyID().equals(listCongTy.get(k).getCongTyID())) {
+										%>
+										<td><%=listCongTy.get(k).getTenCongTy()%></td>
 
+										<%
+											}
+																}
+															}
+														}
+										%>
+										<td><a
+											href="<%=request.getContextPath()%>/ManagerExtension?command=edit&extensionid=<%=listExtensionCT.get(i).getExtensionID()%>&dauso=<%=listExtensionCT.get(i).getDauSoSuDung()%>&phongbanid=<%=listExtensionCT.get(i).getPhongBanID()%>"><button
+													type="button"
+													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
+											&nbsp;&nbsp; <a href="#" class="linkDelete"><button
+													type="button" id="<%=i + 1%>"
+													onclick="clickBt($(this).val())"
+													class="btn btn-danger glyphicon glyphicon-trash "
+													value="<%=listExtensionCT.get(i).getExtensionID()%>&congtyid=<%=congtyid%>"></button></a>
+										</td>
+									</tr>
+									<%
+										}
+											} else {
+									%>
 
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
 									<%
-										ArrayList<Extension> listExtension = ExtensionDao.getListExtension();
-											ArrayList<PhongBan> listPhongBan = PhongBanDao.getListPhongBan();
-											ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-											for (int i = 0; i < listExtension.size(); i++) {
+										for (int i = 0; i < listExtension.size(); i++) {
 									%>
 									<tr class="gradeA">
 										<td><%=i + 1%></td>
@@ -95,37 +197,37 @@
 										<!-- cot ten phong ban -->
 										<%
 											for (int j = 0; j < listPhongBan.size(); j++) {
-														if (listExtension.get(i).getPhongBanID().equals(listPhongBan.get(j).getPhongBanID())) {
+															if (listExtension.get(i).getPhongBanID().equals(listPhongBan.get(j).getPhongBanID())) {
 										%>
 										<td><%=listPhongBan.get(j).getTenPhongBan()%></td>
 										<!-- cot ten cong ty-->
 										<%
 											for (int k = 0; k < listCongTy.size(); k++) {
-																if (listPhongBan.get(j).getCongTyID().equals(listCongTy.get(k).getCongTyID())) {
+																	if (listPhongBan.get(j).getCongTyID().equals(listCongTy.get(k).getCongTyID())) {
 										%>
 										<td><%=listCongTy.get(k).getTenCongTy()%></td>
 
 										<%
 											}
+																}
 															}
 														}
-													}
 										%>
 										<td><a
 											href="<%=request.getContextPath()%>/ManagerExtension?command=edit&extensionid=<%=listExtension.get(i).getExtensionID()%>&dauso=<%=listExtension.get(i).getDauSoSuDung()%>&phongbanid=<%=listExtension.get(i).getPhongBanID()%>"><button
 													type="button"
 													class="btn btn-primary glyphicon glyphicon-edit"></button></a>
-											&nbsp;&nbsp; <a
-											href="<%=request.getContextPath()%>/ManagerExtension?command=delete&extensionid=<%=listExtension.get(i).getExtensionID()%>"><button
-													type="button"
-													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
+											&nbsp;&nbsp; <a href="#" class="linkDelete"><button
+													type="button" id="<%=i + 1%>"
+													onclick="clickBt($(this).val())"
+													class="btn btn-danger glyphicon glyphicon-trash "
+													value="<%=listExtension.get(i).getExtensionID()%>"></button></a>
 										</td>
 									</tr>
 									<%
 										}
+											}
 									%>
-
-
 								</tbody>
 							</table>
 						</div>
@@ -148,5 +250,15 @@
 		%>
 	</div>
 	<!-- ./wrapper -->
+	<!-- REQUIRED JS SCRIPTS -->
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script>
+		function clickBt(text) {
+			if (confirm("Chi tiết cuộc gọi của Extension này sẽ bị xóa. Bạn có chắc chắn muốn xóa?") == true) {
+				$(".linkDelete").attr("href",
+						"ManagerExtension?command=delete&extensionid=" + text);
+			}
+		}
+	</script>
 </body>
 </html>

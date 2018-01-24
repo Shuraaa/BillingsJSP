@@ -139,14 +139,6 @@
 									<a href="<%=request.getContextPath()%>/admin_extension.jsp"><button
 											type="button" class="btn btn-primary">Hủy</button></a>
 								</div>
-								<div class="alert alert-success alert-dismissible">
-									<button type="button" class="close" data-dismiss="alert"
-										aria-hidden="true">×</button>
-									<h4>
-										<i class="icon fa fa-check"></i> Chúc mừng!!!
-									</h4>
-									Thông tin đã cập nhật thành công.
-								</div>
 						</form>
 					</div>
 					<!-- Cập nhật thông tin -->

@@ -18,7 +18,17 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<%
@@ -33,22 +43,20 @@
 		String thangnam = (String) request.getAttribute("thangnam");
 	%>
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-2">
 			<img class="img-responsive img-thumbnail"
-				src="ManagerDisplayImg?congtyid=<%=idcongty%>" width="40px"
-				height="40px">
+				src="ManagerDisplayImg?congtyid=<%=idcongty%>" width="col-sm-2"
+				height="auto">
 		</div>
 		<div class="col-sm-6">
-			<p>
-				Đơn vị nhận tiền: Công ty
-				<%=tencongty%>
-			<p>
-				<br>
-				<%=tencongty%>
-				CO, Ltd. <br> Tài khoản VND: 102203129 <br> Tài khoản USD:
-				102203189 <br> Swift Code: <br> Ngân HàngThương Mại Á Châu
-				(ACB), chi nhánh Mạc Đỉnh Chi, Tp HCM <br> Bank: Asia
-				Commercial Bank (ACB), Mac Dinh Chi Branch, HCMC <br>
+			Đơn vị nhận tiền: Công ty
+			<%=tencongty%>
+			<br>
+			<%=tencongty%>
+			CO, Ltd. <br> Tài khoản VND: 102203129 <br> Tài khoản USD:
+			102203189 <br> Swift Code: <br> Ngân HàngThương Mại Á Châu
+			(ACB), chi nhánh Mạc Đỉnh Chi, Tp HCM <br> Bank: Asia Commercial
+			Bank (ACB), Mac Dinh Chi Branch, HCMC <br>
 		</div>
 	</div>
 	<h3>THÔNG BÁO CƯỚC VIỄN THÔNG</h3>
@@ -178,18 +186,6 @@
 	<br> Tel: (08). 6257 0000/(08). 6258 0000 - Fax: (08). 6256 0000 -
 	Web: http://www.sohovina.com
 	<br>
-
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 	<br>
 	<br>
 	<br>
@@ -198,10 +194,11 @@
 		if (exportToExcel == null) {
 	%>
 	<a
-		href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDF&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>&exportToExcel=YES">Export
-		to Excel</a>
+		href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDF&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>&exportToExcel=YES"
+		type="button" class="btn btn-success">EXPORT TO EXCEL</a>
 	<%
 		}
 	%>
+
 </body>
 </html>

@@ -22,6 +22,10 @@
 			response.sendRedirect("login.jsp");
 		} else {
 	%>
+	<%
+		String congtyid = (String) request.getAttribute("congtyid");
+			ArrayList<TaiKhoan> listTaiKhoanCT = TaiKhoanDao.getListTaiKhoanCT(congtyid);
+	%>
 
 	<div class="wrapper">
 
@@ -35,12 +39,12 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>Quản lí người dùng</h1>
+			<h1>Quản lí tài khoản</h1>
 			<ol class="breadcrumb">
 				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
 						BillingsSystem</a></li>
 				<li><a href="#">Quản trị hệ thống</a></li>
-				<li class="active">Quản lí người dùng</li>
+				<li class="active">Quản lí tài khoản</li>
 			</ol>
 
 			</section>
@@ -49,16 +53,69 @@
 			<section class="content">
 			<div class="row">
 
+				<!--  -->
+				<div class="col-sm-5">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">
+								<i class="glyphicon glyphicon-filter"></i> Filter
+							</h3>
+						</div>
+
+						<form action="<%=request.getContextPath()%>/Search" method="get"
+							class="form-horizontal">
+							<div class="box-body">
+								<div class="row">
+									<div class="col-sm-8">
+										<select class="form-control" name="congtyid">
+											<option disabled selected>Tên công ty</option>
+											<!-- KẾT NỐI LẤY DỮ LIỆU HIỂN THỊ TỪ DATABASE -->
+											<%
+												ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
+													for (int i = 0; i < listCongTy.size(); i++) {
+											%>
+											<option value=<%=listCongTy.get(i).getCongTyID()%>><%=listCongTy.get(i).getTenCongTy()%></option>
+											<%
+												}
+											%>
+										</select>
+									</div>
+									<div class="col-sm-4">
+										<input type="hidden" name="command" value="searchuser"></input>
+										<button type="submit" class="btn btn-primary btn-block">
+											<i class="glyphicon glyphicon-search"></i> Xác nhận
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+				<!-- /.End -->
+
+				<div class="col-sm-3">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">
+								<i class="ion-person-add"></i> Thêm tài khoản
+							</h3>
+						</div>
+
+						<div class="box-body">
+							<a href="<%=request.getContextPath()%>/admin_user-add.jsp"
+								class="btn btn-primary btn-block"> <i class="ion-person-add"></i>
+								Thêm mới
+							</a>
+						</div>
+					</div>
+				</div>
+
 				<div class="col-md-12">
 
 					<div class="box box-primary">
 						<div class="box-header">
 							<h3 class="box-title">Danh sách</h3>
-							<div class="col-sm-2 pull-right">
-								<a href="admin_user-add.jsp" class="btn btn-primary btn-block">
-									<i class="ion-person-add"></i> Thêm người dùng
-								</a>
-							</div>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body no-padding">
@@ -75,11 +132,65 @@
 									</tr>
 								</thead>
 								<tbody>
+									<%
+										// search dau so theo cong ty 
+											if (congtyid != null) {
+									%>
+									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
+									<%
+										for (int i = 0; i < listTaiKhoanCT.size(); i++) {
+									%>
+									<tr class="gradeA">
+										<td><%=i + 1%></td>
+										<!-- cot ten username-->
+										<td><%=listTaiKhoanCT.get(i).getUserName()%></td>
+										<!-- cot ten cong ty-->
+										<%
+											for (int j = 0; j < listCongTy.size(); j++) {
+															if (listTaiKhoanCT.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
+										%>
+										<td><%=listCongTy.get(j).getTenCongTy()%></td>
+										<%
+											}
+														}
+										%>
+										<!-- cot quyen-->
+										<%
+											if (listTaiKhoanCT.get(i).getRole() == 0) {
+										%>
+										<td>ADMIN</td>
+										<%
+											}
+										%>
+										<%
+											if (listTaiKhoanCT.get(i).getRole() == 1) {
+										%>
+										<td>USER</td>
+										<%
+											}
+										%>
+										<%
+											if (listTaiKhoanCT.get(i).getRole() == 2) {
+										%>
+										<td>VIEW</td>
+										<%
+											}
+										%>
+										<td>&nbsp;&nbsp; <a href="#" class="linkDelete"><button
+													type="button" id="<%=i + 1%>"
+													onclick="clickBt($(this).val())"
+													class="btn btn-danger glyphicon glyphicon-trash "
+													value="<%=listTaiKhoanCT.get(i).getUserName()%>&congtyid=<%=congtyid%>"></button></a>
+										</td>
+									</tr>
+									<%
+										}
+											} else {
+									%>
 									<!-- LIÊN KẾT VỚI DATABASE ĐỂ LẤY DỮ LIỆU TABLE -->
 									<%
 										ArrayList<TaiKhoan> listTaiKhoan = TaiKhoanDao.getListTaiKhoan();
-											ArrayList<CongTy> listCongTy = CongTyDao.getListCongTy();
-											for (int i = 0; i < listTaiKhoan.size(); i++) {
+												for (int i = 0; i < listTaiKhoan.size(); i++) {
 									%>
 									<tr class="gradeA">
 										<td><%=i + 1%></td>
@@ -88,12 +199,12 @@
 										<!-- cot ten cong ty-->
 										<%
 											for (int j = 0; j < listCongTy.size(); j++) {
-														if (listTaiKhoan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
+															if (listTaiKhoan.get(i).getCongTyID().equals(listCongTy.get(j).getCongTyID())) {
 										%>
 										<td><%=listCongTy.get(j).getTenCongTy()%></td>
 										<%
 											}
-													}
+														}
 										%>
 										<!-- cot quyen-->
 										<%
@@ -117,15 +228,16 @@
 										<%
 											}
 										%>
-										<td>&nbsp;&nbsp; <a
-											href="<%=request.getContextPath()%>/ManagerTaiKhoan?command=delete&userName=<%=listTaiKhoan.get(i).getUserName()%>"><button
-													type="button"
-													class="btn btn-danger glyphicon glyphicon-trash"></button></a>
-
+										<td>&nbsp;&nbsp; <a href="#" class="linkDelete"><button
+													type="button" id="<%=i + 1%>"
+													onclick="clickBt($(this).val())"
+													class="btn btn-danger glyphicon glyphicon-trash "
+													value="<%=listTaiKhoan.get(i).getUserName()%>"></button></a>
 										</td>
 									</tr>
 									<%
 										}
+											}
 									%>
 								</tbody>
 							</table>
@@ -150,5 +262,15 @@
 		%>
 	</div>
 	<!-- ./wrapper -->
+	<!-- REQUIRED JS SCRIPTS -->
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script>
+		function clickBt(text) {
+			if (confirm("Bạn có chắc chắn muốn xóa tài khoản này?") == true) {
+				$(".linkDelete").attr("href",
+						"ManagerTaiKhoan?command=delete&userName=" + text);
+			}
+		}
+	</script>
 </body>
 </html>

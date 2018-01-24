@@ -106,7 +106,7 @@
 								<div class="row">
 									<div class="col-sm-8">
 										<select class="form-control" name="phongban">
-											<option selected="">Phòng/Ban</option>
+											<option disabled selected>Phòng/Ban</option>
 											<!-- LẤY DANH SÁCH GROUP TỪ DATABASE -->
 											<%
 												for (int i = 0; i < listPhongBan.size(); i++) {
@@ -147,7 +147,7 @@
 								<div class="row">
 									<div class="col-sm-8">
 										<select class="form-control" name="extension">
-											<option selected="">Extension</option>
+											<option disabled selected>Extension</option>
 
 											<!-- LẤY DANH SÁCH EXT TỪ DATABASE -->
 											<%
@@ -220,22 +220,42 @@
 					</div>
 				</div>
 
-				<!--  -->
+				<!-- Export File -->
 				<div class="col-sm-3">
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<h3 class="box-title">
-								<i class="glyphicon glyphicon-print"></i> Export
+								<i class="glyphicon glyphicon-export"></i> Export
 							</h3>
 						</div>
 						<div class="box-body">
+							<!-- /btn-group -->
 							<div class="btn-group">
-								<a
-									href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDF&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>"
-									class="btn btn-default"><i class="fa fa-file-pdf-o"></i>
-									.xlsx</a> <a href="#" class="btn btn-default"><i
-									class="fa fa-file-word-o"></i> .CSV</a>
+								<div class="btn-group dropdown">
+									<button type="button" class="btn btn-primary dropdown-toggle"
+										data-toggle="dropdown">
+										<i class="fa fa-file-excel-o"></i> Excel <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a
+											href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDF&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>">Sumary</a></li>
+										<li><a
+											href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDFdetail&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>">Detail</a></li>
+									</ul>
+								</div>
+
+								<div class="btn-group dropdown">
+									<button type="button" class="btn btn-primary dropdown-toggle"
+										data-toggle="dropdown">
+										<i class="fa fa-file-word-o"></i> Word <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="#">Sumary</a></li>
+										<li><a href="#">Detail</a></li>
+									</ul>
+								</div>
 							</div>
+							<!-- /.btn-group -->
 						</div>
 					</div>
 				</div>
@@ -290,7 +310,7 @@
 											<tr>
 												<th>#</th>
 												<th>Dịch vụ/Service</th>
-												<th>Cước/Cost</th>
+												<th>Cước/Cost (VNĐ)</th>
 											</tr>
 										</thead>
 										<tbody>

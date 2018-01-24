@@ -39,13 +39,13 @@
 
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>Thêm người dùng mới</h1>
+			<h1>Thêm tài khoản mới</h1>
 			<ol class="breadcrumb">
 				<li><a href="index.jsp"><i class="fa fa-dashboard"></i>
 						BillingsSystem</a></li>
 				<li><a href="#">Quản trị hệ thống</a></li>
-				<li><a href="admin_user.jsp">Quản lí người dùng</a></li>
-				<li class="active">Thêm người dùng</li>
+				<li><a href="admin_user.jsp">Quản lí tài khoản</a></li>
+				<li class="active">Thêm tài khoản</li>
 			</ol>
 			</section>
 
@@ -180,7 +180,10 @@
 									.validate(
 											{
 												rules : {
-													username : "required",
+													username : {
+														required : true,
+														minlength : 6
+													},
 													password : {
 														required : true,
 														minlength : 6
@@ -193,7 +196,11 @@
 													select : "required"
 												},
 												messages : {
-													username : "Nhập vào tên tài khoản",
+													username : {
+														required : "Nhập vào tên tài khoản",
+														minlength : "Tên tài khoản phải dài ít nhất 6 ký tự"
+													},
+
 													password : {
 														required : "Nhập vào mật khẩu",
 														minlength : "Mật khẩu ít nhất 6 kí tự"
