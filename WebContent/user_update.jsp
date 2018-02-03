@@ -55,25 +55,27 @@
 			<!-- Main content -->
 			<section class="content">
 			<div class="row">
+
 				<div class="col-sm-8">
-					<!-- Cập nhật thông tin -->
-					<div class="box box-widget widget-user-2">
+					<<form action="<%=request.getContextPath()%>/UpdateProfile"
+							method="post" role="form" class="form-horizontal" id="form"
+							enctype="multipart/form-data">
+						<!-- Cập nhật thông tin -->
+						<div class="box box-widget widget-user-2">
 
-						<!-- /.widget-logo-image -->
-						<div class="widget-user-header bg-blue">
-							<div class="widget-user-image">
-								<img class="img-square" src="ManagerDisplayImg?congtyid=<%=iD%>"
-									alt="User Avatar">
+							<!-- /.widget-logo-image -->
+							<div class="widget-user-header bg-blue">
+								<div class="widget-user-image">
+									<img class="img-square"
+										src="ManagerDisplayImg?congtyid=<%=iD%>" alt="User Avatar">
+								</div>
+								<h3 class="widget-user-username">Logo</h3>
+								<input class="widget-user-desc" type="file" class="form-control"
+									name="input_img" <%if (role == 2) {%> disabled <%}%>>
 							</div>
-							<h3 class="widget-user-username">Logo</h3>
-							<input class="widget-user-desc" type="file" class="form-control"
-								<%if (role == 2) {%> disabled <%}%>>
-						</div>
 
-						<p style="color: red"><%=error%></p>
-						<form action="<%=request.getContextPath()%>/UpdateProfile"
-							role="form" method="get" class="form-horizontal"
-							enctype="multipart/form-data" id="form">
+							<p style="color: red"><%=error%></p>
+
 							<div class="box-body">
 
 								<!-- Form group -->
@@ -87,8 +89,8 @@
 
 									<label for="lbl_email" class="col-sm-2 control-label">Email:</label>
 									<div class="col-sm-4">
-										<input type="email" class="form-control confirm-box"
-											value="<%=email%>" name="emailCT">
+										<input type="text" class="form-control confirm-box"
+											value="<%=email%>" name="email_update">
 									</div>
 								</div>
 
@@ -98,7 +100,7 @@
 										chỉ:</label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control confirm-box"
-											name="diaChi" value="<%=diaChi%>">
+											name="diaChi" value="<%=diaChi%>" id="diaChi">
 									</div>
 									<label for="lbl_sdt" class="col-sm-2 control-label">ĐTDĐ:</label>
 									<div class="col-sm-4">
@@ -132,7 +134,8 @@
 									<div class="col-sm-3"></div>
 									<div class="col-sm-3"></div>
 									<div class="col-sm-3">
-										<button type="submit" class="btn btn-primary form-control">
+										<button type="submit" class="btn btn-primary form-control"
+											name="command" value="edit">
 											<i class="fa fa-refresh"></i> Cập nhật thông tin
 										</button>
 									</div>
@@ -171,7 +174,7 @@
 								</div>
 								<div class="text-center">
 									<a href="<%=request.getContextPath()%>/index.jsp" type="button"
-										class="btn btn-danger" id="home" style="color: white; "><i
+										class="btn btn-danger" id="home" style="color: white;"><i
 										class="ion-home"> Trang chủ</i></a>
 								</div>
 								</dialog>
@@ -179,10 +182,11 @@
 									}
 								%>
 							</div>
+						</div>
+						<!-- Cập nhật thông tin -->
 						</form>
-					</div>
-					<!-- Cập nhật thông tin -->
 				</div>
+				
 				<!-- End Left -->
 				<div class="col-sm-4">
 

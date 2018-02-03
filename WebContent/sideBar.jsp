@@ -206,19 +206,27 @@ div.dataTables_wrapper {
 		<%
 			} else if (role == 0) {
 		%>
-		<li><a href="<%=request.getContextPath()%>/billings_total.jsp"><i
-				class="glyphicon glyphicon-list-alt"></i> <span>Billings</span></a></li>
+		<li class="treeview"><a href="#"> <i
+				class="glyphicon glyphicon-list-alt"></i> <span>Billings</span> <i
+				class="fa fa-angle-left pull-right"></i>
+		</a>
+			<ul class="treeview-menu">
+				<li><a href="<%=request.getContextPath()%>/billings_total.jsp"><i
+						class="glyphicon glyphicon-file"></i> <span>Billings</span></a></li>
+				<li><a href="<%=request.getContextPath()%>/import.jsp"><i
+						class="glyphicon glyphicon-import"></i> Import</a></li>
+			</ul></li>
 		<%
 			}
 			if (role == 0) {
 		%>
 		<li class="treeview"><a href="#"> <i
-				class="glyphicon glyphicon-lock"></i> <span>Quản trị hệ thống</span>
+				class="glyphicon glyphicon-link"></i><span> Quản trị hệ thống</span>
 				<i class="fa fa-angle-left pull-right"></i>
 		</a>
 			<ul class="treeview-menu">
 				<li><a href="<%=request.getContextPath()%>/admin_user.jsp"><i
-						class="fa fa-users"></i> Quản lí người dùng</a></li>
+						class="fa fa-users"></i> Quản lí tài khoản</a></li>
 				<li><a href="<%=request.getContextPath()%>/admin_company.jsp"><i
 						class="glyphicon glyphicon-briefcase"></i> Quản lí công ti</a></li>
 				<li><a href="<%=request.getContextPath()%>/admin_group.jsp"><i
