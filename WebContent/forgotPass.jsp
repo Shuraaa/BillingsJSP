@@ -50,19 +50,22 @@
 				khẩu</p>
 			<form action="<%=request.getContextPath()%>/ForgotPassword"
 				method="POST" role="form" id="loginForm">
-				<div class="form-group has-feedback">
-					<input type="text" id="usernameInput" class="form-control"
-						placeholder="Tên đăng nhập" name="username"><i
-						class="glyphicon glyphicon-user form-control-feedback text-blue"></i>
+				<div class="input-group has-feedback help-block">
+					<span class="input-group-addon"><i
+						class="glyphicon glyphicon-user text-blue"></i></span> <input type="text"
+						id="usernameInput" class="form-control"
+						placeholder="Tên đăng nhập" name="username">
 				</div>
 
 				<p style="color: grey; font-style: italic;"><%=error%></p>
 
-				<div class="form-group has-feedback">
-					<input type="text" id="emailInput" class="form-control"
-						placeholder="Email" name="email"><i
-						class="glyphicon glyphicon-envelope form-control-feedback text-blue"></i>
+				<div class="input-group has-feedback help-block">
+					<span class="input-group-addon"><i
+						class="glyphicon glyphicon-envelope text-blue"></i></span> <input
+						type="text" id="emailInput" class="form-control"
+						placeholder="Email" name="email">
 				</div>
+				<br>
 				<div class="row text-center">
 					<button type="submit" class="btn btn-primary">Xác nhận</button>
 				</div>
@@ -87,6 +90,23 @@
 	<script
 		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script>
+		$(document).ready(function() {
+			$(document).on("contextmenu", function(e) {
+				return false;
+			});
+		});
+		s
+	</script>
+	<script>
+		$(document).keydown(function(event) {
+			if (event.keyCode == 123) {
+				return false;
+			} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+				return false;
+			}
+		});
+	</script>
 	<script>
 		$(document)
 				.ready(

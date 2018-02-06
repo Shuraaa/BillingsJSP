@@ -50,20 +50,22 @@
 			</p>
 			<form action="<%=request.getContextPath()%>/Login" id="loginForm"
 				method="POST">
-				<div class="form-group has-feedback">
-					<input type="text" name="username" class="form-control"
-						placeholder="Tên đăng nhập" maxlength="30" id="username">
-					<i
-						class="glyphicon glyphicon-user form-control-feedback text-blue"></i>
+				<div class="input-group has-feedback help-block">
+					<span class="input-group-addon"><i
+						class="glyphicon glyphicon-user text-blue"></i></span> <input type="text"
+						name="username" class="form-control" placeholder="Tên đăng nhập"
+						maxlength="30" id="username">
 				</div>
 
 				<p style="color: grey; font-style: italic;"><%=error%></p>
 
-				<div class="form-group has-feedback">
-					<input type="password" name="password" class="form-control"
-						placeholder="Mật khẩu" maxlength="30" id="password"> <span
-						class="glyphicon glyphicon-lock form-control-feedback text-blue"></span>
+				<div class="input-group has-feedback help-block">
+					<span class="input-group-addon"><i
+						class="glyphicon glyphicon-lock text-blue"></i></span> <input
+						type="password" name="password" class="form-control"
+						placeholder="Mật khẩu" maxlength="30" id="password">
 				</div>
+				<br>
 				<div class="row">
 					<div class="col-xs-6">
 						<div class="checkbox icheck">

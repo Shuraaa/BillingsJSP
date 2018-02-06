@@ -64,13 +64,17 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="box box-primary">
+
 						<div class="box-header with-border">
 							<i class="fa fa-key"></i>
 
-							<h3 class="box-title">Đổi mật khẩu đăng nhập</h3>
+							<h3 class="box-title">
+								<b>Đổi mật khẩu đăng nhập</b>
+							</h3>
 							<p style="color: red"><%=error%></p>
 						</div>
 						<!-- /.box-header -->
+
 						<form action="<%=request.getContextPath()%>/ChangePass"
 							method="POST" id="form">
 							<div class="box-body">
@@ -79,7 +83,7 @@
 								<div class="form-group">
 									<label for="current_pwd">Mật khẩu hiện tại:</label> <input
 										type="password" class="form-control"
-										placeholder="Mật khẩu hiện tại" name="current_pwd"
+										placeholder="Current password" name="current_pwd"
 										maxlength="30">
 									<p style="color: red"><%=error3%></p>
 									<p style="color: red"><%=error4%></p>
@@ -90,7 +94,7 @@
 								<div class="form-group">
 									<label for="new_pwd">Mật khẩu mới:</label> <input
 										type="password" class="form-control"
-										placeholder="Mật khẩu mới" name="new_pwd" maxlength="30">
+										placeholder="New password" name="new_pwd" maxlength="30">
 									<p style="color: red"><%=error4%></p>
 								</div>
 								<!-- /.New Password -->
@@ -99,16 +103,15 @@
 								<div class="form-group">
 									<label for="confirm_new_pwd">Xác nhận Mật khẩu mới:</label> <input
 										type="password" class="form-control"
-										placeholder="Nhập lại mật khẩu mới" name="confirm_new_pwd"
+										placeholder="Confirm new password" name="confirm_new_pwd"
 										maxlength="30">
 									<p style="color: red"><%=error2%></p>
 									<p style="color: red"><%=error4%></p>
 								</div>
 								<!-- /.Confirm New Password -->
-
 							</div>
-
 							<!-- /.box-body -->
+
 							<div class="box-footer text-center">
 								<%
 									if (role == 0 || role == 1) {
@@ -124,9 +127,8 @@
 							<%
 								}
 							%>
-						
+						</form>
 					</div>
-					</form>
 					<!-- /.box-body -->
 				</div>
 				<!-- /.box -->
@@ -135,7 +137,9 @@
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<i class="fa fa-book"></i>
-							<h3 class="box-title">Hướng dẫn</h3>
+							<h3 class="box-title">
+								<b>Hướng dẫn</b>
+							</h3>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
@@ -143,8 +147,19 @@
 							<p>- Mật khẩu phải chứa tối thiểu 6 ký tự và tối đa 30 ký tự.</p>
 							<p>- Không chứa khoảng trắng.</p>
 							<p>- Không chứa các ký tự đặc biệt như: "@,#,$,%,&,*,<,>,".</p>
+							<p>- Mật khẩu không phân biệt chữ hoa và chữ thường.</p>
+							<p>- Mật khẩu có thể kèm theo số.</p>
 							<h4>2. Mật khẩu mới:</h4>
 							<p>- Mật khẩu mới và Xác nhận mật khẩu mới phải trùng nhau.</p>
+							<h4 style="color: red">
+								<b>3. Lưu ý:</b>
+							</h4>
+							<p>
+								- Vui lòng đọc <a href="<%=request.getContextPath()%>/guide.jsp"><i>Hướng
+										dẫn sử dụng</i></a> để biết thêm chi tiết
+							</p>
+							<p>- Nếu gặp lỗi trong quá trình sử dụng, vui lòng liên hệ
+								với Quản Trị Viên để giải đáp thắc mắc.</p>
 						</div>
 					</div>
 					<!-- /.box -->

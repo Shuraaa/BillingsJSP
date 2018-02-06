@@ -225,5 +225,6 @@
 			});
 		})(jQuery);
 	</script>
+
 </body>
 </html>

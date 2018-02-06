@@ -38,10 +38,18 @@
 		<div class="login-box-body">
 			<p class="login-box-msg">
 				<b style="font-size: 21px; color: red;"> Thay đổi mật khẩu thành
-					công</b><br> <i style="font-size: 18px;">Mật khẩu của bạn: <a
-					href="<%=request.getContextPath()%>/login.jsp">123456</a></i> <br>
-				Vui lòng đổi lại mật khẩu sau khi đăng nhập
+					công</b>
 			</p>
+			<div class="login-box-msg text-center">
+				<button type="button" class="btn btn-success" onclick="show()">Click
+					Me!</button>
+			</div>
+			<p class="login-box-msg" id="show">
+				<i style="font-size: 15px; color: red;">Click the button above
+					to see your password</i>
+			</p>
+			<p class="login-box-msg">Vui lòng đổi lại mật khẩu sau khi đăng
+				nhập</p>
 			<div class="row text-center">
 				<a href="login.jsp"><button class="btn btn-primary">
 						<i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập
@@ -60,5 +68,27 @@
 	<script src="plugins/jQuery/jQuery-2.2.0.min.js"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$(document).on("contextmenu", function(e) {
+				return false;
+			});
+		});
+		s
+	</script>
+	<script>
+		$(document).keydown(function(event) {
+			if (event.keyCode == 123) {
+				return false;
+			} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+				return false;
+			}
+		});
+	</script>
+	<script>
+		function show() {
+			document.getElementById("show").innerHTML = '<i style="font-size: 18px;">Mật khẩu của bạn: <a href="login.jsp">123456</a></i>';
+		}
+	</script>
 </body>
 </html>
