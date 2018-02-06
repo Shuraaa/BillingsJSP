@@ -21,8 +21,6 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 <link rel="stylesheet" href="dist/css/style.css">
-<!-- iCheck -->
-<link rel="stylesheet" href="plugins/iCheck/all.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,16 +36,16 @@
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
-			<p class="login-box-msg" style="font-size: 20px">Thay đổi mật
-				khẩu thành công</p>
-			<div class="row">
-				<div class="col-xs-4"></div>
-				<div class="col-xs-4">
-					<a href="login.jsp"><button class="btn btn-primary">
-							<i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập
-						</button></a>
-				</div>
-				<!-- /.col -->
+			<p class="login-box-msg">
+				<b style="font-size: 21px; color: red;"> Thay đổi mật khẩu thành
+					công</b><br> <i style="font-size: 18px;">Mật khẩu của bạn: <a
+					href="<%=request.getContextPath()%>/login.jsp">123456</a></i> <br>
+				Vui lòng đổi lại mật khẩu sau khi đăng nhập
+			</p>
+			<div class="row text-center">
+				<a href="login.jsp"><button class="btn btn-primary">
+						<i class="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập
+					</button></a>
 			</div>
 			<div class="text-center marginTop">
 				<a href="guide.jsp"><i class="fa fa-book" aria-hidden="true"></i>
@@ -62,16 +60,5 @@
 	<script src="plugins/jQuery/jQuery-2.2.0.min.js"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<!-- iCheck -->
-	<script src="plugins/iCheck/icheck.min.js"></script>
-	<script>
-		$(function() {
-			$('input').iCheck({
-				checkboxClass : 'icheckbox_square-blue',
-				radioClass : 'iradio_square-blue',
-				increaseArea : '20%' // optional
-			});
-		});
-	</script>
 </body>
 </html>

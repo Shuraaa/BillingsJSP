@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mysql.jdbc.Statement;
-import com.sun.glass.ui.Window.Level;
-import com.sun.istack.internal.logging.Logger;
 
 import connection.DatabaseSQLConnection;
 
@@ -46,16 +44,18 @@ public class ManagerDisplayImg extends HttpServlet {
 		String ID = request.getParameter("congtyid");
 		try {
 			stmt = (Statement) conn.createStatement();
-			sql = "SELECT * FROM congty WHERE congtyID='" + ID + "'";
+			sql = "SELECT logo FROM congty WHERE congtyID='" + ID + "'";
 			ResultSet result = stmt.executeQuery(sql);
 			if (result.next()) {
-				in = result.getBinaryStream(3);
-			}
-			bin = new BufferedInputStream(in);
-			bout = new BufferedOutputStream(out);
-			int ch = 0;
-			while ((ch = bin.read()) != -1) {
-				bout.write(ch);
+				in = result.getBinaryStream(1);
+				bin = new BufferedInputStream(in);
+				bout = new BufferedOutputStream(out);
+				int ch = 0;
+				while ((ch = bin.read()) != -1) {
+					bout.write(ch);
+				}
+				bout.flush();
+
 			}
 
 		} catch (SQLException ex) {

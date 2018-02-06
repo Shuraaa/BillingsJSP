@@ -4,6 +4,7 @@
 <%@page import="java.util.*"%>
 <%@page import="model.*"%>
 <%@page import="Dao.*"%>
+<%@page import="java.text.DecimalFormat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,7 +26,9 @@
 		} else {
 	%>
 	<%
-		// filter theo thang
+		// dinh dang tien tệ
+			DecimalFormat formatter = new DecimalFormat("###,###,###.##");
+			// filter theo thang
 			String yeucauthang = (String) request.getAttribute("yeucauthang");
 			String thangnam = "";
 			if (yeucauthang == "thangnam") {
@@ -63,126 +66,43 @@
 			<section class="content">
 			<div class="row">
 
-				<!-- /.UPLOAD FILE -->
-
-				<div class="col-sm-6">
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title">
-								<i class="glyphicon glyphicon-upload"></i> UploadFile
-							</h3>
-						</div>
-						<form action="ManagerUploadFile" method="post"
-							class="form-horizontal" enctype="multipart/form-data" id="form">
-							<div class="box-body">
-								<div class="row">
-									<div class="col-sm-4">
-										<input type="file" name="inputFileExcel"
-											class="custom-file-input form-control">
-									</div>
-									<div class="col-sm-4">
-										<input type="text" placeholder="Sheet Index"
-											name="input_sheetIndex" class="form-control" maxlength="6">
-									</div>
-									<div class="col-sm-3">
-										<button type="submit"
-											class="btn btn-primary btn-block form-control">
-											<i class="fa fa-upload"> Upload</i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-				<!-- /.End Upload  -->
-
-				<!--  -->
-				<div class="col-sm-3">
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title">
-								<i class="glyphicon glyphicon-filter"></i> Tháng
-							</h3>
-						</div>
-
-						<form action="<%=request.getContextPath()%>/ManagerBilling"
-							class="form-horizontal">
-							<div class="box-body">
-								<div class="row">
-									<div class="col-sm-8">
-										<select class="form-control" name="thangnam">
-											<%
-												for (int i = 0; i < BillingDao.getListThang().length; i++) {
-														if (BillingDao.getListThang()[i] != null) {
-											%>
-											<option value=<%=BillingDao.getListThang()[i]%>>Tháng
-												<%=BillingDao.getListThang()[i]%>
-											</option>
-											<%
-												}
-													}
-											%>
-
-											<!-- LẤY DANH SÁCH GROUP TỪ DATABASE -->
-
-										</select>
-									</div>
-									<div class="col-sm-3">
-										<input type="hidden" name="command"
-											value="filter_thangnamtotal"></input>
-										<button type="submit"
-											class="btn btn-primary glyphicon glyphicon-search btn-block">
-										</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-
-				<!-- /.PRINT -->
-				<div class="col-sm-3">
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title">
-								<i class="glyphicon glyphicon-export"></i> Export
-							</h3>
-						</div>
-						<div class="box-body">
-							<!-- /btn-group -->
-							<div class="btn-group">
-								<div class="btn-group dropdown">
-									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown">
-										<i class="fa fa-file-excel-o"></i> Excel <span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu">
-										<li><a href="#">Sumary</a></li>
-										<li><a href="#">Detail</a></li>
-									</ul>
-								</div>
-
-								<div class="btn-group dropdown">
-									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown">
-										<i class="fa fa-file-word-o"></i> Word <span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu">
-										<li><a href="#">Sumary</a></li>
-										<li><a href="#">Detail</a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- /.btn-group -->
-						</div>
-					</div>
-				</div>
-				<!--  -->
-
 				<!-- TABLES -->
 				<div class="col-md-12">
 					<div class="box box-primary">
+						<div class="box-header">
+							<div class="col-sm-5  form-group">
+								<form action="<%=request.getContextPath()%>/ManagerBilling">
+									<div class="row">
+										<div class="col-sm-8">
+											<select class="form-control" name="thangnam">
+												<%
+													for (int i = 0; i < BillingDao.getListThang().length; i++) {
+															if (BillingDao.getListThang()[i] != null) {
+												%>
+												<option value=<%=BillingDao.getListThang()[i]%>>Tháng
+													<%=BillingDao.getListThang()[i]%>
+												</option>
+												<%
+													}
+														}
+												%>
+
+												<!-- LẤY DANH SÁCH GROUP TỪ DATABASE -->
+
+											</select>
+										</div>
+										<div class="col-sm-4">
+											<input type="hidden" name="command"
+												value="filter_thangnamtotal"></input>
+											<button type="submit"
+												class="btn btn-primary glyphicon glyphicon-search btn-block">
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- /.box-header -->
 
 						<ul class="nav nav-tabs">
 							<li class="active"><a data-toggle="tab" href="#home">Chi
@@ -215,52 +135,47 @@
 												// tinh cho cong ty
 													double noihat = BillingDao.tinhtongtienall("A", thangnam);
 													double tiennoihat = (double) Math.round(noihat * 100) / 100;
-
 													double lientinh = BillingDao.tinhtongtienall("C", thangnam);
 													double tienlientinh = (double) Math.round(lientinh * 100) / 100;
-
 													double didong = BillingDao.tinhtongtienall("B", thangnam);
 													double tiendidong = (double) Math.round(didong * 100) / 100;
-
 													double quocte = BillingDao.tinhtongtienall("D", thangnam);
 													double tienquocte = (double) Math.round(quocte * 100) / 100;
-
 													double dichvu = BillingDao.tinhtongtienall("E", thangnam);
 													double tiendichvu = (double) Math.round(dichvu * 100) / 100;
-
 													double tongcuocp = tiennoihat + tienlientinh + tiendidong + tienquocte + tiendichvu;
 													double tongcuoc7 = (double) Math.round(tongcuocp * 100) / 100;
 											%>
 											<tr class="gradeA">
 												<td><%=1%></td>
 												<td>Cước nội hạt / Local Cost</td>
-												<td><%=tiennoihat%></td>
+												<td><%=formatter.format(tiennoihat)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=2%></td>
 												<td>Cước liên tỉnh /Province Cost</td>
-												<td><%=tienlientinh%></td>
+												<td><%=formatter.format(tienlientinh)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=3%></td>
 												<td>Cước di động / Mobile Cost</td>
-												<td><%=tiendidong%></td>
+												<td><%=formatter.format(tiendidong)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=4%></td>
 												<td>Cước quốc tế / International Cost</td>
-												<td><%=tienquocte%></td>
+												<td><%=formatter.format(tienquocte)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=5%></td>
 												<td>Cước dịch vụ đặc biệt / Special Service Cost</td>
-												<td><%=tiendichvu%></td>
+												<td><%=formatter.format(tiendichvu)%></td>
 											</tr>
 											<tr class="gradeA">
 												<td><%=6%></td>
 												<td>Tổng cộng cước sử dụng / Total Dialling Cost
 													(1+2+3+4+5)</td>
-												<td><%=tongcuoc7%></td>
+												<td><%=formatter.format(tongcuoc7)%></td>
 											</tr>
 										</tbody>
 									</table>
@@ -279,7 +194,7 @@
 												<tr>
 													<th>#</th>
 													<th>Công ty</th>
-													<th>Cước/Cost (TỔNG: <%=BillingDao.total(thangnam)%>)
+													<th>Cước/Cost (VNĐ) (TỔNG: <%=formatter.format(BillingDao.total(thangnam))%>)
 													</th>
 													<th></th>
 												</tr>
@@ -294,7 +209,7 @@
 												<tr class="gradeA">
 													<td><%=i + 1%></td>
 													<td><%=listCongTy.get(i).getTenCongTy()%></td>
-													<td><%=BillingDao.totalct(listCongTy.get(i).getCongTyID(), thangnam)%></td>
+													<td><%=formatter.format(BillingDao.totalct(listCongTy.get(i).getCongTyID(), thangnam))%></td>
 													<td><a
 														href="<%=request.getContextPath()%>/ManagerBilling?command=filter_thangnam&congtyid=<%=listCongTy.get(i).getCongTyID()%>&tencongty=<%=listCongTy.get(i).getTenCongTy()%>&thangnam=<%=thangnam%>"><button
 																class="btn btn-primary" type="button">Chi tiết</button></a>
@@ -322,8 +237,8 @@
 												<th>Extension</th>
 												<th>Ghi chú</th>
 												<th>CP thuê bao/tháng</th>
-												<th>Cước gốc</th>
-												<th>Cước tham khảo (chưa VAT)</th>
+												<th>Cước gốc (VNĐ)</th>
+												<th>Cước tham khảo (chưa VAT) (VNĐ)</th>
 											</tr>
 										</thead>
 
@@ -346,9 +261,11 @@
  %>
 												</td>
 												<td>-</td>
-												<td>20000.00</td>
-												<td><%=BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", thangnam)%></td>
-												<td><%=20000 + BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", thangnam)%></td>
+												<td><%=formatter.format(20000.00)%></td>
+												<td><%=formatter
+							.format(BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", thangnam))%></td>
+												<td><%=formatter.format(
+							20000 + BillingDao.tongcuocdausonm(listdauso.get(i).getDauSoSuDung(), "FPT", thangnam))%></td>
 											</tr>
 
 											<%
@@ -361,7 +278,7 @@
 												<td>-</td>
 												<td>-</td>
 												<td>Tổng tiền</td>
-												<td><%=BillingDao.tongcuocnhamang("FPT", thangnam)%></td>
+												<td><%=formatter.format(BillingDao.tongcuocnhamang("FPT", thangnam))%></td>
 											</tr>
 										</tbody>
 									</table>
@@ -382,8 +299,8 @@
 												<th>Extension</th>
 												<th>Ghi chú</th>
 												<th>CP thuê bao/tháng</th>
-												<th>Cước gốc</th>
-												<th>Cước tham khảo (chưa VAT)</th>
+												<th>Cước gốc (VNĐ)</th>
+												<th>Cước tham khảo (chưa VAT) (VNĐ)</th>
 											</tr>
 										</thead>
 
@@ -407,9 +324,11 @@
  %>
 												</td>
 												<td>-</td>
-												<td>20000.00</td>
-												<td><%=BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", thangnam)%></td>
-												<td><%=20000 + BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", thangnam)%></td>
+												<td><%=formatter.format(20000.00)%></td>
+												<td><%=formatter
+							.format(BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", thangnam))%></td>
+												<td><%=formatter.format(
+							20000 + BillingDao.tongcuocdausonm(listdausocmc.get(i).getDauSoSuDung(), "CMC", thangnam))%></td>
 											</tr>
 
 											<%
@@ -422,7 +341,7 @@
 												<td>-</td>
 												<td>-</td>
 												<td>Tổng tiền</td>
-												<td><%=BillingDao.tongcuocnhamang("CMC", thangnam)%></td>
+												<td><%=formatter.format(BillingDao.tongcuocnhamang("CMC", thangnam))%></td>
 											</tr>
 										</tbody>
 									</table>
@@ -487,7 +406,6 @@
 													// Add the help-block class to the error element
 													error
 															.addClass("help-block");
-
 													// Add has-feedback class to the parent div.form-group
 													// in order to add icons to inputs
 													element
@@ -495,7 +413,6 @@
 																	".col-sm-4")
 															.addClass(
 																	"has-feedback");
-
 													if (element.prop("type") === "checkbox") {
 														error
 																.insertAfter(element
@@ -504,7 +421,6 @@
 														error
 																.insertAfter(element);
 													}
-
 													// Add the span element, if doesn't exists, and apply the icon classes to it.
 													if (!element.next("span")[0]) {
 														$(

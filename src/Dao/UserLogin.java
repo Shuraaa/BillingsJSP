@@ -76,7 +76,7 @@ public class UserLogin {
 	// set new password by username
 	public void setNewPassByUsername(String username, String newpass) {
 		Connection connection = DatabaseSQLConnection.getConnection();
-		String sql = "UPDATE taikhoan_nguoidung SET userpass = '" + newpass + "'" + "WHERE username='" + username + "'";
+		String sql = "UPDATE taikhoan_nguoidung SET userpass = '" + newpass + "' WHERE username ='" + username + "'";
 		PreparedStatement ps;
 		try {
 			if (newpass.length() >= 6) {
@@ -105,10 +105,43 @@ public class UserLogin {
 		}
 	}
 
-	public static void main(String[] args) {
-		UserLogin us = new UserLogin();
-		us.updateProfile("ct02", "administrator@gmail.com", "Binh Thanh", "1114", "123456");
-
+	public void resetPassForLogin(String username) {
+		Connection connection = DatabaseSQLConnection.getConnection();
+		String sql = "UPDATE taikhoan_nguoidung SET userpass = '" + 123456 + "' WHERE  username ='" + username + "'";
+		PreparedStatement ps;
+		try {
+			ps = (PreparedStatement) connection.prepareStatement(sql);
+			ps.executeUpdate();
+			System.out.println("True");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("False");
+		}
 	}
 
+	public boolean checkEmailByUsername(String username, String email) {
+		Connection connection = DatabaseSQLConnection.getConnection();
+		String sql = "SELECT * FROM taikhoan_nguoidung t JOIN congty c ON t.congtyID = c.congtyID WHERE username ='"
+				+ username + "' AND email ='" + email + "'";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				System.out.println("True");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static void main(String[] args) {
+		UserLogin us = new UserLogin();
+		// us.updateProfile("ct02", "administrator@gmail.com", "Binh Thanh",
+		// "1114", "123456");
+		us.resetPassForLogin("admin3");
+		// us.checkChangePass("admin3", "ad@gmail.com");
+
+	}
 }

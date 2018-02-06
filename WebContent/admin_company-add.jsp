@@ -194,7 +194,6 @@
 														number : true
 													},
 													input_img : {
-														required : true,
 														accept : "image/*",
 														filesize : 61440
 													},
@@ -222,7 +221,6 @@
 														number : "Số điện thoại không hợp lệ"
 													},
 													input_img : {
-														required : "Vui lòng chọn Logo",
 														accept : "Vui lòng chọn File hình ảnh",
 														filesize : "Kích thước ảnh tối đa 60KB"
 													},

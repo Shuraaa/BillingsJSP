@@ -54,7 +54,7 @@ div.dataTables_wrapper {
 	String iD = (String) session.getAttribute("companyID");
 	int role = (int) session.getAttribute("role");
 	String url = "";
-	if (username.equals("")) {
+	if (username.equals("") || username == null) {
 		url = "Login.jsp";
 	} else {
 		url = "Logout";
@@ -79,39 +79,36 @@ div.dataTables_wrapper {
 			<!-- User Account: style can be found in dropdown.less -->
 			<li class="dropdown user user-menu"><a href="#"
 				class="dropdown-toggle" data-toggle="dropdown"> <img
-					src="ManagerDisplayImg?congtyid=<%=iD%>" class="user-image"
-					alt="User Image"> <%
+					src="dist/img/avatar5.png" class="user-image"
+					onerror="this.src='dist/img/avatar5.png';"> <%
  	if (role == 0) {
- %> <span class="hidden-xs" style="color: #ff3333; font-style: bold;">
-						<%
-							} else if (role == 1) {
-						%> <span class="hidden-xs"
-						style="color: #ffff80; font-style: bold;"> <%
- 	} else if (role == 2) {
- %> <span class="hidden-xs" style="font-style: bold;"> <%
+ %> <b class="hidden-xs" style="color: #ff3333"><%=name%></b> <%
+ 	} else if (role == 1) {
+ %> <b class="hidden-xs" style="color: #ffff80"><%=name%></b> <%
+ 	} else {
+ %> <b class="hidden-xs"><%=name%></b> <%
  	}
- %> <%=name%></span></a>
+ %></a>
+
 				<ul class="dropdown-menu">
 					<!-- User image -->
 					<li class="user-header"><img
 						src="ManagerDisplayImg?congtyid=<%=iD%>" class="img-rounded"
-						alt="User Image"> <%
- 	if (role == 0) {
- %>
-						<p style="color: #ff3333; font-style: bold; font-size: 25px;">
+						onerror="this.src='dist/img/avatar5.png';">
+						<p style="font-size: 22px">
+							<%
+								if (role == 0) {
+							%><b style="color: #ff3333;"><%=username%></b>
 							<%
 								} else if (role == 1) {
-							%>
-						
-						<p style="color: #ffff80; font-style: bold; font-size: 25px;">
+							%><b style="color: #ffff80;"><%=username%></b>
 							<%
-								} else if (role == 2) {
+								} else {
 							%>
-						
-						<p style="font-style: bold; font-size: 25px;">
+							<b><%=username%></b>
 							<%
 								}
-							%><span><%=username%></span>
+							%>
 						</p></li>
 
 					<!--User Menu Footer-->
@@ -142,12 +139,14 @@ div.dataTables_wrapper {
 	</nav> </header>
 
 	<!-- Left side column. contains the logo and sidebar -->
-	<aside class="main-sidebar"> <!-- sidebar: style can be found in sidebar.less -->
-	<section class="sidebar"> <!-- Sidebar USER panel -->
+	<aside class="main-sidebar" style=" position: fixed;height: 100%;">
+	<!-- sidebar: style can be found in sidebar.less --> <section
+		class="sidebar"> <!-- Sidebar USER panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="ManagerDisplayImg?congtyid=<%=iD%>" class="img-responsive"
-				alt="User Image">
+			<img src="ManagerDisplayImg?congtyid=<%=iD%>"
+				class="user-image img-responsive"
+				onerror="this.src='dist/img/avatar5.png';">
 		</div>
 		<div class="pull-left info">
 			<p>Welcome</p>
@@ -181,6 +180,8 @@ div.dataTables_wrapper {
 				class="fa fa-angle-left pull-right"></i>
 		</a>
 			<ul class="treeview-menu">
+
+				<!-- List 1 -->
 				<%
 					if (role == 1 || role == 2) {
 				%>
@@ -196,6 +197,9 @@ div.dataTables_wrapper {
 					}
 				%>
 			</ul></li>
+		<!-- /.List 1 -->
+
+		<!-- List 2 -->
 		<%
 			if (role == 1 || role == 2) {
 		%>
@@ -206,17 +210,30 @@ div.dataTables_wrapper {
 		<%
 			} else if (role == 0) {
 		%>
-		<li><a href="<%=request.getContextPath()%>/billings_total.jsp"><i
-				class="glyphicon glyphicon-list-alt"></i> <span>Billings</span></a></li>
+		<li class="treeview"><a href="#"> <i
+				class="glyphicon glyphicon-list-alt"></i> <span>Billings</span> <i
+				class="fa fa-angle-left pull-right"></i>
+		</a>
+			<ul class="treeview-menu">
+				<li><a href="<%=request.getContextPath()%>/billings_total.jsp"><i
+						class="glyphicon glyphicon-file"></i> <span>Billings</span></a></li>
+				<li><a href="<%=request.getContextPath()%>/import.jsp"><i
+						class="glyphicon glyphicon-import"></i> Import</a></li>
+			</ul></li>
+		<!-- /.List 2 -->
+
+		<!-- List 3 -->
 		<%
 			}
 			if (role == 0) {
 		%>
 		<li class="treeview"><a href="#"> <i
-				class="glyphicon glyphicon-lock"></i> <span>Quản trị hệ thống</span>
+				class="glyphicon glyphicon-link"></i><span> Quản trị hệ thống</span>
 				<i class="fa fa-angle-left pull-right"></i>
 		</a>
 			<ul class="treeview-menu">
+				<li><a href="<%=request.getContextPath()%>/admin_bangma.jsp"><i
+						class="glyphicon glyphicon-book"></i> Bảng mã cuộc gọi</a></li>
 				<li><a href="<%=request.getContextPath()%>/admin_user.jsp"><i
 						class="fa fa-users"></i> Quản lí tài khoản</a></li>
 				<li><a href="<%=request.getContextPath()%>/admin_company.jsp"><i
@@ -228,10 +245,10 @@ div.dataTables_wrapper {
 				<li><a href="<%=request.getContextPath()%>/admin_extension.jsp"><i
 						class="glyphicon glyphicon-th"></i> Quản lí Extension</a></li>
 			</ul></li>
-
 		<%
 			}
 		%>
+		<!-- /.List 3 -->
 
 		<li><a href="guide.jsp"><i class="fa fa-book"></i> <span>Hướng
 					dẫn sử dụng</span></a></li>
@@ -262,5 +279,6 @@ div.dataTables_wrapper {
 	<script src="plugins/fastclick/fastclick.js"></script>
 	<!-- AdminLTE App -->
 	<script src="dist/js/app.min.js"></script>
+
 </body>
 </html>

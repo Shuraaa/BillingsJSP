@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Validation;
-import Dao.BillingDao;
+import Dao.LogCallDao;
 
 @WebServlet("/ManagerBilling")
 public class ManagerBilling extends HttpServlet {
@@ -23,7 +22,7 @@ public class ManagerBilling extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String command = request.getParameter("command");
-		BillingDao bld = new BillingDao();
+		LogCallDao lcd = new LogCallDao();
 		String url = "";
 		String congtyID = "";
 		String tencongty = "";
@@ -33,9 +32,10 @@ public class ManagerBilling extends HttpServlet {
 		String thangnam = "";
 		String yeucauthang = "";
 		String exportToExcel = "";
+		String importdate = "";
 		switch (command) {
 
-		// delete phòng ban
+		// detail phòng ban
 		case "detail":
 			congtyID = request.getParameter("congtyid");
 			tencongty = request.getParameter("tencongty");
@@ -95,6 +95,7 @@ public class ManagerBilling extends HttpServlet {
 			request.setAttribute("thangnam", thangnam);
 			request.setAttribute("yeucauthang", yeucauthang);
 			url = "/billings_total.jsp";
+			break;
 		case "exportPDF":
 			congtyID = request.getParameter("congtyid");
 			tencongty = request.getParameter("tencongty");
@@ -116,6 +117,16 @@ public class ManagerBilling extends HttpServlet {
 			request.setAttribute("thangnam", thangnam);
 			request.setAttribute("exportToExcel", exportToExcel);
 			url = "/excel_detail.jsp";
+			break;
+		case "importDetail":
+			importdate = request.getParameter("importdate");
+			request.setAttribute("importdate", importdate);
+			url = "/import_review.jsp";
+			break;
+		case "delete":
+			importdate = request.getParameter("importID");
+			lcd.deleteLogCallByDate(importdate);
+			url = "/import.jsp";
 			break;
 		default:
 			break;

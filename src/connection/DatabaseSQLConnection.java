@@ -12,13 +12,13 @@ public class DatabaseSQLConnection {
 		String user = "root";
 		String pass = "123456";
 
-		 try {
-		 Class.forName(driver);
-		 connection = DriverManager.getConnection(url, user, pass);
-		 } catch (Exception e) { // Orther err e.printStackTrace();
-		 }
-		 return connection;
-		 }
+		try {
+			Class.forName(driver);
+			connection = DriverManager.getConnection(url, user, pass);
+		} catch (Exception e) { // Orther err e.printStackTrace();
+		}
+		return connection;
+	}
 
 	public static void main(String[] args) {
 		Connection connection = DatabaseSQLConnection.getConnection();

@@ -109,33 +109,27 @@
 							</div>
 
 							<!-- /.box-body -->
-							<div class="box-footer">
+							<div class="box-footer text-center">
 								<%
 									if (role == 0 || role == 1) {
 								%>
-								<div class="row">
-									<div class="col-sm-4"></div>
-									<div class="col-sm-4">
-										<button class="btn btn-primary form-control" type="submit">
-											<i class="fa fa-refresh"></i> Đổi mật khẩu
-										</button>
-									</div>
-									<div class="col-sm-4">
-										<a href="<%=request.getContextPath()%>/index.jsp"
-											class="btn btn-danger form-control"> <i
-											class="fa fa-remove"></i> Hủy
-										</a>
-									</div>
-								</div>
-								<%
-									}
-								%>
+								<button class="btn btn-primary" type="submit">
+									<i class="fa fa-refresh"></i> Đổi mật khẩu
+								</button>
+
+								<a href="<%=request.getContextPath()%>/index.jsp"
+									class="btn btn-danger"> <i class="ion-close-round"></i> Hủy
+								</a>
 							</div>
-						</form>
-						<!-- /.box-body -->
+							<%
+								}
+							%>
+						
 					</div>
-					<!-- /.box -->
+					</form>
+					<!-- /.box-body -->
 				</div>
+				<!-- /.box -->
 
 				<div class="col-md-6">
 					<div class="box box-primary">

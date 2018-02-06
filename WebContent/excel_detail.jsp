@@ -18,17 +18,6 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<%
@@ -48,7 +37,22 @@
 		<%=tencongty%>
 		tháng
 		<%=thangnam%></h3>
+
+	<%
+		if (exportToExcel == null) {
+	%>
+	<button type="button">
+		<a
+			href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDFdetail&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>&exportToExcel=YES"></a>Export
+		to Excel
+	</button>
+	<%
+		}
+	%>
+	<br>
+
 	<h4>Cước nội hạt</h4>
+
 	<div id="menu3" class="tab-pane fade">
 		<!--Neu yeu cau gui ve là thong ke theo dich vu NOI HAT -->
 		<%
@@ -307,13 +311,16 @@
 		<!-- /.box-body -->
 	</div>
 	<!-- /.box -->
-	<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<br>
+	<br>
 	<%
 		if (exportToExcel == null) {
 	%>
-	<a
-		href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDFdetail&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>&exportToExcel=YES"
-		type="button" class="btn btn-success">Export to Excel</a>
+	<button type="button">
+		<a
+			href="<%=request.getContextPath()%>/ManagerBilling?command=exportPDFdetail&congtyid=<%=idcongty%>&tencongty=<%=tencongty%>&thangnam=<%=thangnam%>&exportToExcel=YES"></a>Export
+		to Excel
+	</button>
 	<%
 		}
 	%>

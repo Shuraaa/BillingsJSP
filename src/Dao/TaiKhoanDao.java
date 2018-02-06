@@ -45,15 +45,12 @@ public class TaiKhoanDao {
 		Connection connection = DatabaseSQLConnection.getConnection();
 		String sql = "update taikhoan_nguoidung set username='" + username + "'" + "where username='" + un + "'";
 		try {
-
 			PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
 			ps.executeUpdate();
 			System.out.println("thanh cmn cong");
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
-
 	}
 
 	// insert

@@ -55,8 +55,8 @@
 			<!-- Main content -->
 			<section class="content">
 			<div class="row">
-				<div class="col-sm-8">
 
+				<div class="col-sm-8">
 					<form action="<%=request.getContextPath()%>/UpdateProfile"
 						method="post" role="form" class="form-horizontal" id="form"
 						enctype="multipart/form-data">
@@ -126,41 +126,25 @@
 								</div>
 							</div>
 
-							<div class="box-footer">
+							<div class="box-footer text-center">
 								<%
 									if (role == 1) {
 								%>
-								<div class="row">
-									<div class="col-sm-6"></div>
-									<div class="col-sm-3">
-										<button type="submit" class="btn btn-primary form-control"
-											name="command" value="edit">
-											<i class="fa fa-refresh"></i> Cập nhật thông tin
-										</button>
-									</div>
-									<div class="col-sm-3">
-										<a href="<%=request.getContextPath()%>/index.jsp"
-											class="btn btn-danger form-control"> <i
-											class="fa fa-remove"></i> Hủy
-										</a>
-									</div>
-								</div>
+								<button type="submit" class="btn btn-primary" name="command"
+									value="edit">
+									<i class="fa fa-refresh"></i> Cập nhật
+								</button>
+								<a href="<%=request.getContextPath()%>/index.jsp"
+									class="btn btn-danger"> <i class="ion-close-round"></i> Hủy
+								</a>
 								<%
 									} else if (role == 2) {
 								%>
-								<div class="form-group">
-									<div class="col-sm-3 pull-right">
-										<button id="confirm-box" type="submit"
-											class="btn btn-primary form-control" disabled
-											style="background-color: blue;">Cập nhật thông tin</button>
-									</div>
-									<div class="col-sm-2 pull-right">
-										<a href="<%=request.getContextPath()%>/index.jsp"
-											class="btn btn-danger form-control"> <i
-											class="fa fa-remove"></i> Hủy
-										</a>
-									</div>
-								</div>
+								<button id="confirm-box" type="submit" class="btn btn-primary"
+									disabled style="background-color: blue;">Cập nhật</button>
+								<a href="<%=request.getContextPath()%>/index.jsp"
+									class="btn btn-danger"> <i class="ion-close-round"></i> Hủy
+								</a>
 
 								<dialog id="confirm" class="site-dialog"> <header
 									class="dialog-header">
@@ -180,11 +164,12 @@
 								<%
 									}
 								%>
+
 							</div>
 						</div>
-						<!-- Cập nhật thông tin -->
 					</form>
 				</div>
+				<!-- Cập nhật thông tin -->
 
 				<!-- End Left -->
 				<div class="col-sm-4">
@@ -206,31 +191,28 @@
 								Vero, dignissimos illo quasi incidunt voluptates. Necessitatibus
 								voluptas aliquam quidem maxime, tenetur iste in, officia nostrum
 								distinctio. Itaque quibusdam, accusantium obcaecati eaque.</p>
-
 						</div>
-
 					</div>
 					<!-- Hướng dẫn -->
-
 				</div>
 				<!-- End Right -->
 			</div>
-
 			</section>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
 
-
 		<!-- ---FOOTER--- -->
 		<!-- Include this in all index page -->
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- /.Include this in all index page -->
-		<%
-			}
-		%>
+
 	</div>
 	<!-- /.End of wrapper -->
+	<%
+		}
+	%>
+
 	<script>
 		(function($) {
 			'use strict';

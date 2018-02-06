@@ -15,6 +15,7 @@ public class BillingDao {
 	private static ArrayList<LogCall> listLogCall_DV;
 	private static ArrayList<LogCall> listLogCall_DVPB;
 	private static ArrayList<LogCall> listLogCall_DVEX;
+	private static ArrayList<LogCall> listLogCall_ImportDate;
 
 	// lay danh sach billing theo cong ty
 	public static ArrayList<LogCall> getListLogCall_CT(String idcongty) {
@@ -427,6 +428,33 @@ public class BillingDao {
 		// listTaiKhoan.add(new TaiKhoan("nguoidung", "123", 1, "cty2"));
 		//
 		return listThang;
+	}
+
+	// get List LogCall theo Ngay Import
+	public static ArrayList<LogCall> getListLogCall_ImportDate(String importID) {
+		listLogCall_ImportDate = new ArrayList<>();
+
+		try {
+			Connection connection = DatabaseSQLConnection.getConnection();
+			Statement statement = connection.createStatement();
+			String sql = "SELECT ex.extensionID, lc.thuebaonhan, lc.thoigian_goi,lc.bat_dau,lc.ketthuc FROM log_call lc JOIN extension ex ON lc.extensionID = ex.extensionID WHERE lc.importID ='"
+					+ importID + "';";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				String extensionID = rs.getString("extensionID");
+				String thuebaonhan = rs.getString("thuebaonhan");
+				int thoigian_goi = rs.getInt("thoigian_goi");
+				String thoigianbatdau = rs.getString("bat_dau");
+				String thoigianketthuc = rs.getString("ketthuc");
+				listLogCall_ImportDate.add(
+						new LogCall(extensionID, thuebaonhan, thoigian_goi, thoigianbatdau, thoigianketthuc, importID));
+			}
+			statement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return BillingDao.listLogCall_DVEX;
 	}
 
 	public static void main(String[] args) {

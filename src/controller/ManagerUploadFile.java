@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,36 +47,44 @@ public class ManagerUploadFile extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		int sheetIndex = Integer.parseInt(request.getParameter("input_sheetIndex")) - 1;
+		int sheetIndex = Integer.parseInt(request.getParameter("input_sheetIndex"));
 		// to format date type
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
 		InputStream is = null;
 		Part filePart = request.getPart("inputFileExcel");
 		if (filePart != null) {
 			is = filePart.getInputStream();
 		}
 		Workbook book = getWorkbook(is, filePart.getSubmittedFileName());
-		System.out.println("Số sheet: " + book.getNumberOfSheets());
-		Sheet sheet = (Sheet) book.getSheetAt(sheetIndex);
-		LogCallDao logcallDAO = new LogCallDao();
+		Sheet sheet = (Sheet) book.getSheetAt(sheetIndex - 1);
+		String tenFile = filePart.getSubmittedFileName() + " Sheet: " + sheetIndex;
+		System.out.println("Tên file:" + filePart.getSubmittedFileName() + "Sheet: " + sheetIndex);
+		System.out.println("Thời gian import:" + dateFormat.format(date));
+		System.out.println("Số dòng " + sheet.getLastRowNum());
+		Iterator<Row> s = sheet.iterator();
+
+		// LogCallDao logcallDAO = new LogCallDao();
 		ArrayList<LogCall> list = new ArrayList<>();
-		for (int i = 1; i < sheet.getLastRowNum(); i++) {
+
+		for (int i = 1; i < 500; i++) {
 			Row row = sheet.getRow(i);
+			DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			int thoigian_goi = (int) row.getCell(3).getNumericCellValue();
 			String d1 = "", d2 = "";
-			d1 = dateFormat.format(row.getCell(4).getDateCellValue());
-			d2 = dateFormat.format(row.getCell(5).getDateCellValue());
-			LogCall l = new LogCall(row.getCell(1).getStringCellValue(), row.getCell(2).getStringCellValue(), 0, d1,
-					d2);
+			d1 = dateFormat1.format(row.getCell(4).getDateCellValue());
+			d2 = dateFormat1.format(row.getCell(5).getDateCellValue());
+			LogCall l = new LogCall(row.getCell(1).getStringCellValue().trim(),
+					row.getCell(2).getStringCellValue().trim(), thoigian_goi, d1, d2, "");
 			list.add(l);
 		}
 		try {
-			logcallDAO.insert(list);
+			LogCallDao.insert(list, tenFile, 500);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	// lấy work book đúng với định dạng file excel

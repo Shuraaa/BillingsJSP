@@ -87,6 +87,7 @@ public class ChangePass extends HttpServlet {
 				rd.forward(request, response);
 			}
 		} catch (Exception e) {
+			response.sendRedirect("page_500.jsp");
 		}
 	}
 }

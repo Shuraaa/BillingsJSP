@@ -54,7 +54,7 @@
 					<input type="text" name="username" class="form-control"
 						placeholder="Tên đăng nhập" maxlength="30" id="username">
 					<i
-						class="glyphicon glyphicon-envelope form-control-feedback text-blue"></i>
+						class="glyphicon glyphicon-user form-control-feedback text-blue"></i>
 				</div>
 
 				<p style="color: grey; font-style: italic;"><%=error%></p>
@@ -71,22 +71,20 @@
 								Ghi nhớ đăng nhập</label>
 						</div>
 					</div>
-					<!-- /.col -->
+
 					<div class="col-xs-6">
 						<button type="submit" class="btn btn-primary btn-block"
 							value="<%=request.getContextPath()%>/Login">
 							<i class="fa fa-sign-in"></i> Đăng nhập
 						</button>
 					</div>
-					<!-- /.col -->
 				</div>
 			</form>
-			<div style="padding-left: 5px" class="text-left marginTop">
-				<a href="forgotPass.jsp"><i class="fa fa-unlock"
-					aria-hidden="true"></i> Quên mật khẩu</a> &nbsp; &nbsp; &nbsp;
-				&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-				&nbsp; &nbsp; &nbsp; &nbsp; <a href="guide.jsp"><i
-					class="fa fa-book" aria-hidden="true"></i> Hướng dẫn</a>
+			<div style="padding-bottom: 10px;" class="text-left marginTop">
+				<a href="forgotPass.jsp" class="pull-left"><i
+					class="fa fa-unlock" aria-hidden="true"></i> Quên mật khẩu</a> <a
+					href="guide.jsp" class="pull-right"><i class="fa fa-book"
+					aria-hidden="true"></i> Hướng dẫn</a>
 			</div>
 		</div>
 		<!-- /.login-box-body -->

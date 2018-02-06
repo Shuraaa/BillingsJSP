@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 public class LogCall {
 	private String congTyID;
 	private String tenCongTy;
@@ -15,6 +13,7 @@ public class LogCall {
 	private double giaTien;
 	private String thoiGianBatDau;
 	private String thoiGianKetThuc;
+	private String importID;
 
 	public LogCall(String congTyID, String tenCongTy, String extensionID, String thueBaoNhan, String phongBanID,
 			String tenPhongBan, int thoiGianGoi, int thang, String loaiCuocGoi, double giaTien, String thoiGianBatDau,
@@ -35,15 +34,22 @@ public class LogCall {
 	}
 
 	public LogCall(String extensionID, String thueBaoNhan, int thoiGianGoi, String thoiGianBatDau,
-			String thoiGianKetThuc) {
+			String thoiGianKetThuc, String importID) {
 		super();
-
 		this.extensionID = extensionID;
 		this.thueBaoNhan = thueBaoNhan;
 		this.thoiGianGoi = thoiGianGoi;
 		this.thoiGianBatDau = thoiGianBatDau;
 		this.thoiGianKetThuc = thoiGianKetThuc;
+		this.importID = importID;
+	}
 
+	public String getImportID() {
+		return importID;
+	}
+
+	public void setImportID(String importID) {
+		this.importID = importID;
 	}
 
 	public String getCongTyID() {
@@ -147,7 +153,7 @@ public class LogCall {
 		return "LogCall [congTyID=" + congTyID + ", tenCongTy=" + tenCongTy + ", extensionID=" + extensionID
 				+ ", thueBaoNhan=" + thueBaoNhan + ", phongBanID=" + phongBanID + ", tenPhongBan=" + tenPhongBan
 				+ ", thoiGianGoi=" + thoiGianGoi + ", thang=" + thang + ", loaiCuocGoi=" + loaiCuocGoi + ", giaTien="
-				+ giaTien + ", thoiGianBatDau=" + thoiGianBatDau + ", thoiGianKetThuc=" + thoiGianKetThuc + "]";
+				+ giaTien + ", thoiGianBatDau=" + thoiGianBatDau + ", thoiGianKetThuc=" + thoiGianKetThuc
+				+ ", importID=" + importID + "]";
 	}
-
 }
