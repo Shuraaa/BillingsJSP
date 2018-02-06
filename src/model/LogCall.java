@@ -15,6 +15,7 @@ public class LogCall {
 	private double giaTien;
 	private String thoiGianBatDau;
 	private String thoiGianKetThuc;
+	private String importID;
 
 	public LogCall(String congTyID, String tenCongTy, String extensionID, String thueBaoNhan, String phongBanID,
 			String tenPhongBan, int thoiGianGoi, int thang, String loaiCuocGoi, double giaTien, String thoiGianBatDau,
@@ -34,17 +35,20 @@ public class LogCall {
 		this.thoiGianKetThuc = thoiGianKetThuc;
 	}
 
-	public LogCall(String extensionID, String thueBaoNhan, int thoiGianGoi, String thoiGianBatDau,
-			String thoiGianKetThuc) {
-		super();
+	
 
+	public LogCall(String extensionID, String thueBaoNhan, int thoiGianGoi, String thoiGianBatDau,
+			String thoiGianKetThuc, String importID) {
+		super();
 		this.extensionID = extensionID;
 		this.thueBaoNhan = thueBaoNhan;
 		this.thoiGianGoi = thoiGianGoi;
 		this.thoiGianBatDau = thoiGianBatDau;
 		this.thoiGianKetThuc = thoiGianKetThuc;
-
+		this.importID = importID;
 	}
+
+
 
 	public String getCongTyID() {
 		return congTyID;
@@ -141,6 +145,17 @@ public class LogCall {
 	public void setThoiGianKetThuc(String thoiGianKetThuc) {
 		this.thoiGianKetThuc = thoiGianKetThuc;
 	}
+    
+	public String getImportID() {
+		return importID;
+	}
+
+
+	public void setImportID(String importID) {
+		this.importID = importID;
+	}
+
+
 
 	@Override
 	public String toString() {
