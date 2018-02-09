@@ -199,13 +199,13 @@
 							<div class="inner">
 
 								<h1>
-									<b>Bảng mã</b>
+									<b>Regex</b>
 								</h1>
 							</div>
 							<div class="icon">
 								<i class="ion-clipboard"></i>
 							</div>
-							<a href="<%=request.getContextPath()%>/admin_bangma.jsp"
+							<a href="<%=request.getContextPath()%>/admin_regex.jsp"
 								class="small-box-footer">Chi tiết <i
 								class="fa fa-arrow-circle-right"></i></a>
 						</div>

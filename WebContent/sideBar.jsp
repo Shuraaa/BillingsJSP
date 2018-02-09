@@ -234,6 +234,8 @@ div.dataTables_wrapper {
 			<ul class="treeview-menu">
 				<li><a href="<%=request.getContextPath()%>/admin_bangma.jsp"><i
 						class="glyphicon glyphicon-book"></i> Bảng mã cuộc gọi</a></li>
+				<li><a href="<%=request.getContextPath()%>/admin_regex.jsp"><i
+						class="glyphicon glyphicon-equalizer"></i> Regular Expression</a></li>
 				<li><a href="<%=request.getContextPath()%>/admin_user.jsp"><i
 						class="fa fa-users"></i> Quản lí tài khoản</a></li>
 				<li><a href="<%=request.getContextPath()%>/admin_company.jsp"><i
