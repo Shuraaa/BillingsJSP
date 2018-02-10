@@ -17,8 +17,6 @@ import javax.servlet.http.Part;
 
 import com.mysql.jdbc.PreparedStatement;
 
-
-
 import connection.DatabaseSQLConnection;
 
 @WebServlet("/UpdateProfile")
@@ -28,14 +26,14 @@ public class UpdateProfile extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-         doPost(request, response);
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String command = request.getParameter("command");  
+		String command = request.getParameter("command");
 		HttpSession session = request.getSession();
 		String iD = (String) session.getAttribute("companyID");
 		String emailCT = request.getParameter("email_update");
@@ -46,14 +44,13 @@ public class UpdateProfile extends HttpServlet {
 		Part filePart = request.getPart("input_img");
 		System.out.println(filePart.getSubmittedFileName());
 		try {
-			
+
 			Connection conn = null;
 			PreparedStatement pre1 = null, pre2 = null;
 			conn = DatabaseSQLConnection.getConnection();
 			String sql1 = "update congty set logo =?, maso_thue = ?,dia_chi =?,dienthoai = ?,email = ? where congtyID = ?";
 			String sql2 = "update congty set maso_thue = ?,dia_chi =?,dienthoai = ?,email = ? where congtyID = ?";
-		    is = filePart.getInputStream();
-			
+			is = filePart.getInputStream();
 
 			if (filePart.getSize() != 0) {
 				try {
@@ -92,7 +89,6 @@ public class UpdateProfile extends HttpServlet {
 					conn.close();
 				}
 			}
-			
 
 		} catch (Exception e) {
 			// TODO: handle exception

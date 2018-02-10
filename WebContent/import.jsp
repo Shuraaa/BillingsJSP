@@ -114,10 +114,9 @@
 
 										<td><a href="ManagerBilling?command=importDetail"><u><%=arrLichSu.get(i).getTenFile()%></u></a></td>
 										<td><a href="#" class="linkDelete"><button
-													id="<%=i + 1%>" type="button"
-													onclick="clickBt($(this).val())"
+													type="button" onclick="clickBt($(this).val())"
 													class="btn btn-danger glyphicon glyphicon-trash"
-													value="<%=arrLichSu.get(i).getImportID()%>"></button></a></td>
+													value=<%=arrLichSu.get(i).getImportID()%>></button></a></td>
 									</tr>
 									<%
 										}

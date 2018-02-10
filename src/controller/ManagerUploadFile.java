@@ -67,7 +67,7 @@ public class ManagerUploadFile extends HttpServlet {
 		// LogCallDao logcallDAO = new LogCallDao();
 		ArrayList<LogCall> list = new ArrayList<>();
 
-		for (int i = 1; i < 500; i++) {
+		for (int i = 1; i < sheet.getLastRowNum(); i++) {
 			Row row = sheet.getRow(i);
 			DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			int thoigian_goi = (int) row.getCell(3).getNumericCellValue();
@@ -79,7 +79,7 @@ public class ManagerUploadFile extends HttpServlet {
 			list.add(l);
 		}
 		try {
-			LogCallDao.insert(list, tenFile, 500);
+			LogCallDao.insert(list, tenFile, sheet.getLastRowNum() - 1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
