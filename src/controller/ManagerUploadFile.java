@@ -74,9 +74,9 @@ public class ManagerUploadFile extends HttpServlet {
 			String d1 = "", d2 = "";
 			d1 = dateFormat1.format(row.getCell(4).getDateCellValue());
 			d2 = dateFormat1.format(row.getCell(5).getDateCellValue());
-			LogCall l = new LogCall(row.getCell(1).getStringCellValue().trim(),
+			LogCall logCall = new LogCall(row.getCell(1).getStringCellValue().trim(),
 					row.getCell(2).getStringCellValue().trim(), thoigian_goi, d1, d2, "");
-			list.add(l);
+			list.add(logCall);
 		}
 		try {
 			LogCallDao.insert(list, tenFile, sheet.getLastRowNum() - 1);
@@ -84,7 +84,6 @@ public class ManagerUploadFile extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	// lấy work book đúng với định dạng file excel

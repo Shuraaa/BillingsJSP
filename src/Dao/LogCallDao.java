@@ -73,7 +73,7 @@ public class LogCallDao {
 		try {
 			Connection conn = DatabaseSQLConnection.getConnection();
 			String sql1 = "DELETE FROM log_call WHERE importid =?";
-			String sql2 = "DELETE FROM lich_su where importid =?";
+			String sql2 ="DELETE FROM lich_su where importid =?";
 			PreparedStatement pre1 = (PreparedStatement) conn.prepareStatement(sql1);
 			pre1.setString(1, importDate);
 			pre1.execute();
