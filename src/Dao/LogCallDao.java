@@ -37,7 +37,7 @@ public class LogCallDao {
 
 			while (count < 100) {
 				StringBuffer sql2 = new StringBuffer(
-						"insert into log_call(extensionID,thuebaonhan,thoigian_goi,bat_dau,ketthuc,importID) values");
+						"replace log_call(extensionID,thuebaonhan,thoigian_goi,bat_dau,ketthuc,importID) values");
 
 				for (int i = 0 + count * soDong / 100; i < (count + 1) * soDong / 100; i++) {
 					if (i == ((count + 1) * soDong / 100) - 1) {
